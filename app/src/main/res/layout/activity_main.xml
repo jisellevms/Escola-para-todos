@@ -13,7 +13,7 @@
         android:layout_width="278dp"
         android:layout_height="386dp"
         android:fontFamily="@font/chawp"
-        android:text="Escola\n \n para \n \ntodos"
+        android:text="@string/strLogo"
         android:textAlignment="center"
         android:textColor="@color/white"
         android:textSize="70sp"
