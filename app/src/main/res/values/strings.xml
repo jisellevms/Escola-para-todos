@@ -1,4 +1,18 @@
 <resources>
     <string name="app_name">Escola para todos</string>
     <string name="strLogo">Escola\n \n para \n \ntodos</string>
+    <string name="strAreaProf">Área do professor</string>
+    <string name="strAreaAluno">Área do aluno</string>
+    <string name="logoToolbar">Escola para todos</string>
+    <string name="telefone">Telefone:</string>
+    <string name="senha">Senha:</string>
+    <string name="login">Login</string>
+    <string name="naoSouCadastrado">Não sou cadastrado</string>
+    <string name="nome">Nome:</string>
+    <string name="utilizarApp">Vou utilizar o aplicativo como:</string>
+    <string name="cadastrar">Cadastrar</string>
+    <string name="aluno">aluno</string>
+    <string name="professor">Professor</string>
+
+
 </resources>
