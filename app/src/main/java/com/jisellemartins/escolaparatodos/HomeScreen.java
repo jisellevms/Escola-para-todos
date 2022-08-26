@@ -23,6 +23,12 @@ public class HomeScreen extends AppCompatActivity {
             startActivity(i);
         });
 
+        btnAreaAluno.setOnClickListener(view -> {
+            Intent i = new Intent(HomeScreen.this,
+                    LoginScreen.class);
+            startActivity(i);
+        });
+
 
     }
 }

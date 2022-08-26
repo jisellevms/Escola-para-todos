@@ -19,7 +19,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/chawp"
-        android:text="Escola para todos"
+        android:text="@string/logoToolbar"
         android:textColor="@color/white"
         android:textSize="25sp"
         app:layout_constraintBottom_toBottomOf="@+id/toolbar"
@@ -28,7 +28,7 @@
         app:layout_constraintTop_toTopOf="@+id/toolbar" />
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/imgConfig"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_marginEnd="10dp"
@@ -38,7 +38,7 @@
         app:srcCompat="@drawable/config" />
 
     <ImageView
-        android:id="@+id/imageView2"
+        android:id="@+id/imgVoltar"
         android:layout_width="40dp"
         android:layout_height="30dp"
         android:layout_marginStart="10dp"

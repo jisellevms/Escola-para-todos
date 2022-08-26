@@ -13,21 +13,11 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        new Handler().postDelayed(new Runnable() {
-            /*
-             * Exibindo splash com um timer.
-             */
-            @Override
-            public void run() {
-                // Esse método será executado sempre que o timer acabar
-                // E inicia a activity principal
-                Intent i = new Intent(MainActivity.this,
-                        HomeScreen.class);
-                startActivity(i);
-
-                // Fecha esta activity
-                finish();
-            }
+        new Handler().postDelayed(() -> {
+            Intent i = new Intent(MainActivity.this,
+                    HomeScreen.class);
+            startActivity(i);
+            finish();
         }, SPLASH_TIME_OUT);
     }
 }
