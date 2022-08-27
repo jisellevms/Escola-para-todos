@@ -15,27 +15,18 @@
       android:layout_marginStart="30dp"
       android:layout_marginTop="220dp"
       android:layout_marginEnd="30dp"
-      android:alpha="0.20"
-      android:backgroundTint="#C4C4C4"
+      android:backgroundTint="#33C4C4C4"
+      android:fontFamily="@font/chawp"
       android:text="@string/strAreaProf"
-      android:textColor="@android:color/transparent"
+      android:textColor="@color/white"
+      android:textSize="25dp"
       app:cornerRadius="10dp"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toTopOf="parent" />
+      app:layout_constraintTop_toTopOf="parent"
+      app:strokeColor="@color/white"
+      app:strokeWidth="1dp" />
 
-  <TextView
-      android:id="@+id/textView2"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:text="@string/strAreaProf"
-      android:textColor="@color/white"
-      android:fontFamily="@font/chawp"
-      android:textSize="25dp"
-      app:layout_constraintBottom_toBottomOf="@+id/btnAreaProf"
-      app:layout_constraintEnd_toEndOf="@+id/btnAreaProf"
-      app:layout_constraintStart_toStartOf="@+id/btnAreaProf"
-      app:layout_constraintTop_toTopOf="@+id/btnAreaProf" />
 
   <Button
       android:id="@+id/btnAreaAluno"
@@ -44,27 +35,17 @@
       android:layout_marginStart="30dp"
       android:layout_marginEnd="30dp"
       android:layout_marginBottom="220dp"
-      android:alpha="0.20"
-      android:backgroundTint="#C4C4C4"
+      android:backgroundTint="#33C4C4C4"
+      android:fontFamily="@font/chawp"
       android:text="@string/strAreaAluno"
-      android:textColor="@android:color/transparent"
+      android:textSize="25dp"
       app:cornerRadius="10dp"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintHorizontal_bias="0.0"
-      app:layout_constraintStart_toStartOf="parent" />
+      app:layout_constraintStart_toStartOf="parent"
+      app:strokeColor="@color/white"
+      app:strokeWidth="1dp" />
 
-  <TextView
-      android:id="@+id/textView3"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:fontFamily="@font/chawp"
-      android:text="@string/strAreaAluno"
-      android:textColor="@color/white"
-      android:textSize="25dp"
-      app:layout_constraintBottom_toBottomOf="@+id/btnAreaAluno"
-      app:layout_constraintEnd_toEndOf="@+id/btnAreaAluno"
-      app:layout_constraintStart_toStartOf="@+id/btnAreaAluno"
-      app:layout_constraintTop_toTopOf="@+id/btnAreaAluno" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
