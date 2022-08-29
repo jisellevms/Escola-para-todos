@@ -1,6 +1,8 @@
 package com.jisellemartins.escolaparatodos.adapter;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,7 +11,10 @@ import android.widget.Button;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.jisellemartins.escolaparatodos.DisciplineScreen;
+import com.jisellemartins.escolaparatodos.LoginScreen;
 import com.jisellemartins.escolaparatodos.R;
+import com.jisellemartins.escolaparatodos.RegisterScreen;
 import com.jisellemartins.escolaparatodos.model.Disciplina;
 
 import java.util.List;
@@ -37,7 +42,11 @@ public class AdapterDisciplinas extends RecyclerView.Adapter{
         ViewHolder viewHolder = (ViewHolder) holder;
         Disciplina disciplina = disciplinas.get(position);
         viewHolder.btnDisciplina.setText(disciplina.getNomeDisciplina());
-
+        viewHolder.btnDisciplina.setOnClickListener(view -> {
+            Intent i = new Intent(context,
+                    DisciplineScreen.class);
+            context.startActivity(i);
+        });
 
     }
 
