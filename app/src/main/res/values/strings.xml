@@ -16,7 +16,9 @@
     <string name="bemVindo">Bem vindo, Aluno</string>
     <string name="disciplinas">Disciplinas:</string>
     <string name="criarDisciplina">Criar uma disciplina</string>
-
+    <string name="matematica">Matemática</string>
+    <string name="biblioteca">Biblioteca</string>
+    <string name="atividades">Atividades</string>
 
 
 </resources>
