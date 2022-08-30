@@ -10,7 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 public class LoginScreen extends AppCompatActivity {
-    TextView txtNaoCadastrado;
+
     ImageView imgVoltar;
     Button btnLogin;
 
@@ -19,15 +19,11 @@ public class LoginScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_screen);
 
-        txtNaoCadastrado = findViewById(R.id.txtNaoCadastrado);
+
         imgVoltar = findViewById(R.id.imgVoltar);
         btnLogin = findViewById(R.id.btnLogin);
 
-        txtNaoCadastrado.setOnClickListener(view -> {
-            Intent i = new Intent(LoginScreen.this,
-                    RegisterScreen.class);
-            startActivity(i);
-        });
+
 
         imgVoltar.setOnClickListener(view -> {
             finish();
