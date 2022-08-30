@@ -19,6 +19,10 @@
     <string name="matematica">Matemática</string>
     <string name="biblioteca">Biblioteca</string>
     <string name="atividades">Atividades</string>
+    <string name="calendario">Calendário</string>
+    <string name="aulas">Aulas</string>
+    <string name="boletim">Boletim</string>
+    <string name="alunos">Alunos</string>
 
 
 </resources>
