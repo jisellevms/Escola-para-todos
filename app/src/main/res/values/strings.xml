@@ -26,6 +26,10 @@
     <string name="idade">Idade:</string>
     <string name="formacao">Formação:</string>
     <string name="fazerDownload">Fazer Download</string>
+    <string name="entrarAula">Entrar na aula</string>
+    <string name="iniciarAula">Iniciar uma aula</string>
+    <string name="baixarAudio">Baixar áudio 300kb</string>
+    <string name="baixarTexto">Baixar texto 300kb</string>
 
 
 </resources>
