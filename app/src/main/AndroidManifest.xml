@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.EscolaParaTodos">
         <activity
+            android:name=".MainActivity"
+            android:exported="false" />
+        <activity
             android:name=".LibraryScreen"
             android:exported="false" />
         <activity
@@ -28,7 +31,7 @@
             android:name=".HomeScreen"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".LessonScreen"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -1,7 +1,6 @@
 package com.jisellemartins.escolaparatodos.adapter;
 
 import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,10 +11,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.jisellemartins.escolaparatodos.DisciplineScreen;
 import com.jisellemartins.escolaparatodos.R;
 import com.jisellemartins.escolaparatodos.model.Conteudo;
-import com.jisellemartins.escolaparatodos.model.Disciplina;
 
 import java.util.List;
 
@@ -57,8 +54,8 @@ public class AdapterConteudo extends RecyclerView.Adapter{
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            btnDownload = itemView.findViewById(R.id.btnDownload);
-            descricao = itemView.findViewById(R.id.descricao);
+            btnDownload = itemView.findViewById(R.id.btnAudio);
+            descricao = itemView.findViewById(R.id.descricaoAula);
             tamanho = itemView.findViewById(R.id.tamanho);
             imgIcon = itemView.findViewById(R.id.imgIcon);
         }
