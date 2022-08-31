@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.EscolaParaTodos">
         <activity
+            android:name=".LibraryScreen"
+            android:exported="false" />
+        <activity
             android:name=".DisciplineScreen"
             android:exported="false" />
         <activity

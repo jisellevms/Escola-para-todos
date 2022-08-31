@@ -4,73 +4,68 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".DisciplinesScreen"
+    tools:context=".LibraryScreen"
     android:background="@drawable/background">
 
     <include
-        android:id="@+id/include"
         layout="@layout/toolbar"
-        tools:layout_editor_absoluteX="1dp"
+        tools:layout_editor_absoluteX="0dp"
         tools:layout_editor_absoluteY="0dp" />
 
-    <TextView
-        android:id="@+id/textView12"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="70dp"
+    <Button
+        android:id="@+id/btnLogin"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="80dp"
+        android:layout_marginEnd="20dp"
+        android:backgroundTint="#e6000000"
+        android:clickable="false"
         android:fontFamily="@font/chawp"
-        android:text="@string/bemVindo"
-        android:textColor="@color/white"
-        android:textSize="25sp"
+        android:text="Biblioteca - Matemática"
+        android:textSize="20sp"
+        app:cornerRadius="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/include" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:strokeColor="@color/white"
+        app:strokeWidth="1dp" />
 
     <Button
         android:id="@+id/button3"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:layout_marginStart="30dp"
+        android:layout_marginStart="20dp"
         android:layout_marginTop="20dp"
-        android:layout_marginEnd="30dp"
+        android:layout_marginEnd="20dp"
         android:backgroundTint="#e6000000"
         android:drawableLeft="@drawable/adicao_branco"
         android:fontFamily="@font/chawp"
         android:paddingStart="30dp"
         android:paddingEnd="30dp"
-        android:text="@string/criarDisciplina"
+        android:text="Adicionar arquivo"
         android:textSize="18sp"
         android:visibility="visible"
         app:cornerRadius="20dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView12"
+        app:layout_constraintTop_toBottomOf="@+id/btnLogin"
         app:strokeColor="@color/white"
         app:strokeWidth="1dp"
         tools:ignore="TouchTargetSizeCheck" />
 
-    <TextView
-        android:id="@+id/textView14"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="20dp"
-        android:fontFamily="@font/chawp"
-        android:text="@string/disciplinas"
-        android:textColor="@color/white"
-        android:textSize="22sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button3" />
-
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/listaDisciplinas"
-        android:layout_width="406dp"
+        android:id="@+id/listConteudos"
+        android:layout_width="0dp"
         android:layout_height="0dp"
+        android:layout_marginStart="20dp"
         android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView14"
-        tools:listitem="@layout/item_disciplina" />
-
+        app:layout_constraintTop_toBottomOf="@+id/button3"
+        tools:listitem="@layout/item_conteudo" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
