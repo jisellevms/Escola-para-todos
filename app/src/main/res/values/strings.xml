@@ -23,6 +23,9 @@
     <string name="aulas">Aulas</string>
     <string name="boletim">Boletim</string>
     <string name="alunos">Alunos</string>
+    <string name="idade">Idade:</string>
+    <string name="formacao">Formação:</string>
+    <string name="fazerDownload">Fazer Download</string>
 
 
 </resources>

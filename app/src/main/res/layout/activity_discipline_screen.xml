@@ -21,7 +21,7 @@
         android:layout_marginTop="80dp"
         android:layout_marginEnd="50dp"
         android:clickable="false"
-        android:backgroundTint="#4d000000"
+        android:backgroundTint="#e6000000"
         android:fontFamily="@font/chawp"
         android:text="@string/matematica"
         android:textSize="20sp"
@@ -33,7 +33,7 @@
         app:strokeWidth="1dp" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/itemDisciplina"
         android:layout_width="130dp"
         android:layout_height="130dp"
         android:layout_marginStart="50dp"
@@ -52,11 +52,11 @@
         android:layout_marginTop="-20dp"
         android:elevation="10dp"
         android:src="@drawable/pilha_tres_livros"
-        app:layout_constraintBottom_toBottomOf="@+id/button"
-        app:layout_constraintEnd_toEndOf="@+id/button"
+        app:layout_constraintBottom_toBottomOf="@+id/itemDisciplina"
+        app:layout_constraintEnd_toEndOf="@+id/itemDisciplina"
         app:layout_constraintHorizontal_bias="0.358"
-        app:layout_constraintStart_toStartOf="@+id/button"
-        app:layout_constraintTop_toTopOf="@+id/button" />
+        app:layout_constraintStart_toStartOf="@+id/itemDisciplina"
+        app:layout_constraintTop_toTopOf="@+id/itemDisciplina" />
 
     <TextView
         android:id="@+id/textView2"
@@ -67,8 +67,8 @@
         android:text="@string/biblioteca"
         android:textColor="@color/black"
         android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="@+id/button"
-        app:layout_constraintStart_toStartOf="@+id/button"
+        app:layout_constraintEnd_toEndOf="@+id/itemDisciplina"
+        app:layout_constraintStart_toStartOf="@+id/itemDisciplina"
         app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
     <Button
@@ -122,7 +122,7 @@
         android:textColor="@android:color/transparent"
         app:cornerRadius="15dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button" />
+        app:layout_constraintTop_toBottomOf="@+id/itemDisciplina" />
 
     <ImageView
         android:id="@+id/imageView3"
