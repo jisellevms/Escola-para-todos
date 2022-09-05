@@ -33,7 +33,7 @@
         app:strokeWidth="1dp" />
 
     <Button
-        android:id="@+id/itemDisciplina"
+        android:id="@+id/btnLibrary"
         android:layout_width="130dp"
         android:layout_height="130dp"
         android:layout_marginStart="50dp"
@@ -52,11 +52,11 @@
         android:layout_marginTop="-20dp"
         android:elevation="10dp"
         android:src="@drawable/pilha_tres_livros"
-        app:layout_constraintBottom_toBottomOf="@+id/itemDisciplina"
-        app:layout_constraintEnd_toEndOf="@+id/itemDisciplina"
+        app:layout_constraintBottom_toBottomOf="@+id/btnLibrary"
+        app:layout_constraintEnd_toEndOf="@+id/btnLibrary"
         app:layout_constraintHorizontal_bias="0.358"
-        app:layout_constraintStart_toStartOf="@+id/itemDisciplina"
-        app:layout_constraintTop_toTopOf="@+id/itemDisciplina" />
+        app:layout_constraintStart_toStartOf="@+id/btnLibrary"
+        app:layout_constraintTop_toTopOf="@+id/btnLibrary" />
 
     <TextView
         android:id="@+id/textView2"
@@ -67,12 +67,12 @@
         android:text="@string/biblioteca"
         android:textColor="@color/black"
         android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="@+id/itemDisciplina"
-        app:layout_constraintStart_toStartOf="@+id/itemDisciplina"
+        app:layout_constraintEnd_toEndOf="@+id/btnLibrary"
+        app:layout_constraintStart_toStartOf="@+id/btnLibrary"
         app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/btnTasks"
         android:layout_width="130dp"
         android:layout_height="130dp"
         android:layout_marginTop="48dp"
@@ -91,11 +91,11 @@
         android:layout_marginTop="-20dp"
         android:elevation="10dp"
         android:src="@drawable/notas_adesivas"
-        app:layout_constraintBottom_toBottomOf="@+id/button2"
-        app:layout_constraintEnd_toEndOf="@+id/button2"
+        app:layout_constraintBottom_toBottomOf="@+id/btnTasks"
+        app:layout_constraintEnd_toEndOf="@+id/btnTasks"
         app:layout_constraintHorizontal_bias="0.358"
-        app:layout_constraintStart_toStartOf="@+id/button2"
-        app:layout_constraintTop_toTopOf="@+id/button2" />
+        app:layout_constraintStart_toStartOf="@+id/btnTasks"
+        app:layout_constraintTop_toTopOf="@+id/btnTasks" />
 
     <TextView
         android:id="@+id/textView3"
@@ -107,12 +107,12 @@
         android:text="@string/atividades"
         android:textColor="@color/black"
         android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="@+id/button2"
-        app:layout_constraintStart_toStartOf="@+id/button2"
+        app:layout_constraintEnd_toEndOf="@+id/btnTasks"
+        app:layout_constraintStart_toStartOf="@+id/btnTasks"
         app:layout_constraintTop_toBottomOf="@+id/imageView2" />
 
     <Button
-        android:id="@+id/button3"
+        android:id="@+id/btnCalendar"
         android:layout_width="130dp"
         android:layout_height="130dp"
         android:layout_marginStart="50dp"
@@ -122,7 +122,7 @@
         android:textColor="@android:color/transparent"
         app:cornerRadius="15dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/itemDisciplina" />
+        app:layout_constraintTop_toBottomOf="@+id/btnLibrary" />
 
     <ImageView
         android:id="@+id/imageView3"
@@ -131,11 +131,11 @@
         android:layout_marginTop="-20dp"
         android:elevation="10dp"
         android:src="@drawable/calendario"
-        app:layout_constraintBottom_toBottomOf="@+id/button3"
-        app:layout_constraintEnd_toEndOf="@+id/button3"
+        app:layout_constraintBottom_toBottomOf="@+id/btnCalendar"
+        app:layout_constraintEnd_toEndOf="@+id/btnCalendar"
         app:layout_constraintHorizontal_bias="0.358"
-        app:layout_constraintStart_toStartOf="@+id/button3"
-        app:layout_constraintTop_toTopOf="@+id/button3" />
+        app:layout_constraintStart_toStartOf="@+id/btnCalendar"
+        app:layout_constraintTop_toTopOf="@+id/btnCalendar" />
 
     <TextView
         android:id="@+id/textView4"
@@ -147,12 +147,12 @@
         android:text="@string/calendario"
         android:textColor="@color/black"
         android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="@+id/button3"
-        app:layout_constraintStart_toStartOf="@+id/button3"
+        app:layout_constraintEnd_toEndOf="@+id/btnCalendar"
+        app:layout_constraintStart_toStartOf="@+id/btnCalendar"
         app:layout_constraintTop_toBottomOf="@+id/imageView3" />
 
     <Button
-        android:id="@+id/button4"
+        android:id="@+id/btnLessons"
         android:layout_width="130dp"
         android:layout_height="130dp"
         android:layout_marginTop="50dp"
@@ -162,7 +162,7 @@
         android:textColor="@android:color/transparent"
         app:cornerRadius="15dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button2" />
+        app:layout_constraintTop_toBottomOf="@+id/btnTasks" />
 
     <ImageView
         android:id="@+id/imageView4"
@@ -171,11 +171,11 @@
         android:layout_marginTop="-20dp"
         android:elevation="10dp"
         android:src="@drawable/ensino"
-        app:layout_constraintBottom_toBottomOf="@+id/button4"
-        app:layout_constraintEnd_toEndOf="@+id/button4"
+        app:layout_constraintBottom_toBottomOf="@+id/btnLessons"
+        app:layout_constraintEnd_toEndOf="@+id/btnLessons"
         app:layout_constraintHorizontal_bias="0.358"
-        app:layout_constraintStart_toStartOf="@+id/button4"
-        app:layout_constraintTop_toTopOf="@+id/button4" />
+        app:layout_constraintStart_toStartOf="@+id/btnLessons"
+        app:layout_constraintTop_toTopOf="@+id/btnLessons" />
 
     <TextView
         android:id="@+id/textView5"
@@ -187,12 +187,12 @@
         android:text="@string/aulas"
         android:textColor="@color/black"
         android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="@+id/button4"
-        app:layout_constraintStart_toStartOf="@+id/button4"
+        app:layout_constraintEnd_toEndOf="@+id/btnLessons"
+        app:layout_constraintStart_toStartOf="@+id/btnLessons"
         app:layout_constraintTop_toBottomOf="@+id/imageView4" />
 
     <Button
-        android:id="@+id/button5"
+        android:id="@+id/btnReportCard"
         android:layout_width="130dp"
         android:layout_height="130dp"
         android:layout_marginStart="50dp"
@@ -202,7 +202,7 @@
         android:textColor="@android:color/transparent"
         app:cornerRadius="15dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button3" />
+        app:layout_constraintTop_toBottomOf="@+id/btnCalendar" />
 
     <ImageView
         android:id="@+id/imageView5"
@@ -211,11 +211,11 @@
         android:layout_marginTop="-20dp"
         android:elevation="10dp"
         android:src="@drawable/boletim"
-        app:layout_constraintBottom_toBottomOf="@+id/button5"
-        app:layout_constraintEnd_toEndOf="@+id/button5"
+        app:layout_constraintBottom_toBottomOf="@+id/btnReportCard"
+        app:layout_constraintEnd_toEndOf="@+id/btnReportCard"
         app:layout_constraintHorizontal_bias="0.358"
-        app:layout_constraintStart_toStartOf="@+id/button5"
-        app:layout_constraintTop_toTopOf="@+id/button5" />
+        app:layout_constraintStart_toStartOf="@+id/btnReportCard"
+        app:layout_constraintTop_toTopOf="@+id/btnReportCard" />
 
     <TextView
         android:id="@+id/textView6"
@@ -227,12 +227,12 @@
         android:text="@string/boletim"
         android:textColor="@color/black"
         android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="@+id/button5"
-        app:layout_constraintStart_toStartOf="@+id/button5"
+        app:layout_constraintEnd_toEndOf="@+id/btnReportCard"
+        app:layout_constraintStart_toStartOf="@+id/btnReportCard"
         app:layout_constraintTop_toBottomOf="@+id/imageView5" />
 
     <Button
-        android:id="@+id/button6"
+        android:id="@+id/btnStudents"
         android:layout_width="130dp"
         android:layout_height="130dp"
         android:layout_marginTop="50dp"
@@ -242,7 +242,7 @@
         android:textColor="@android:color/transparent"
         app:cornerRadius="15dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button4" />
+        app:layout_constraintTop_toBottomOf="@+id/btnLessons" />
 
     <ImageView
         android:id="@+id/imageView6"
@@ -251,11 +251,11 @@
         android:layout_marginTop="-20dp"
         android:elevation="10dp"
         android:src="@drawable/alunos"
-        app:layout_constraintBottom_toBottomOf="@+id/button6"
-        app:layout_constraintEnd_toEndOf="@+id/button6"
+        app:layout_constraintBottom_toBottomOf="@+id/btnStudents"
+        app:layout_constraintEnd_toEndOf="@+id/btnStudents"
         app:layout_constraintHorizontal_bias="0.358"
-        app:layout_constraintStart_toStartOf="@+id/button6"
-        app:layout_constraintTop_toTopOf="@+id/button6" />
+        app:layout_constraintStart_toStartOf="@+id/btnStudents"
+        app:layout_constraintTop_toTopOf="@+id/btnStudents" />
 
     <TextView
         android:id="@+id/textView7"
@@ -267,8 +267,8 @@
         android:text="@string/alunos"
         android:textColor="@color/black"
         android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="@+id/button6"
-        app:layout_constraintStart_toStartOf="@+id/button6"
+        app:layout_constraintEnd_toEndOf="@+id/btnStudents"
+        app:layout_constraintStart_toStartOf="@+id/btnStudents"
         app:layout_constraintTop_toBottomOf="@+id/imageView6" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

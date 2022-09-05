@@ -128,7 +128,7 @@
 
 
     <Button
-        android:id="@+id/button3"
+        android:id="@+id/btnCalendar"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginStart="100dp"
