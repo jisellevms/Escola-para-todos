@@ -28,7 +28,7 @@
             app:srcCompat="@drawable/atv" />
 
         <TextView
-            android:id="@+id/textView16"
+            android:id="@+id/descricaoAtv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
@@ -51,10 +51,10 @@
             android:background="@drawable/linear_custom_black"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView16">
+            app:layout_constraintTop_toBottomOf="@+id/descricaoAtv">
 
             <TextView
-                android:id="@+id/textView17"
+                android:id="@+id/dataAtv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/chawp"
@@ -77,7 +77,7 @@
             app:layout_constraintTop_toBottomOf="@+id/linearLayoutCompat3">
 
             <TextView
-                android:id="@+id/textView18"
+                android:id="@+id/qtdQuestoesAtv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/chawp"
@@ -103,7 +103,7 @@
             app:layout_constraintTop_toBottomOf="@+id/linearLayoutCompat4">
 
             <TextView
-                android:id="@+id/textView19"
+                android:id="@+id/statusAtv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -113,10 +113,10 @@
                 android:textSize="15dp" />
 
             <ImageView
-                android:id="@+id/imageView10"
+                android:id="@+id/iconStatus"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                app:srcCompat="@drawable/lixeira_braca" />
+                app:srcCompat="@drawable/aviso" />
 
         </androidx.appcompat.widget.LinearLayoutCompat>
 

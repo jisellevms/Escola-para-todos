@@ -27,9 +27,9 @@ public class DisciplineScreen extends AppCompatActivity {
             startActivity(i);
         });
         btnTasks.setOnClickListener(view -> {
-            /*Intent i = new Intent(DisciplineScreen.this,
-                    LibraryScreen.class);
-            startActivity(i);*/
+            Intent i = new Intent(DisciplineScreen.this,
+                    TasksScreen.class);
+            startActivity(i);
         });
         btnCalendar.setOnClickListener(view -> {
             /*Intent i = new Intent(DisciplineScreen.this,
