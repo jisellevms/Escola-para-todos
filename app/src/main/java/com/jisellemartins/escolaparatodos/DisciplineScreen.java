@@ -32,9 +32,9 @@ public class DisciplineScreen extends AppCompatActivity {
             startActivity(i);
         });
         btnCalendar.setOnClickListener(view -> {
-            /*Intent i = new Intent(DisciplineScreen.this,
-                    LibraryScreen.class);
-            startActivity(i);*/
+            Intent i = new Intent(DisciplineScreen.this,
+                    CalendarioScreen.class);
+            startActivity(i);
         });
         btnLessons.setOnClickListener(view -> {
             Intent i = new Intent(DisciplineScreen.this,
