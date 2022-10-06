@@ -1,15 +1,13 @@
 package com.jisellemartins.escolaparatodos;
 
+import android.os.Bundle;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.os.Bundle;
-
 import com.jisellemartins.escolaparatodos.adapter.AdapterConteudo;
-import com.jisellemartins.escolaparatodos.adapter.AdapterDisciplinas;
 import com.jisellemartins.escolaparatodos.model.Conteudo;
-import com.jisellemartins.escolaparatodos.model.Disciplina;
 
 import java.util.ArrayList;
 
