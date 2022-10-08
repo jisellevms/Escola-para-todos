@@ -23,12 +23,12 @@ public class DisciplineScreen extends AppCompatActivity {
 
         btnLibrary.setOnClickListener(view -> {
             Intent i = new Intent(DisciplineScreen.this,
-                    LibraryScreen.class);
+                    BibliotecaScreen.class);
             startActivity(i);
         });
         btnTasks.setOnClickListener(view -> {
             Intent i = new Intent(DisciplineScreen.this,
-                    TasksScreen.class);
+                    AtividadesScreen.class);
             startActivity(i);
         });
         btnCalendar.setOnClickListener(view -> {
@@ -38,12 +38,12 @@ public class DisciplineScreen extends AppCompatActivity {
         });
         btnLessons.setOnClickListener(view -> {
             Intent i = new Intent(DisciplineScreen.this,
-                    LessonScreen.class);
+                    AulasScreen.class);
             startActivity(i);
         });
         btnReportCard.setOnClickListener(view -> {
             Intent i = new Intent(DisciplineScreen.this,
-                    ReportCardScreen.class);
+                    BoletimScreen.class);
             startActivity(i);
         });
         btnStudents.setOnClickListener(view -> {

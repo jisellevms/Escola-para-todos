@@ -4,13 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".BibliotecaScreen"
+    tools:context=".AtividadeQuestaoScreen"
     android:background="@drawable/background">
 
     <include
-        layout="@layout/toolbar"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="0dp" />
+        android:id="@+id/include5"
+        layout="@layout/toolbar" />
 
     <Button
         android:id="@+id/btnLogin"
@@ -22,7 +21,7 @@
         android:backgroundTint="#e6000000"
         android:clickable="false"
         android:fontFamily="@font/chawp"
-        android:text="Biblioteca - Matemática"
+        android:text="Atividade sobre Matriz"
         android:textSize="20sp"
         app:cornerRadius="20dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -31,41 +30,33 @@
         app:strokeColor="@color/white"
         app:strokeWidth="1dp" />
 
-    <Button
-        android:id="@+id/btnCalendar"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="20dp"
-        android:backgroundTint="#e6000000"
-        android:drawableLeft="@drawable/adicao_branco"
-        android:fontFamily="@font/chawp"
-        android:paddingStart="30dp"
-        android:paddingEnd="30dp"
-        android:text="Adicionar arquivo"
-        android:textSize="18sp"
-        android:visibility="visible"
-        app:cornerRadius="20dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnLogin"
-        app:strokeColor="@color/white"
-        app:strokeWidth="1dp"
-        tools:ignore="TouchTargetSizeCheck" />
-
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/listConteudos"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="20dp"
+        tools:listitem="@layout/item_atv_questao"
+        app:layout_constraintBottom_toTopOf="@+id/btnCalendar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnLogin" />
+
+    <Button
+        android:id="@+id/btnCalendar"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_marginBottom="10dp"
+        android:backgroundTint="#e6000000"
+        android:drawableLeft="@drawable/enviar"
+        android:fontFamily="@font/chawp"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
+        android:text="Enviar atividade"
+        android:textSize="14sp"
+        app:cornerRadius="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnCalendar"
-        tools:listitem="@layout/item_conteudo" />
+        app:strokeColor="@color/white"
+        app:strokeWidth="1dp"
+        tools:ignore="TouchTargetSizeCheck" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

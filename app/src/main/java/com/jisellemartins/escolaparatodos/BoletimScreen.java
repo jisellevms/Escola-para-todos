@@ -11,7 +11,7 @@ import com.jisellemartins.escolaparatodos.model.Boletim;
 
 import java.util.ArrayList;
 
-public class ReportCardScreen extends AppCompatActivity {
+public class BoletimScreen extends AppCompatActivity {
     RecyclerView listaReportCard;
 
 
