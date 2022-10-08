@@ -13,7 +13,7 @@ import com.jisellemartins.escolaparatodos.model.Conteudo;
 
 import java.util.ArrayList;
 
-public class TasksScreen extends AppCompatActivity {
+public class AtividadesScreen extends AppCompatActivity {
 
     RecyclerView listaAtividades;
 

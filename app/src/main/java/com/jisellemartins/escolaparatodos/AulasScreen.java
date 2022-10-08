@@ -13,7 +13,7 @@ import com.jisellemartins.escolaparatodos.model.Disciplina;
 
 import java.util.ArrayList;
 
-public class LessonScreen extends AppCompatActivity {
+public class AulasScreen extends AppCompatActivity {
     RecyclerView listaAulas;
 
 

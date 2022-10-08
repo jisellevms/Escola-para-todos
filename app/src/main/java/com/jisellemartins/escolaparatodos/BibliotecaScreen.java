@@ -11,7 +11,7 @@ import com.jisellemartins.escolaparatodos.model.Conteudo;
 
 import java.util.ArrayList;
 
-public class LibraryScreen extends AppCompatActivity {
+public class BibliotecaScreen extends AppCompatActivity {
     RecyclerView listaConteudos;
 
     @Override

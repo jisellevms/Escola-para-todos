@@ -1,6 +1,5 @@
 package com.jisellemartins.escolaparatodos.adapter;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -12,9 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.jisellemartins.escolaparatodos.DisciplineScreen;
-import com.jisellemartins.escolaparatodos.LoginScreen;
 import com.jisellemartins.escolaparatodos.R;
-import com.jisellemartins.escolaparatodos.RegisterScreen;
 import com.jisellemartins.escolaparatodos.model.Disciplina;
 
 import java.util.List;
