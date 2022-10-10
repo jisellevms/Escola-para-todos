@@ -2,14 +2,15 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginEnd="10dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/linear_custom"
-        android:padding="10dp"
+        android:padding="15dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -17,16 +18,16 @@
 
 
         <TextView
-            android:id="@+id/textView15"
-            android:layout_width="wrap_content"
+            android:id="@+id/descQuestao"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
             android:fontFamily="@font/chawp"
-            android:text="typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
             android:textAlignment="center"
+            android:text="typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
             android:textColor="@color/black"
             android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.526"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -37,7 +38,7 @@
             android:orientation="vertical"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView15">
+            app:layout_constraintTop_toBottomOf="@+id/descQuestao">
 
             <RadioGroup
                 android:id="@+id/group"
@@ -45,7 +46,7 @@
                 android:layout_height="wrap_content">
 
                 <RadioButton
-                    android:id="@+id/radioButton3"
+                    android:id="@+id/itemA"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/chawp"
@@ -55,7 +56,7 @@
                     android:text="RadioButton" />
 
                 <RadioButton
-                    android:id="@+id/radioButton4"
+                    android:id="@+id/itemB"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -65,7 +66,7 @@
                     android:text="RadioButton" />
 
                 <RadioButton
-                    android:id="@+id/radioButton5"
+                    android:id="@+id/itemC"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -75,7 +76,7 @@
                     android:text="RadioButton" />
 
                 <RadioButton
-                    android:id="@+id/radioButton6"
+                    android:id="@+id/itemD"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -85,7 +86,7 @@
                     android:text="RadioButton" />
 
                 <RadioButton
-                    android:id="@+id/radioButton7"
+                    android:id="@+id/itemE"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -100,7 +101,7 @@
 
 
         <Button
-            android:id="@+id/btnLogin"
+            android:id="@+id/btnSalvar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:backgroundTint="#e6000000"

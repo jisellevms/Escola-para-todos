@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.EscolaParaTodos" >
         <activity
-            android:name=".AtividadeQuestaoScreen"
+            android:name=".MainActivity"
             android:exported="false" />
         <activity
             android:name=".CalendarioScreen"
@@ -43,7 +43,7 @@
             android:name=".HomeScreen"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".AtividadeQuestaoScreen"
             android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
