@@ -1,31 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/linear_custom"
     android:padding="15dp"
     android:layout_marginTop="25dp">
     <TextView
-        android:id="@+id/descricao"
+        android:id="@+id/nome"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/chawp"
-        android:text="Atividade Matriz"
+        android:text="Ana Clara Medeiros"
         android:textSize="22sp"
         android:layout_weight="1.8"
         android:textColor="@color/black"
         android:textAlignment="textStart"
-         />
+        />
     <TextView
         android:id="@+id/telefone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/black"
         android:fontFamily="@font/chawp"
-        android:text="9/10"
-        android:textSize="22sp"
+        android:text="(85) 986373679"
+        android:textSize="20sp"
         android:layout_weight="1"
         android:textAlignment="textEnd"
         />
