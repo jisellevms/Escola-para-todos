@@ -4,7 +4,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 
 import com.jisellemartins.escolaparatodos.adapter.AdapterDisciplinas;
 import com.jisellemartins.escolaparatodos.model.Disciplina;
@@ -13,12 +16,14 @@ import java.util.ArrayList;
 
 public class DisciplinesScreen extends AppCompatActivity {
     RecyclerView listaDisciplinas;
+    Button btnCriarDisciplina;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_disciplines_screen);
         listaDisciplinas = findViewById(R.id.listaDisciplinas);
+        btnCriarDisciplina = findViewById(R.id.btnCriarDisciplina);
 
         ArrayList<Disciplina> list = new ArrayList<>();
         Disciplina disciplina = new Disciplina();
@@ -37,6 +42,12 @@ public class DisciplinesScreen extends AppCompatActivity {
         RecyclerView.LayoutManager layout = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
 
         listaDisciplinas.setLayoutManager(layout);
+
+        btnCriarDisciplina.setOnClickListener(view -> {
+            Intent i = new Intent(DisciplinesScreen.this,
+                    CriarDisciplinaScreen.class);
+            startActivity(i);
+        });
 
     }
 }
