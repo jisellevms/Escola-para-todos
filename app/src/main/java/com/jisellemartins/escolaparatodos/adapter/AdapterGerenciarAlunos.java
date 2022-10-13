@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -14,11 +15,11 @@ import com.jisellemartins.escolaparatodos.model.Aluno;
 
 import java.util.List;
 
-public class AdapterBoletimProfessor extends RecyclerView.Adapter{
+public class AdapterGerenciarAlunos extends RecyclerView.Adapter{
     private List<Aluno> alunos;
     private Context context;
 
-    public AdapterBoletimProfessor(Context context, List<Aluno> alunos) {
+    public AdapterGerenciarAlunos(Context context, List<Aluno> alunos) {
         this.context = context;
         this.alunos = alunos;
 
@@ -26,17 +27,17 @@ public class AdapterBoletimProfessor extends RecyclerView.Adapter{
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.item_boletim_professor, parent, false);
-        AdapterBoletimProfessor.ViewHolder holder = new AdapterBoletimProfessor.ViewHolder(view);
+        View view = LayoutInflater.from(context).inflate(R.layout.item_aluno, parent, false);
+        AdapterGerenciarAlunos.ViewHolder holder = new AdapterGerenciarAlunos.ViewHolder(view);
         return holder;
     }
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        AdapterBoletimProfessor.ViewHolder viewHolder = (AdapterBoletimProfessor.ViewHolder) holder;
+        AdapterGerenciarAlunos.ViewHolder viewHolder = (AdapterGerenciarAlunos.ViewHolder) holder;
         Aluno aluno = alunos.get(position);
-        viewHolder.nome.setText(aluno.getNome());
-        viewHolder.telefone.setText(aluno.getTelefone());
+        viewHolder.nomeP.setText(aluno.getNome());
+        viewHolder.telefoneP.setText(aluno.getTelefone());
     }
 
     @Override
@@ -44,15 +45,15 @@ public class AdapterBoletimProfessor extends RecyclerView.Adapter{
         return alunos.size();
     }
     public class ViewHolder extends RecyclerView.ViewHolder {
-        TextView nome, telefone;
+        TextView nomeP, telefoneP;
+        Button excluirP, editarP;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            nome = itemView.findViewById(R.id.nomeP);
-            telefone = itemView.findViewById(R.id.telefoneP);
+            nomeP = itemView.findViewById(R.id.nomeP);
+            telefoneP = itemView.findViewById(R.id.telefoneP);
+            excluirP = itemView.findViewById(R.id.excluirP);
+            editarP = itemView.findViewById(R.id.editarP);
         }
     }
 }
-
-
-

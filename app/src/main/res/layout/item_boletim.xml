@@ -19,7 +19,7 @@
         android:textAlignment="textStart"
          />
     <TextView
-        android:id="@+id/telefone"
+        android:id="@+id/telefoneP"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/black"

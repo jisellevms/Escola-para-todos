@@ -92,7 +92,7 @@
         app:layout_constraintTop_toBottomOf="@+id/editText" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/excluirP"
         android:layout_width="50dp"
         android:layout_height="57dp"
         android:backgroundTint="#4dd9d9d9"
