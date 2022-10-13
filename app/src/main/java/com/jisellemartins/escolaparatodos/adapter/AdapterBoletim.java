@@ -55,7 +55,7 @@ public class AdapterBoletim extends RecyclerView.Adapter{
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             descricao = itemView.findViewById(R.id.descricao);
-            nota = itemView.findViewById(R.id.nota);
+            nota = itemView.findViewById(R.id.telefone);
         }
     }
 }
