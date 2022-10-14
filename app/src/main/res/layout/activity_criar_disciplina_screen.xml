@@ -7,11 +7,15 @@
     android:background="@drawable/background"
     tools:context=".CriarDisciplinaScreen">
 
+    <include
+        android:id="@+id/include5"
+        layout="@layout/toolbar" />
+
     <TextView
         android:id="@+id/textView15"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="70dp"
         android:fontFamily="@font/chawp"
         android:text="Criar uma disciplina"
         android:textColor="@color/white"
@@ -47,7 +51,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="30dp"
         android:fontFamily="@font/chawp"
         android:text="@string/nome"
         android:textColor="@color/white"
