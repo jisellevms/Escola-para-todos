@@ -5,24 +5,31 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 
 import com.jisellemartins.escolaparatodos.adapter.AdapterAulas;
-import com.jisellemartins.escolaparatodos.adapter.AdapterDisciplinas;
 import com.jisellemartins.escolaparatodos.model.Aula;
-import com.jisellemartins.escolaparatodos.model.Disciplina;
 
 import java.util.ArrayList;
 
 public class AulasScreen extends AppCompatActivity {
     RecyclerView listaAulas;
+    Button iniciarAula;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_lesson_screen);
+        setContentView(R.layout.activity_aulas_screen);
 
         listaAulas = findViewById(R.id.listaAulas);
+        iniciarAula = findViewById(R.id.iniciarAula);
+
+        iniciarAula.setOnClickListener(view -> {
+            DialogAula alert = new DialogAula();
+            alert.showDialog(this);
+        });
 
         ArrayList<Aula> list = new ArrayList<>();
         Aula aula = new Aula();

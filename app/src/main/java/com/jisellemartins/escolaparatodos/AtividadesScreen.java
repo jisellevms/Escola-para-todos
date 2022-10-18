@@ -7,9 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.os.Bundle;
 
 import com.jisellemartins.escolaparatodos.adapter.AdapterAtividades;
-import com.jisellemartins.escolaparatodos.adapter.AdapterConteudo;
 import com.jisellemartins.escolaparatodos.model.Atividade;
-import com.jisellemartins.escolaparatodos.model.Conteudo;
 
 import java.util.ArrayList;
 
@@ -20,7 +18,7 @@ public class AtividadesScreen extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_tasks_screen);
+        setContentView(R.layout.activity_atividades_screen);
 
         listaAtividades = findViewById(R.id.listaAtividades);
 

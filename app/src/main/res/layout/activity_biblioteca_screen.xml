@@ -4,12 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".AtividadesScreen"
+    tools:context=".BibliotecaScreen"
     android:background="@drawable/background">
 
     <include
-        android:id="@+id/include5"
-        layout="@layout/toolbar" />
+        layout="@layout/toolbar"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="0dp" />
 
     <Button
         android:id="@+id/btnSalvar"
@@ -21,7 +22,7 @@
         android:backgroundTint="#e6000000"
         android:clickable="false"
         android:fontFamily="@font/chawp"
-        android:text="Atividades - Matemática"
+        android:text="Biblioteca - Matemática"
         android:textSize="20sp"
         app:cornerRadius="20dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -31,7 +32,7 @@
         app:strokeWidth="1dp" />
 
     <Button
-        android:id="@+id/btnCriarDisciplina"
+        android:id="@+id/btnIniciarAula"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginStart="20dp"
@@ -42,7 +43,7 @@
         android:fontFamily="@font/chawp"
         android:paddingStart="30dp"
         android:paddingEnd="30dp"
-        android:text="Criar uma atividade"
+        android:text="Adicionar arquivo"
         android:textSize="18sp"
         android:visibility="visible"
         app:cornerRadius="20dp"
@@ -55,17 +56,16 @@
         tools:ignore="TouchTargetSizeCheck" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/listaAtividades"
-        android:layout_width="match_parent"
+        android:id="@+id/listConteudos"
+        android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="20dp"
-        app:layout_constraintBottom_toBottomOf="@+id/include5"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnCriarDisciplina"
-        tools:listitem="@layout/item_atividade" />
-
+        app:layout_constraintTop_toBottomOf="@+id/btnIniciarAula"
+        tools:listitem="@layout/item_conteudo" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -14,25 +14,36 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
+        <ImageView
+            android:id="@+id/status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/check2" />
+
         <TextView
             android:id="@+id/questao"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
+            android:layout_marginStart="16dp"
             android:fontFamily="@font/chawp"
-            android:text="(85) 986373679"
+            android:text="Questão 01"
             android:textColor="@color/black"
-            android:textSize="30sp"
-            app:layout_constraintStart_toStartOf="parent"
+            android:textSize="26sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/status"
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
             android:id="@+id/excluirQ"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="40dp"
+            android:layout_marginEnd="30dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/editarQ"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/lixeira" />
 
@@ -40,9 +51,9 @@
             android:id="@+id/editarQ"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="40dp"
+            android:layout_marginEnd="30dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/questao"
+            app:layout_constraintEnd_toStartOf="@+id/excluirQ"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/caneta" />
 

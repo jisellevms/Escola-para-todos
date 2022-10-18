@@ -54,7 +54,7 @@ public class AdapterAulas extends RecyclerView.Adapter{
             super(itemView);
             descricaoAula = itemView.findViewById(R.id.descricaoAula);
             btnAudio = itemView.findViewById(R.id.btnAudio);
-            btnTexto = itemView.findViewById(R.id.btnTexto);
+            btnTexto = itemView.findViewById(R.id.iniciarAula);
         }
     }
 }

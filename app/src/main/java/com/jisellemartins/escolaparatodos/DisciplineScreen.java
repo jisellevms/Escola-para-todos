@@ -12,11 +12,11 @@ public class DisciplineScreen extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_discipline_screen);
+        setContentView(R.layout.activity_disciplina_screen);
 
         btnLibrary = findViewById(R.id.btnLibrary);
         btnTasks = findViewById(R.id.btnTasks);
-        btnCalendar = findViewById(R.id.btnCriarDisciplina);
+        btnCalendar = findViewById(R.id.btnIniciarAula);
         btnLessons = findViewById(R.id.btnLessons);
         btnReportCard = findViewById(R.id.btnReportCard);
         btnStudents = findViewById(R.id.btnStudents);

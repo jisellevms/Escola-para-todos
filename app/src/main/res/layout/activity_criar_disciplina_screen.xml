@@ -61,7 +61,7 @@
 
 
     <EditText
-        android:id="@+id/editText2"
+        android:id="@+id/descAula"
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:layout_marginStart="20dp"
@@ -102,12 +102,12 @@
         android:backgroundTint="#4dd9d9d9"
         android:drawableTop="@drawable/lupa"
         android:text="procurar"
-        app:layout_constraintBottom_toBottomOf="@+id/editText2"
-        app:layout_constraintEnd_toEndOf="@+id/editText2"
-        app:layout_constraintTop_toTopOf="@+id/editText2" />
+        app:layout_constraintBottom_toBottomOf="@+id/descAula"
+        app:layout_constraintEnd_toEndOf="@+id/descAula"
+        app:layout_constraintTop_toTopOf="@+id/descAula" />
 
     <Button
-        android:id="@+id/btnCriarDisciplina"
+        android:id="@+id/btnIniciarAula"
         android:layout_width="290dp"
         android:layout_height="50dp"
         android:layout_marginTop="20dp"
@@ -122,7 +122,7 @@
         app:cornerRadius="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText2"
+        app:layout_constraintTop_toBottomOf="@+id/descAula"
         app:strokeColor="@color/white"
         app:strokeWidth="1dp"
         tools:ignore="TouchTargetSizeCheck" />
@@ -139,7 +139,7 @@
         app:layout_constraintBottom_toTopOf="@+id/btnSalvar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnCriarDisciplina"
+        app:layout_constraintTop_toBottomOf="@+id/btnIniciarAula"
         tools:listitem="@layout/item_numero" />
 
     <Button

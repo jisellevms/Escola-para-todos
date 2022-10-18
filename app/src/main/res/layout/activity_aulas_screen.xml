@@ -124,7 +124,7 @@
                 app:srcCompat="@drawable/professor_quadro" />
 
             <Button
-                android:id="@+id/btnTexto"
+                android:id="@+id/iniciarAula"
                 android:layout_width="220dp"
                 android:layout_height="50dp"
                 android:backgroundTint="#e6000000"

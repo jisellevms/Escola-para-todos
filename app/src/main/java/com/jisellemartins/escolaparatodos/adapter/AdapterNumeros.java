@@ -11,7 +11,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.jisellemartins.escolaparatodos.R;
-import com.jisellemartins.escolaparatodos.model.Evento;
 import com.jisellemartins.escolaparatodos.model.Numero;
 
 import java.util.List;
@@ -51,9 +50,9 @@ public class AdapterNumeros extends RecyclerView.Adapter{
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            numero = itemView.findViewById(R.id.numero);
-            editar = itemView.findViewById(R.id.editar);
-            excluir = itemView.findViewById(R.id.excluir);
+            numero = itemView.findViewById(R.id.questao);
+            editar = itemView.findViewById(R.id.editarQ);
+            excluir = itemView.findViewById(R.id.excluirQ);
         }
     }
 }

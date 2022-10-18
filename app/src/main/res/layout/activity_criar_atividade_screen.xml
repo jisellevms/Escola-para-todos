@@ -9,7 +9,9 @@
 
     <include
         android:id="@+id/include5"
-        layout="@layout/toolbar" />
+        layout="@layout/toolbar"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="0dp" />
 
     <TextView
         android:id="@+id/textView15"
@@ -25,7 +27,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/editText2"
+        android:id="@+id/descAula"
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:layout_marginStart="20dp"
@@ -66,16 +68,41 @@
         android:backgroundTint="#4dd9d9d9"
         android:drawableTop="@drawable/check"
         android:text="criar questões"
-        app:layout_constraintBottom_toBottomOf="@+id/editText2"
-        app:layout_constraintEnd_toEndOf="@+id/editText2"
-        app:layout_constraintTop_toTopOf="@+id/editText2" />
+        app:layout_constraintBottom_toBottomOf="@+id/descAula"
+        app:layout_constraintEnd_toEndOf="@+id/descAula"
+        app:layout_constraintTop_toTopOf="@+id/descAula" />
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/listaQuestoes"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="15dp"
+        android:background="@drawable/linear_custom"
+        app:layout_constraintBottom_toTopOf="@+id/btnSalvar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/descAula"
+        tools:listitem="@layout/item_questao" />
+
+    <Button
+        android:id="@+id/btnSalvar"
+        android:layout_width="290dp"
+        android:layout_height="50dp"
+        android:layout_marginBottom="15dp"
+        android:backgroundTint="#e6000000"
+        android:fontFamily="@font/chawp"
+        android:text="Criar atividade"
+        android:textSize="18sp"
+        android:visibility="visible"
+        app:cornerRadius="20dp"
         app:layout_constraintBottom_toBottomOf="@+id/include5"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText2" />
+        app:strokeColor="@color/white"
+        app:strokeWidth="1dp"
+        tools:ignore="TouchTargetSizeCheck" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
