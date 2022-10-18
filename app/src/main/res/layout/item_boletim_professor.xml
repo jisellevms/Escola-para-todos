@@ -1,32 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/itemNumero"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginTop="25dp"
     android:background="@drawable/linear_custom"
-    android:padding="15dp"
-    android:layout_marginTop="25dp">
+    android:orientation="vertical"
+    android:padding="15dp">
+
     <TextView
         android:id="@+id/nomeP"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_weight="1.8"
         android:fontFamily="@font/chawp"
         android:text="Ana Clara Medeiros"
-        android:textSize="22sp"
-        android:layout_weight="1.8"
-        android:textColor="@color/black"
         android:textAlignment="textStart"
-        />
+        android:textColor="@color/black"
+        android:textSize="22sp" />
+
     <TextView
         android:id="@+id/telefoneP"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/black"
+        android:layout_weight="1"
         android:fontFamily="@font/chawp"
         android:text="(85) 986373679"
-        android:textSize="20sp"
-        android:layout_weight="1"
         android:textAlignment="textEnd"
-        />
+        android:textColor="@color/black"
+        android:textSize="20sp" />
 </LinearLayout>

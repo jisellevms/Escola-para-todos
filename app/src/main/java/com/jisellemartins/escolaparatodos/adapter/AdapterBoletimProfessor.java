@@ -1,15 +1,19 @@
 package com.jisellemartins.escolaparatodos.adapter;
 
+import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.jisellemartins.escolaparatodos.R;
+import com.jisellemartins.escolaparatodos.dialogs.DialogAula;
+import com.jisellemartins.escolaparatodos.dialogs.DialogBoletim;
 import com.jisellemartins.escolaparatodos.model.Aluno;
 
 import java.util.List;
@@ -37,6 +41,11 @@ public class AdapterBoletimProfessor extends RecyclerView.Adapter{
         Aluno aluno = alunos.get(position);
         viewHolder.nome.setText(aluno.getNome());
         viewHolder.telefone.setText(aluno.getTelefone());
+
+        viewHolder.itemNumero.setOnClickListener(view -> {
+            DialogBoletim alert = new DialogBoletim();
+            alert.showDialog((Activity) context);
+        });
     }
 
     @Override
@@ -45,11 +54,13 @@ public class AdapterBoletimProfessor extends RecyclerView.Adapter{
     }
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView nome, telefone;
+        LinearLayout itemNumero;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             nome = itemView.findViewById(R.id.nomeP);
             telefone = itemView.findViewById(R.id.telefoneP);
+            itemNumero = itemView.findViewById(R.id.itemNumero);
         }
     }
 }
