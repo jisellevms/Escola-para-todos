@@ -1,4 +1,4 @@
-package com.jisellemartins.escolaparatodos;
+package com.jisellemartins.escolaparatodos.dialogs;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -7,6 +7,8 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
+
+import com.jisellemartins.escolaparatodos.R;
 
 public class DialogAula {
     public void showDialog(Activity activity){

@@ -28,7 +28,7 @@
             android:name=".AtividadesScreen"
             android:exported="false" />
         <activity
-            android:name=".BoletimScreen"
+            android:name=".AulasScreen"
             android:exported="false" />
         <activity
             android:name=".MainActivity"
@@ -52,7 +52,7 @@
             android:name=".HomeScreen"
             android:exported="false" />
         <activity
-            android:name=".AulasScreen"
+            android:name=".BoletimScreen"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

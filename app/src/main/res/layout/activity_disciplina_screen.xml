@@ -178,7 +178,7 @@
         app:layout_constraintTop_toTopOf="@+id/btnLessons" />
 
     <TextView
-        android:id="@+id/textView5"
+        android:id="@+id/aluno"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="3dp"
