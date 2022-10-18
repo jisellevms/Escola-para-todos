@@ -17,7 +17,7 @@ public class BibliotecaScreen extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_library_screen);
+        setContentView(R.layout.activity_biblioteca_screen);
         listaConteudos = findViewById(R.id.listConteudos);
 
         ArrayList<Conteudo> list = new ArrayList<>();

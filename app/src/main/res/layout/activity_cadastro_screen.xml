@@ -59,7 +59,7 @@
         app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName" />
 
     <EditText
-        android:id="@+id/editText2"
+        android:id="@+id/descAula"
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:layout_marginStart="20dp"
@@ -90,7 +90,7 @@
         android:textColor="@color/white"
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText2" />
+        app:layout_constraintTop_toBottomOf="@+id/descAula" />
 
     <EditText
         android:id="@+id/editText3"
@@ -128,7 +128,7 @@
 
 
     <Button
-        android:id="@+id/btnCriarDisciplina"
+        android:id="@+id/btnIniciarAula"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginStart="100dp"

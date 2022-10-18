@@ -63,7 +63,7 @@
                 tools:ignore="TouchTargetSizeCheck" />
 
             <Button
-                android:id="@+id/btnTexto"
+                android:id="@+id/iniciarAula"
                 android:layout_width="270dp"
                 android:layout_height="45dp"
                 android:layout_marginTop="5dp"

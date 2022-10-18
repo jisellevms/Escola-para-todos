@@ -6,7 +6,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 
 import com.jisellemartins.escolaparatodos.adapter.AdapterDisciplinas;
@@ -21,9 +20,9 @@ public class DisciplinesScreen extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_disciplines_screen);
+        setContentView(R.layout.activity_disciplinas_screen);
         listaDisciplinas = findViewById(R.id.listaDisciplinas);
-        btnCriarDisciplina = findViewById(R.id.btnCriarDisciplina);
+        btnCriarDisciplina = findViewById(R.id.btnIniciarAula);
 
         ArrayList<Disciplina> list = new ArrayList<>();
         Disciplina disciplina = new Disciplina();
