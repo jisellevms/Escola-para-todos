@@ -107,7 +107,7 @@
         app:layout_constraintTop_toTopOf="@+id/descAula" />
 
     <Button
-        android:id="@+id/btnIniciarAula"
+        android:id="@+id/btnAdcAluno"
         android:layout_width="290dp"
         android:layout_height="50dp"
         android:layout_marginTop="20dp"
@@ -139,7 +139,7 @@
         app:layout_constraintBottom_toTopOf="@+id/btnSalvar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnIniciarAula"
+        app:layout_constraintTop_toBottomOf="@+id/btnAdcAluno"
         tools:listitem="@layout/item_numero" />
 
     <Button

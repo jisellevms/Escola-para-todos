@@ -13,7 +13,7 @@
             android:name=".CriarAtividadeScreen"
             android:exported="false" />
         <activity
-            android:name=".GerenciarAlunosScreen"
+            android:name=".BoletimScreen"
             android:exported="false" />
         <activity
             android:name=".CriarDisciplinaScreen"
@@ -52,7 +52,7 @@
             android:name=".HomeScreen"
             android:exported="false" />
         <activity
-            android:name=".BoletimScreen"
+            android:name=".GerenciarAlunosScreen"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

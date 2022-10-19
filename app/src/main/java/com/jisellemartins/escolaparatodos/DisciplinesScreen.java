@@ -22,7 +22,7 @@ public class DisciplinesScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_disciplinas_screen);
         listaDisciplinas = findViewById(R.id.listaDisciplinas);
-        btnCriarDisciplina = findViewById(R.id.btnIniciarAula);
+        btnCriarDisciplina = findViewById(R.id.btnAdcAluno);
 
         ArrayList<Disciplina> list = new ArrayList<>();
         Disciplina disciplina = new Disciplina();

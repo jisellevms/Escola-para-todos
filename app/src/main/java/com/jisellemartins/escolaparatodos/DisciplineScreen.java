@@ -16,7 +16,7 @@ public class DisciplineScreen extends AppCompatActivity {
 
         btnLibrary = findViewById(R.id.btnLibrary);
         btnTasks = findViewById(R.id.btnTasks);
-        btnCalendar = findViewById(R.id.btnIniciarAula);
+        btnCalendar = findViewById(R.id.btnAdcAluno);
         btnLessons = findViewById(R.id.btnLessons);
         btnReportCard = findViewById(R.id.btnReportCard);
         btnStudents = findViewById(R.id.btnStudents);
