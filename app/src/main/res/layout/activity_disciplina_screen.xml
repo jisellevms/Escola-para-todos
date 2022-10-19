@@ -112,7 +112,7 @@
         app:layout_constraintTop_toBottomOf="@+id/imageView2" />
 
     <Button
-        android:id="@+id/btnIniciarAula"
+        android:id="@+id/btnAdcAluno"
         android:layout_width="130dp"
         android:layout_height="130dp"
         android:layout_marginStart="50dp"
@@ -131,11 +131,11 @@
         android:layout_marginTop="-20dp"
         android:elevation="10dp"
         android:src="@drawable/calendario"
-        app:layout_constraintBottom_toBottomOf="@+id/btnIniciarAula"
-        app:layout_constraintEnd_toEndOf="@+id/btnIniciarAula"
+        app:layout_constraintBottom_toBottomOf="@+id/btnAdcAluno"
+        app:layout_constraintEnd_toEndOf="@+id/btnAdcAluno"
         app:layout_constraintHorizontal_bias="0.358"
-        app:layout_constraintStart_toStartOf="@+id/btnIniciarAula"
-        app:layout_constraintTop_toTopOf="@+id/btnIniciarAula" />
+        app:layout_constraintStart_toStartOf="@+id/btnAdcAluno"
+        app:layout_constraintTop_toTopOf="@+id/btnAdcAluno" />
 
     <TextView
         android:id="@+id/textView4"
@@ -147,8 +147,8 @@
         android:text="@string/calendario"
         android:textColor="@color/black"
         android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="@+id/btnIniciarAula"
-        app:layout_constraintStart_toStartOf="@+id/btnIniciarAula"
+        app:layout_constraintEnd_toEndOf="@+id/btnAdcAluno"
+        app:layout_constraintStart_toStartOf="@+id/btnAdcAluno"
         app:layout_constraintTop_toBottomOf="@+id/imageView3" />
 
     <Button
@@ -202,7 +202,7 @@
         android:textColor="@android:color/transparent"
         app:cornerRadius="15dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnIniciarAula" />
+        app:layout_constraintTop_toBottomOf="@+id/btnAdcAluno" />
 
     <ImageView
         android:id="@+id/imageView5"

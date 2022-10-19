@@ -5,9 +5,13 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 
 import com.jisellemartins.escolaparatodos.adapter.AdapterBoletimProfessor;
 import com.jisellemartins.escolaparatodos.adapter.AdapterGerenciarAlunos;
+import com.jisellemartins.escolaparatodos.dialogs.DialogAdicionarAluno;
+import com.jisellemartins.escolaparatodos.dialogs.DialogAula;
 import com.jisellemartins.escolaparatodos.model.Aluno;
 
 import java.util.ArrayList;
@@ -15,6 +19,7 @@ import java.util.ArrayList;
 public class GerenciarAlunosScreen extends AppCompatActivity {
 
     RecyclerView listaAlunos;
+    Button btnAdcAluno;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,6 +27,12 @@ public class GerenciarAlunosScreen extends AppCompatActivity {
         setContentView(R.layout.activity_gerenciar_alunos);
 
         listaAlunos = findViewById(R.id.listaAlunos);
+        btnAdcAluno = findViewById(R.id.btnAdcAluno);
+
+        btnAdcAluno.setOnClickListener(view -> {
+            DialogAdicionarAluno alert = new DialogAdicionarAluno();
+            alert.showDialog(this);
+        });
 
         ArrayList<Aluno> list = new ArrayList<>();
         Aluno aluno = new Aluno();

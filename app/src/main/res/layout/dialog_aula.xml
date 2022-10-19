@@ -37,7 +37,7 @@
         app:layout_constraintTop_toBottomOf="@+id/aluno" />
 
     <Button
-        android:id="@+id/btnIniciarAula"
+        android:id="@+id/btnAdcAluno"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginStart="50dp"
