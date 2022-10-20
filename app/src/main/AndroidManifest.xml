@@ -22,7 +22,7 @@
             android:name=".AtividadeQuestaoScreen"
             android:exported="false" />
         <activity
-            android:name=".CalendarioScreen"
+            android:name=".GerenciarAlunosScreen"
             android:exported="false" />
         <activity
             android:name=".AtividadesScreen"
@@ -52,7 +52,7 @@
             android:name=".HomeScreen"
             android:exported="false" />
         <activity
-            android:name=".GerenciarAlunosScreen"
+            android:name=".CalendarioScreen"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
