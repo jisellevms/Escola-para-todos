@@ -5,9 +5,13 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 
 import com.jisellemartins.escolaparatodos.adapter.AdapterConteudo;
 import com.jisellemartins.escolaparatodos.adapter.AdapterEvento;
+import com.jisellemartins.escolaparatodos.dialogs.DialogAdicionarEvento;
+import com.jisellemartins.escolaparatodos.dialogs.DialogAula;
 import com.jisellemartins.escolaparatodos.model.Conteudo;
 import com.jisellemartins.escolaparatodos.model.Evento;
 
@@ -16,6 +20,7 @@ import java.util.ArrayList;
 public class CalendarioScreen extends AppCompatActivity {
 
     RecyclerView listaEventos;
+    Button btnAdcEvento;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +28,12 @@ public class CalendarioScreen extends AppCompatActivity {
         setContentView(R.layout.activity_calendario);
 
         listaEventos = findViewById(R.id.listaEventos);
+        btnAdcEvento = findViewById(R.id.btnAdcEvento);
+
+        btnAdcEvento.setOnClickListener(view -> {
+            DialogAdicionarEvento alert = new DialogAdicionarEvento();
+            alert.showDialog(this);
+        });
 
         ArrayList<Evento> list = new ArrayList<>();
 
