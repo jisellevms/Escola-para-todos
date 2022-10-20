@@ -1,5 +1,6 @@
 package com.jisellemartins.escolaparatodos.adapter;
 
+import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +12,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.jisellemartins.escolaparatodos.R;
+import com.jisellemartins.escolaparatodos.dialogs.DialogAula;
+import com.jisellemartins.escolaparatodos.dialogs.DialogQuestão;
 import com.jisellemartins.escolaparatodos.model.Numero;
 import com.jisellemartins.escolaparatodos.model.Questao;
 
@@ -44,6 +47,11 @@ public class AdapterItemQuestao extends RecyclerView.Adapter {
             viewHolder.questao.setText("Questão 0" + count);
         }
         count++;
+
+        viewHolder.editar.setOnClickListener(view -> {
+            DialogQuestão alert = new DialogQuestão();
+            alert.showDialog((Activity) context);
+        });
 }
 
     @Override

@@ -31,7 +31,7 @@
             android:name=".AulasScreen"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".CalendarioScreen"
             android:exported="false" />
         <activity
             android:name=".BibliotecaScreen"
@@ -52,7 +52,7 @@
             android:name=".HomeScreen"
             android:exported="false" />
         <activity
-            android:name=".CalendarioScreen"
+            android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
