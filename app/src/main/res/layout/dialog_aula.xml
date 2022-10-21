@@ -46,6 +46,7 @@
         android:backgroundTint="#e6000000"
         android:fontFamily="@font/chawp"
         android:text="Iniciar aula"
+        android:textColor="@color/white"
         android:textSize="18sp"
         android:visibility="visible"
         app:cornerRadius="20dp"

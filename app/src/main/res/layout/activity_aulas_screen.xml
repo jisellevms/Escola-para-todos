@@ -28,6 +28,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:strokeColor="@color/white"
+        android:textColor="@color/white"
         app:strokeWidth="1dp" />
 
     <androidx.appcompat.widget.LinearLayoutCompat
@@ -87,6 +88,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/imgIcon"
                 app:strokeColor="@color/white"
+                android:textColor="@color/white"
                 app:strokeWidth="1dp"
                 tools:ignore="TouchTargetSizeCheck" />
 
@@ -140,6 +142,7 @@
                 app:layout_constraintStart_toEndOf="@+id/imgIcon2"
                 app:layout_constraintTop_toTopOf="parent"
                 app:strokeColor="@color/white"
+                android:textColor="@color/white"
                 app:strokeWidth="1dp"
                 tools:ignore="TouchTargetSizeCheck" />
 
