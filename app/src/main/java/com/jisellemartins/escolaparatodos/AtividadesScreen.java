@@ -4,7 +4,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 
 import com.jisellemartins.escolaparatodos.adapter.AdapterAtividades;
 import com.jisellemartins.escolaparatodos.model.Atividade;
@@ -14,6 +17,7 @@ import java.util.ArrayList;
 public class AtividadesScreen extends AppCompatActivity {
 
     RecyclerView listaAtividades;
+    Button btnCriarAtividade;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,6 +25,13 @@ public class AtividadesScreen extends AppCompatActivity {
         setContentView(R.layout.activity_atividades_screen);
 
         listaAtividades = findViewById(R.id.listaAtividades);
+        btnCriarAtividade = findViewById(R.id.btnCriarAtividade);
+
+        btnCriarAtividade.setOnClickListener(view -> {
+            Intent i = new Intent(AtividadesScreen.this,
+                    CriarAtividadeScreen.class);
+            startActivity(i);
+        });
 
         ArrayList<Atividade> list = new ArrayList<>();
 

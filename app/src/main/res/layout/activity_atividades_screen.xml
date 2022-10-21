@@ -24,6 +24,7 @@
         android:text="Atividades - Matemática"
         android:textSize="20sp"
         app:cornerRadius="20dp"
+        android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -31,7 +32,7 @@
         app:strokeWidth="1dp" />
 
     <Button
-        android:id="@+id/btnAdcAluno"
+        android:id="@+id/btnCriarAtividade"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginStart="20dp"
@@ -43,6 +44,7 @@
         android:paddingStart="30dp"
         android:paddingEnd="30dp"
         android:text="Criar uma atividade"
+        android:textColor="@color/white"
         android:textSize="18sp"
         android:visibility="visible"
         app:cornerRadius="20dp"
@@ -64,7 +66,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnAdcAluno"
+        app:layout_constraintTop_toBottomOf="@+id/btnCriarAtividade"
         tools:listitem="@layout/item_atividade" />
 
 

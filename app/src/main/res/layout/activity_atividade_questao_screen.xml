@@ -24,6 +24,7 @@
         android:text="Atividade sobre Matriz"
         android:textSize="20sp"
         app:cornerRadius="20dp"
+        android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -60,6 +61,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:strokeColor="@color/white"
         app:strokeWidth="1dp"
+        android:textColor="@color/white"
         tools:ignore="TouchTargetSizeCheck" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
