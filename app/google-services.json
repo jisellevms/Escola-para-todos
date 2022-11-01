@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "726077809942",
+    "project_id": "escola-para-todos-7711b",
+    "storage_bucket": "escola-para-todos-7711b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:726077809942:android:5831e3bc93cdf0b0b49c37",
+        "android_client_info": {
+          "package_name": "com.jisellemartins.escolaparatodos"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "726077809942-r5ongn8a4p1o25m4erds6dfer495qsg9.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.jisellemartins.escolaparatodos",
+            "certificate_hash": "f850f38e97c2b7a4d6429f8066446973d630f10a"
+          }
+        },
+        {
+          "client_id": "726077809942-calcopf74h8lbfm1872lon1pmhgh284o.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBLaBgeYYKic6vBhP9aV3e9KG77psS7RSY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "726077809942-calcopf74h8lbfm1872lon1pmhgh284o.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

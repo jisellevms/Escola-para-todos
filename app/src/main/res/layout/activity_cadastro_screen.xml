@@ -59,7 +59,7 @@
         app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName" />
 
     <EditText
-        android:id="@+id/descAula"
+        android:id="@+id/cadTelefone"
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:layout_marginStart="20dp"
@@ -90,7 +90,7 @@
         android:textColor="@color/white"
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/descAula" />
+        app:layout_constraintTop_toBottomOf="@+id/cadTelefone" />
 
     <EditText
         android:id="@+id/editText3"
@@ -128,7 +128,7 @@
 
 
     <Button
-        android:id="@+id/btnAdcAluno"
+        android:id="@+id/btnCadastrar"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginStart="100dp"
