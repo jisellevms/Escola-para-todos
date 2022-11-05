@@ -17,7 +17,7 @@
         <entry key="..\:/Users/jiselle.santana/Desktop/Escolaparatodos/app/src/main/res/layout/activity_aulas_screen.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/jiselle.santana/Desktop/Escolaparatodos/app/src/main/res/layout/activity_biblioteca_screen.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/jiselle.santana/Desktop/Escolaparatodos/app/src/main/res/layout/activity_boletim_screen.xml" value="0.36666666666666664" />
-        <entry key="..\:/Users/jiselle.santana/Desktop/Escolaparatodos/app/src/main/res/layout/activity_cadastro_screen.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/jiselle.santana/Desktop/Escolaparatodos/app/src/main/res/layout/activity_cadastro_screen.xml" value="0.25" />
         <entry key="..\:/Users/jiselle.santana/Desktop/Escolaparatodos/app/src/main/res/layout/activity_calendario.xml" value="0.25" />
         <entry key="..\:/Users/jiselle.santana/Desktop/Escolaparatodos/app/src/main/res/layout/activity_criar_atividade_screen.xml" value="0.35260416666666666" />
         <entry key="..\:/Users/jiselle.santana/Desktop/Escolaparatodos/app/src/main/res/layout/activity_criar_disciplina_screen.xml" value="0.2" />
@@ -39,6 +39,7 @@
         <entry key="..\:/Users/jiselle.santana/Desktop/Escolaparatodos/app/src/main/res/layout/dialog_aula.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/jiselle.santana/Desktop/Escolaparatodos/app/src/main/res/layout/dialog_boletim.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/jiselle.santana/Desktop/Escolaparatodos/app/src/main/res/layout/dialog_codigo_verificacao.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/jiselle.santana/Desktop/Escolaparatodos/app/src/main/res/layout/dialog_loading.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/jiselle.santana/Desktop/Escolaparatodos/app/src/main/res/layout/dialog_questao.xml" value="0.33" />
         <entry key="..\:/Users/jiselle.santana/Desktop/Escolaparatodos/app/src/main/res/layout/item_aluno.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/jiselle.santana/Desktop/Escolaparatodos/app/src/main/res/layout/item_atividade.xml" value="0.36666666666666664" />
