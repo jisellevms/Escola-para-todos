@@ -9,7 +9,9 @@
 
     <include
         android:id="@+id/include"
-        layout="@layout/toolbar" />
+        layout="@layout/toolbar"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="28dp" />
 
     <TextView
         android:id="@+id/textView6"
@@ -25,7 +27,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName"
+        android:id="@+id/nomeUsuario"
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:layout_marginStart="20dp"
@@ -56,10 +58,10 @@
         android:textColor="@color/white"
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName" />
+        app:layout_constraintTop_toBottomOf="@+id/nomeUsuario" />
 
     <EditText
-        android:id="@+id/cadTelefone"
+        android:id="@+id/telefoneUsuario"
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:layout_marginStart="20dp"
@@ -90,10 +92,10 @@
         android:textColor="@color/white"
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cadTelefone" />
+        app:layout_constraintTop_toBottomOf="@+id/telefoneUsuario" />
 
     <EditText
-        android:id="@+id/editText3"
+        android:id="@+id/senhaUsuario"
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:layout_marginStart="20dp"
@@ -124,7 +126,7 @@
         android:textColor="@color/white"
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText3" />
+        app:layout_constraintTop_toBottomOf="@+id/senhaUsuario" />
 
 
     <Button
@@ -160,7 +162,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView9">
 
         <RadioButton
-            android:id="@+id/radioButton"
+            android:id="@+id/radioAluno"
             android:layout_width="35dp"
             android:layout_height="35dp"
             android:background="@drawable/radio_button"
@@ -185,7 +187,7 @@
             app:layout_constraintTop_toBottomOf="@+id/editText3" />
 
         <RadioButton
-            android:id="@+id/radioButton2"
+            android:id="@+id/radioProf"
             android:layout_width="35dp"
             android:layout_height="35dp"
             android:background="@drawable/radio_button"
@@ -210,7 +212,7 @@
     </RadioGroup>
 
     <TextView
-        android:id="@+id/textView12"
+        android:id="@+id/idade"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
@@ -219,11 +221,12 @@
         android:text="@string/idade"
         android:textColor="@color/white"
         android:textSize="20sp"
+        android:visibility="visible"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
 
     <EditText
-        android:id="@+id/editText4"
+        android:id="@+id/idadeAluno"
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:layout_marginStart="20dp"
@@ -236,15 +239,16 @@
         android:inputType="number"
         android:paddingStart="10dp"
         android:text=""
+        android:visibility="visible"
         android:textColor="@color/white"
         android:textColorHint="@android:color/transparent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView12" />
+        app:layout_constraintTop_toBottomOf="@+id/idade" />
 
     <TextView
-        android:id="@+id/textView13"
+        android:id="@+id/formacao"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
@@ -253,11 +257,12 @@
         android:text="@string/formacao"
         android:textColor="@color/white"
         android:textSize="20sp"
+        android:visibility="gone"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText4" />
+        app:layout_constraintTop_toBottomOf="@+id/idadeAluno" />
 
     <EditText
-        android:id="@+id/editText5"
+        android:id="@+id/formacaoProf"
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:layout_marginStart="20dp"
@@ -270,11 +275,12 @@
         android:inputType="text"
         android:paddingStart="10dp"
         android:text=""
+        android:visibility="gone"
         android:textColor="@color/white"
         android:textColorHint="@android:color/transparent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView13" />
+        app:layout_constraintTop_toBottomOf="@+id/formacao" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

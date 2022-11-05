@@ -14,6 +14,8 @@ import android.widget.ImageView;
 import androidx.annotation.NonNull;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -21,11 +23,14 @@ import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.jisellemartins.escolaparatodos.CriarDisciplinaScreen;
 import com.jisellemartins.escolaparatodos.DisciplinesScreen;
 import com.jisellemartins.escolaparatodos.R;
 import com.jisellemartins.escolaparatodos.Utils.UtilAutenticacao;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.Executor;
 
 public class DialogCodVerificacao {
@@ -35,6 +40,8 @@ public class DialogCodVerificacao {
     ImageView cancelar;
     Activity activityG;
     String mVerificationId, code;
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
+
     public void showDialog(Activity activity, String mVerificationId, FirebaseAuth auth){
         final Dialog dialog = new Dialog(activity);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -64,13 +71,13 @@ public class DialogCodVerificacao {
 
                         //UtilAutenticacao.phoneAuthCredential = credential;
 
-                        SharedPreferences sharedPref = activityG.getPreferences(Context.MODE_PRIVATE);
+                        /*SharedPreferences sharedPref = activityG.getPreferences(Context.MODE_PRIVATE);
                         SharedPreferences.Editor editor = sharedPref.edit();
                         editor.putString("verificationId",mVerificationId);
                         editor.apply();
 
                         editor.putString("code", code);
-                        editor.apply();
+                        editor.apply();*/
 
                         FirebaseUser user = task.getResult().getUser();
                         Intent i = new Intent(activityG,
@@ -83,6 +90,19 @@ public class DialogCodVerificacao {
                         }
                     }
                 });
+    }
+
+    public void salvarUsuario(){
+        Map<String, Object> professor = new HashMap<>();
+        professor.put("formacao", "Exatas");
+        professor.put("nome", "Marcelo");
+        professor.put("telefone", 123456789);
+
+        db.collection("Professor").document("1")
+                .set(professor)
+                .addOnSuccessListener(aVoid -> Log.d("TESTEXX", "DocumentSnapshot successfully written!"))
+                .addOnFailureListener(e -> Log.w("TESTEXX", "Error writing document", e));
+
     }
 
 }

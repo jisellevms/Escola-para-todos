@@ -2,7 +2,9 @@ package com.jisellemartins.escolaparatodos;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.TextView;
@@ -19,13 +21,21 @@ public class HomeScreen extends AppCompatActivity {
         btnAreaAluno = findViewById(R.id.btnAreaAluno);
         txtNaoCadastrado = findViewById(R.id.txtNaoCadastrado);
 
+        SharedPreferences sharedPref = getPreferences(Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPref.edit();
+
         btnAreaProf.setOnClickListener(view -> {
+            editor.putString("usuario","professor");
+            editor.apply();
             Intent i = new Intent(HomeScreen.this,
                     LoginScreen.class);
             startActivity(i);
+
         });
 
         btnAreaAluno.setOnClickListener(view -> {
+            editor.putString("usuario","aluno");
+            editor.apply();
             Intent i = new Intent(HomeScreen.this,
                     LoginScreen.class);
             startActivity(i);
