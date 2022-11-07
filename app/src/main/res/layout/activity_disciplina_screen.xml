@@ -242,6 +242,7 @@
         android:text="Button"
         android:textColor="@android:color/transparent"
         app:cornerRadius="15dp"
+        android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnLessons" />
 

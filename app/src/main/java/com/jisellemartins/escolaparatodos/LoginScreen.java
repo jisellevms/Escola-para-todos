@@ -57,9 +57,6 @@ public class LoginScreen extends AppCompatActivity {
 
             usuario = sharedPref.getString("usuario", aluno);
 
-
-
-
             if(campoTelefone.getText().toString().isEmpty() && campoSenha.getText().toString().isEmpty()){
                 Toast.makeText(this, "Preencha todos os campos!", Toast.LENGTH_LONG).show();
             }else{

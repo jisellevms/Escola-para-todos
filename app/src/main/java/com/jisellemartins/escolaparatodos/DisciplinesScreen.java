@@ -1,21 +1,20 @@
 package com.jisellemartins.escolaparatodos;
 
-import androidx.annotation.NonNull;
+import static com.jisellemartins.escolaparatodos.Utils.UtilAutenticacao.aluno;
+
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.util.Log;
-import android.widget.Button;
-
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 import com.jisellemartins.escolaparatodos.adapter.AdapterDisciplinas;
 import com.jisellemartins.escolaparatodos.model.Disciplina;
 
@@ -27,12 +26,23 @@ public class DisciplinesScreen extends AppCompatActivity {
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
+    String usuario = aluno;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_disciplinas_screen);
         listaDisciplinas = findViewById(R.id.listaDisciplinas);
         btnCriarDisciplina = findViewById(R.id.btnAdcAluno);
+
+        SharedPreferences sharedPref = getPreferences(Context.MODE_PRIVATE);
+        usuario = sharedPref.getString("usuario", aluno);
+
+        if (usuario.equals(aluno)){
+            btnCriarDisciplina.setVisibility(View.GONE);
+        }else{
+            btnCriarDisciplina.setVisibility(View.VISIBLE);
+        }
 
         ArrayList<Disciplina> list = new ArrayList<>();
         Disciplina disciplina = new Disciplina();
@@ -47,7 +57,7 @@ public class DisciplinesScreen extends AppCompatActivity {
         list.add(disciplina3);
 
 
-        listaDisciplinas.setAdapter(new AdapterDisciplinas(this, list));
+        listaDisciplinas.setAdapter(new AdapterDisciplinas(this, list, usuario));
         RecyclerView.LayoutManager layout = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
 
         listaDisciplinas.setLayoutManager(layout);

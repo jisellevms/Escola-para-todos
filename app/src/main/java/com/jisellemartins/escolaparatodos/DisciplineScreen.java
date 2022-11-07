@@ -1,13 +1,19 @@
 package com.jisellemartins.escolaparatodos;
 
+import static com.jisellemartins.escolaparatodos.Utils.UtilAutenticacao.aluno;
+
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.Button;
 
 public class DisciplineScreen extends AppCompatActivity {
     Button btnLibrary, btnTasks, btnCalendar, btnLessons, btnReportCard, btnStudents;
+
+    String usuario = aluno;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,6 +26,12 @@ public class DisciplineScreen extends AppCompatActivity {
         btnLessons = findViewById(R.id.btnLessons);
         btnReportCard = findViewById(R.id.btnReportCard);
         btnStudents = findViewById(R.id.btnStudents);
+
+        SharedPreferences sharedPref = getPreferences(Context.MODE_PRIVATE);
+        usuario = sharedPref.getString("usuario", aluno);
+
+
+
 
         btnLibrary.setOnClickListener(view -> {
             Intent i = new Intent(DisciplineScreen.this,
