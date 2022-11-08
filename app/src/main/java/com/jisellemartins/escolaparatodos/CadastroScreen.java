@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -145,6 +146,8 @@ public class CadastroScreen extends AppCompatActivity {
     }
 
     public void verificaUsuarioExiste(int size){
+        SharedPreferences sharedPref = getSharedPreferences("chaves", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPref.edit();
         if(size ==  0){
             if (aluno) {
 
@@ -189,6 +192,9 @@ public class CadastroScreen extends AppCompatActivity {
 
                         });
             }
+
+            editor.putString("numero",telefoneUsuario.getText().toString());
+            editor.commit();
         }else{
             Toast.makeText(this, "O usuário já está cadastrado", Toast.LENGTH_LONG).show();
         }

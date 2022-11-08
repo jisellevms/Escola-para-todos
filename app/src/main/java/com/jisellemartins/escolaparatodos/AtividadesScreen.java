@@ -1,10 +1,13 @@
 package com.jisellemartins.escolaparatodos;
 
+import static com.jisellemartins.escolaparatodos.Utils.UtilAutenticacao.aluno;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -19,6 +22,9 @@ public class AtividadesScreen extends AppCompatActivity {
     RecyclerView listaAtividades;
     Button btnCriarAtividade;
 
+    String usuario = aluno;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,6 +32,15 @@ public class AtividadesScreen extends AppCompatActivity {
 
         listaAtividades = findViewById(R.id.listaAtividades);
         btnCriarAtividade = findViewById(R.id.btnCriarAtividade);
+
+        SharedPreferences sharedPref = getSharedPreferences("chaves", MODE_PRIVATE);
+        usuario = sharedPref.getString("usuario", aluno);
+
+        if (usuario.equals(aluno)){
+            btnCriarAtividade.setVisibility(View.GONE);
+        }else{
+            btnCriarAtividade.setVisibility(View.VISIBLE);
+        }
 
         btnCriarAtividade.setOnClickListener(view -> {
             Intent i = new Intent(AtividadesScreen.this,
@@ -62,7 +77,7 @@ public class AtividadesScreen extends AppCompatActivity {
 
 
 
-        listaAtividades.setAdapter(new AdapterAtividades(this, list));
+        listaAtividades.setAdapter(new AdapterAtividades(this, list, usuario));
         RecyclerView.LayoutManager layout = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         listaAtividades.setLayoutManager(layout);
     }

@@ -1,9 +1,12 @@
 package com.jisellemartins.escolaparatodos;
 
+import static com.jisellemartins.escolaparatodos.Utils.UtilAutenticacao.aluno;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -22,6 +25,10 @@ public class CalendarioScreen extends AppCompatActivity {
     RecyclerView listaEventos;
     Button btnAdcEvento;
 
+
+    String usuario = aluno;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,6 +36,15 @@ public class CalendarioScreen extends AppCompatActivity {
 
         listaEventos = findViewById(R.id.listaEventos);
         btnAdcEvento = findViewById(R.id.btnAdcEvento);
+
+        SharedPreferences sharedPref = getSharedPreferences("chaves", MODE_PRIVATE);
+        usuario = sharedPref.getString("usuario", aluno);
+
+        if (usuario.equals(aluno)){
+            btnAdcEvento.setVisibility(View.GONE);
+        }else{
+            btnAdcEvento.setVisibility(View.VISIBLE);
+        }
 
         btnAdcEvento.setOnClickListener(view -> {
             DialogAdicionarEvento alert = new DialogAdicionarEvento();

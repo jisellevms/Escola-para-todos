@@ -1,9 +1,11 @@
 package com.jisellemartins.escolaparatodos.adapter;
 
+import static android.content.Context.MODE_PRIVATE;
 import static com.jisellemartins.escolaparatodos.Utils.UtilAutenticacao.aluno;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -51,6 +53,10 @@ public class AdapterDisciplinas extends RecyclerView.Adapter{
         }
 
         viewHolder.btnDisciplina.setOnClickListener(view -> {
+            SharedPreferences sharedPref = context.getSharedPreferences("chaves", MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPref.edit();
+            editor.putString("disciplina",disciplina.getTimestamp());
+            editor.commit();
             Intent i = new Intent(context,
                     DisciplineScreen.class);
             context.startActivity(i);

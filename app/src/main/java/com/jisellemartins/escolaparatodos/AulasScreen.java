@@ -1,10 +1,15 @@
 package com.jisellemartins.escolaparatodos;
 
+import static com.jisellemartins.escolaparatodos.Utils.UtilAutenticacao.aluno;
+
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.LinearLayoutCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 
 import com.jisellemartins.escolaparatodos.adapter.AdapterAulas;
@@ -16,6 +21,10 @@ import java.util.ArrayList;
 public class AulasScreen extends AppCompatActivity {
     RecyclerView listaAulas;
     Button iniciarAula;
+    LinearLayoutCompat cardAluno, cardProfessor;
+
+    String usuario = aluno;
+
 
 
     @Override
@@ -25,6 +34,21 @@ public class AulasScreen extends AppCompatActivity {
 
         listaAulas = findViewById(R.id.listaAulas);
         iniciarAula = findViewById(R.id.iniciarAula);
+        cardAluno = findViewById(R.id.cardAluno);
+        cardProfessor = findViewById(R.id.cardProfessor);
+
+        SharedPreferences sharedPref = getSharedPreferences("chaves", MODE_PRIVATE);
+        usuario = sharedPref.getString("usuario", aluno);
+
+        if (usuario.equals(aluno)){
+            cardAluno.setVisibility(View.VISIBLE);
+            cardProfessor.setVisibility(View.GONE);
+        }else{
+            cardAluno.setVisibility(View.GONE);
+            cardProfessor.setVisibility(View.VISIBLE);
+        }
+
+
 
         iniciarAula.setOnClickListener(view -> {
             DialogAula alert = new DialogAula();
@@ -45,7 +69,7 @@ public class AulasScreen extends AppCompatActivity {
         list.add(aula3);
 
 
-        listaAulas.setAdapter(new AdapterAulas(this, list));
+        listaAulas.setAdapter(new AdapterAulas(this, list, usuario));
         RecyclerView.LayoutManager layout = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
 
         listaAulas.setLayoutManager(layout);

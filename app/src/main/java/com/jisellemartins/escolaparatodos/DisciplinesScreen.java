@@ -3,11 +3,13 @@ package com.jisellemartins.escolaparatodos;
 import static com.jisellemartins.escolaparatodos.Utils.UtilAutenticacao.aluno;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -15,10 +17,16 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.jisellemartins.escolaparatodos.adapter.AdapterDisciplinas;
+import com.jisellemartins.escolaparatodos.dialogs.DialogAula;
+import com.jisellemartins.escolaparatodos.dialogs.DialogCriarDisciplina;
+import com.jisellemartins.escolaparatodos.model.Aluno;
 import com.jisellemartins.escolaparatodos.model.Disciplina;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class DisciplinesScreen extends AppCompatActivity {
     RecyclerView listaDisciplinas;
@@ -27,73 +35,81 @@ public class DisciplinesScreen extends AppCompatActivity {
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     String usuario = aluno;
+    String numeroUser = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_disciplinas_screen);
         listaDisciplinas = findViewById(R.id.listaDisciplinas);
-        btnCriarDisciplina = findViewById(R.id.btnAdcAluno);
+        btnCriarDisciplina = findViewById(R.id.criarDisciplina);
 
-        SharedPreferences sharedPref = getPreferences(Context.MODE_PRIVATE);
+        SharedPreferences sharedPref = getSharedPreferences("chaves", MODE_PRIVATE);
         usuario = sharedPref.getString("usuario", aluno);
+        numeroUser = sharedPref.getString("numero", aluno);
+
+        ArrayList<Disciplina> list = new ArrayList<>();
+
 
         if (usuario.equals(aluno)){
             btnCriarDisciplina.setVisibility(View.GONE);
-        }else{
-            btnCriarDisciplina.setVisibility(View.VISIBLE);
-        }
 
-        ArrayList<Disciplina> list = new ArrayList<>();
-        Disciplina disciplina = new Disciplina();
-        Disciplina disciplina2 = new Disciplina();
-        Disciplina disciplina3 = new Disciplina();
-        disciplina.setNomeDisciplina("Matemática");
-        disciplina2.setNomeDisciplina("Português");
-        disciplina3.setNomeDisciplina("Geografia");
-
-        list.add(disciplina);
-        list.add(disciplina2);
-        list.add(disciplina3);
-
-
-        listaDisciplinas.setAdapter(new AdapterDisciplinas(this, list, usuario));
-        RecyclerView.LayoutManager layout = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
-
-        listaDisciplinas.setLayoutManager(layout);
-
-        btnCriarDisciplina.setOnClickListener(view -> {
-
-            // LER SUBCOLEÇÕES
-
-            db.collectionGroup("Aluno").get()
-                    .addOnCompleteListener(queryDocumentSnapshots -> {
-                        if (queryDocumentSnapshots.isSuccessful()) {
-                            for (QueryDocumentSnapshot document : queryDocumentSnapshots.getResult()) {
-                                Log.d("TESTEXX", document.getId() + " => " + document.getData());
+            db.collection("Disciplina")
+                    .get()
+                    .addOnCompleteListener(task -> {
+                        if (task.isSuccessful() && task.getResult().size() > 0) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                Disciplina disciplina = new Disciplina();
+                                disciplina.setNomeDisciplina(document.get("nome").toString());
+                                disciplina.setTimestamp(document.get("dataCriacao").toString());
+                                Gson gson = new Gson();
+                                String json = document.get("alunos").toString();
+                                ArrayList<Aluno> lstObject = gson.fromJson(json, new TypeToken<List<Aluno>>(){}.getType());
+                                for (Aluno a : lstObject){
+                                    if (numeroUser.equals(a.getTelefone())){
+                                        list.add(disciplina);
+                                    }
+                                }
                             }
+
+                            listaDisciplinas.setAdapter(new AdapterDisciplinas(this, list, usuario));
+                            RecyclerView.LayoutManager layout = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+                            listaDisciplinas.setLayoutManager(layout);
+
                         } else {
-                            Log.d("TESTEXX", "Error getting documents: ", queryDocumentSnapshots.getException());
+                            Toast.makeText(this, "Erro: " + task.getException(), Toast.LENGTH_LONG).show();
                         }
                     });
 
-            // LER COLEÇÕES PAI
+        }else{
+            btnCriarDisciplina.setVisibility(View.VISIBLE);
 
-            /*db.collection("Professor")
+            db.collection("Disciplina")
+                    .whereEqualTo("numeroProf", numeroUser)
                     .get()
                     .addOnCompleteListener(task -> {
-                        if (task.isSuccessful()) {
+                        if (task.isSuccessful() && task.getResult().size() > 0) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
-                                Log.d("TESTEXX", document.getId() + " => " + document.getData());
+                                Disciplina disciplina = new Disciplina();
+                                disciplina.setNomeDisciplina(document.get("nome").toString());
+                                disciplina.setTimestamp(document.get("dataCriacao").toString());
+                                list.add(disciplina);
                             }
-                        } else {
-                            Log.d("TESTEXX", "Error getting documents: ", task.getException());
-                        }
-                    });*/
 
-            /*Intent i = new Intent(DisciplinesScreen.this,
-                    CriarDisciplinaScreen.class);
-            startActivity(i);*/
+                            listaDisciplinas.setAdapter(new AdapterDisciplinas(this, list, usuario));
+                            RecyclerView.LayoutManager layout = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+                            listaDisciplinas.setLayoutManager(layout);
+
+                        } else {
+                            Toast.makeText(this, "Erro: " + task.getException(), Toast.LENGTH_LONG).show();
+                        }
+                    });
+        }
+        btnCriarDisciplina.setOnClickListener(view -> {
+
+            DialogCriarDisciplina alert = new DialogCriarDisciplina();
+            alert.showDialog(this);
+
         });
 
     }

@@ -1,6 +1,10 @@
 package com.jisellemartins.escolaparatodos;
 
+import static com.jisellemartins.escolaparatodos.Utils.UtilAutenticacao.aluno;
+
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -17,14 +21,20 @@ public class BoletimScreen extends AppCompatActivity {
     RecyclerView listaReportCard;
 
 
+    String usuario = aluno;
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_boletim_screen);
         listaReportCard = findViewById(R.id.listaReportCard);
 
-        int type = 2;
-        if(type == 1){
+        SharedPreferences sharedPref = getSharedPreferences("chaves", MODE_PRIVATE);
+        usuario = sharedPref.getString("usuario", aluno);
+
+        if (usuario.equals(aluno)){
             ArrayList<Boletim> list = new ArrayList<>();
             Boletim boletim = new Boletim();
             Boletim boletim2 = new Boletim();
@@ -52,7 +62,6 @@ public class BoletimScreen extends AppCompatActivity {
 
             listaReportCard.setLayoutManager(layout);
         }else{
-
             ArrayList<Aluno> list = new ArrayList<>();
             Aluno aluno = new Aluno();
             Aluno aluno2 = new Aluno();
@@ -74,10 +83,6 @@ public class BoletimScreen extends AppCompatActivity {
             RecyclerView.LayoutManager layout = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
 
             listaReportCard.setLayoutManager(layout);
-
         }
-
-
-
     }
 }

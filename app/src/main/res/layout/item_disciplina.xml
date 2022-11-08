@@ -14,7 +14,6 @@
         android:layout_marginEnd="30dp"
         android:backgroundTint="#33C4C4C4"
         android:fontFamily="@font/chawp"
-        android:paddingRight="40dp"
         android:text="@string/strAreaAluno"
         android:textColor="@color/white"
         android:textSize="25dp"
