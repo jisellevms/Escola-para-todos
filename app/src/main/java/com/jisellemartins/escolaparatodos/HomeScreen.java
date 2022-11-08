@@ -21,12 +21,12 @@ public class HomeScreen extends AppCompatActivity {
         btnAreaAluno = findViewById(R.id.btnAreaAluno);
         txtNaoCadastrado = findViewById(R.id.txtNaoCadastrado);
 
-        SharedPreferences sharedPref = getPreferences(Context.MODE_PRIVATE);
+        SharedPreferences sharedPref = getSharedPreferences("chaves", MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPref.edit();
 
         btnAreaProf.setOnClickListener(view -> {
             editor.putString("usuario","professor");
-            editor.apply();
+            editor.commit();
             Intent i = new Intent(HomeScreen.this,
                     LoginScreen.class);
             startActivity(i);
@@ -35,7 +35,7 @@ public class HomeScreen extends AppCompatActivity {
 
         btnAreaAluno.setOnClickListener(view -> {
             editor.putString("usuario","aluno");
-            editor.apply();
+            editor.commit();
             Intent i = new Intent(HomeScreen.this,
                     LoginScreen.class);
             startActivity(i);

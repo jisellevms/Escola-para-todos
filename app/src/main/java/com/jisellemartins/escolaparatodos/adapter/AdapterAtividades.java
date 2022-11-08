@@ -1,5 +1,7 @@
 package com.jisellemartins.escolaparatodos.adapter;
 
+import static com.jisellemartins.escolaparatodos.Utils.UtilAutenticacao.aluno;
+
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,15 +17,19 @@ import com.jisellemartins.escolaparatodos.model.Atividade;
 
 import java.util.List;
 
-public class AdapterAtividades extends RecyclerView.Adapter{
+public class AdapterAtividades extends RecyclerView.Adapter {
     private List<Atividade> atividades;
     private Context context;
+    private String usuario;
 
-    public AdapterAtividades(Context context, List<Atividade> atividades) {
+
+    public AdapterAtividades(Context context, List<Atividade> atividades, String usuario) {
         this.context = context;
         this.atividades = atividades;
+        this.usuario = usuario;
 
     }
+
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -39,17 +45,18 @@ public class AdapterAtividades extends RecyclerView.Adapter{
         Atividade atividade = atividades.get(position);
         viewHolder.descricaoAtv.setText(atividade.getDescricao());
         viewHolder.dataAtv.setText("Data final: " + atividade.getData());
-        viewHolder.qtdQuestoesAtv.setText("Quantidade de questões: " +atividade.getQtdQuestoes());
+        viewHolder.qtdQuestoesAtv.setText("Quantidade de questões: " + atividade.getQtdQuestoes());
         viewHolder.statusAtv.setText("Status da atividade: " + atividade.getStatus());
 
-        if (atividade.getStatus().equals("Pendente")){
-            viewHolder.iconStatus.setImageResource(R.drawable.aviso);
-        }else if(atividade.getStatus().equals("Concluido")){
-            viewHolder.iconStatus.setImageResource(R.drawable.check);
-        }else{
+        if (usuario.equals(aluno)) {
+            if (atividade.getStatus().equals("Concluido")) {
+                viewHolder.iconStatus.setImageResource(R.drawable.check);
+            } else {
+                viewHolder.iconStatus.setImageResource(R.drawable.aviso);
+            }
+        } else {
             viewHolder.iconStatus.setImageResource(R.drawable.lixeira_braca);
         }
-
 
     }
 
@@ -57,6 +64,7 @@ public class AdapterAtividades extends RecyclerView.Adapter{
     public int getItemCount() {
         return atividades.size();
     }
+
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView descricaoAtv, dataAtv, qtdQuestoesAtv, statusAtv;
         ImageView iconStatus;

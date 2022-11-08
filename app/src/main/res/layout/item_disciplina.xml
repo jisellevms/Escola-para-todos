@@ -15,15 +15,25 @@
         android:backgroundTint="#33C4C4C4"
         android:fontFamily="@font/chawp"
         android:text="@string/strAreaAluno"
+        android:textColor="@color/white"
         android:textSize="25dp"
         app:cornerRadius="10dp"
-        android:drawableRight="@drawable/lixeira_braca"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:textColor="@color/white"
         app:strokeColor="@color/white"
         app:strokeWidth="1dp" />
+
+    <ImageView
+        android:id="@+id/lixeira"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="10dp"
+        android:elevation="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/btnDisciplina"
+        app:layout_constraintTop_toTopOf="@+id/btnDisciplina"
+        app:srcCompat="@drawable/lixeira_braca" />
 </androidx.constraintlayout.widget.ConstraintLayout>

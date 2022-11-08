@@ -38,7 +38,8 @@ public class LoginScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_screen);
 
-        SharedPreferences sharedPref = getPreferences(Context.MODE_PRIVATE);
+        SharedPreferences sharedPref = getSharedPreferences("chaves", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPref.edit();
 
 
 
@@ -57,9 +58,6 @@ public class LoginScreen extends AppCompatActivity {
 
             usuario = sharedPref.getString("usuario", aluno);
 
-
-
-
             if(campoTelefone.getText().toString().isEmpty() && campoSenha.getText().toString().isEmpty()){
                 Toast.makeText(this, "Preencha todos os campos!", Toast.LENGTH_LONG).show();
             }else{
@@ -71,6 +69,8 @@ public class LoginScreen extends AppCompatActivity {
                         .get()
                         .addOnCompleteListener(task -> {
                             if (task.isSuccessful() && task.getResult().size() > 0) {
+                                editor.putString("numero",campoTelefone.getText().toString());
+                                editor.commit();
                                 alert.fecharLoading();
                                 finish();
                                 Intent i = new Intent(LoginScreen.this, DisciplinesScreen.class);

@@ -32,7 +32,7 @@
         app:strokeWidth="1dp" />
 
     <androidx.appcompat.widget.LinearLayoutCompat
-        android:id="@+id/linearLayoutCompat"
+        android:id="@+id/cardAluno"
         android:layout_width="0dp"
         android:layout_height="100dp"
         android:layout_marginStart="20dp"
@@ -98,7 +98,7 @@
     </androidx.appcompat.widget.LinearLayoutCompat>
 
     <androidx.appcompat.widget.LinearLayoutCompat
-        android:id="@+id/linearLayoutCompat2"
+        android:id="@+id/cardProfessor"
         android:layout_width="0dp"
         android:layout_height="100dp"
         android:layout_marginStart="20dp"
@@ -108,7 +108,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayoutCompat">
+        app:layout_constraintTop_toBottomOf="@+id/cardAluno">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -162,7 +162,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayoutCompat2"
+        app:layout_constraintTop_toBottomOf="@+id/cardProfessor"
         tools:listitem="@layout/item_aula" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

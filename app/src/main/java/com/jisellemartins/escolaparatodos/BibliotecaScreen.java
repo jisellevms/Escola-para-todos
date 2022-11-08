@@ -1,6 +1,11 @@
 package com.jisellemartins.escolaparatodos;
 
+import static com.jisellemartins.escolaparatodos.Utils.UtilAutenticacao.aluno;
+
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -13,12 +18,26 @@ import java.util.ArrayList;
 
 public class BibliotecaScreen extends AppCompatActivity {
     RecyclerView listaConteudos;
+    Button btnAdcArquivo;
+
+    String usuario = aluno;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_biblioteca_screen);
         listaConteudos = findViewById(R.id.listConteudos);
+        btnAdcArquivo = findViewById(R.id.btnAdcArquivo);
+
+        SharedPreferences sharedPref = getSharedPreferences("chaves", MODE_PRIVATE);
+        usuario = sharedPref.getString("usuario", aluno);
+
+        if (usuario.equals(aluno)){
+            btnAdcArquivo.setVisibility(View.GONE);
+        }else{
+            btnAdcArquivo.setVisibility(View.VISIBLE);
+        }
 
         ArrayList<Conteudo> list = new ArrayList<>();
         Conteudo conteudo = new Conteudo();
@@ -44,7 +63,7 @@ public class BibliotecaScreen extends AppCompatActivity {
 
 
 
-        listaConteudos.setAdapter(new AdapterConteudo(this, list));
+        listaConteudos.setAdapter(new AdapterConteudo(this, list, usuario));
         RecyclerView.LayoutManager layout = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
 
         listaConteudos.setLayoutManager(layout);
