@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:fontFamily="@font/chawp"
-        android:text="Digite o código de verificação:"
+        android:text="Como esse arquivo vai se chamar?"
         android:textColor="@color/white"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -20,7 +20,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/codigo"
+        android:id="@+id/nomeArquivo"
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:layout_marginStart="20dp"
@@ -31,7 +31,7 @@
         android:fontFamily="@font/chawp"
         android:paddingStart="10dp"
         android:text=""
-        android:inputType="phone"
+        android:inputType="textAutoComplete"
         android:textColor="@color/white"
         android:textColorHint="@android:color/transparent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -39,7 +39,7 @@
         app:layout_constraintTop_toBottomOf="@+id/aluno" />
 
     <Button
-        android:id="@+id/btnVerificar"
+        android:id="@+id/btnSelecionar"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginStart="50dp"
@@ -47,7 +47,7 @@
         android:layout_marginBottom="10dp"
         android:backgroundTint="#e6000000"
         android:fontFamily="@font/chawp"
-        android:text="Verificar"
+        android:text="Selecionar arquivo"
         android:textColor="@color/white"
         android:textSize="16sp"
         android:visibility="visible"
