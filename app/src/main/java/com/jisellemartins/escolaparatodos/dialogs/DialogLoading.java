@@ -19,10 +19,6 @@ public class DialogLoading {
         dialog.setCancelable(false);
         dialog.setContentView(R.layout.dialog_loading);
 
-        //Button dialogButton = (Button) dialog.findViewById(R.id.btnIniciarAula);
-        //ImageView cancelar = (ImageView) dialog.findViewById(R.id.cancelar);
-        //cancelar.setOnClickListener(v -> dialog.dismiss());
-
         this.dialog = dialog;
         dialog.show();
 

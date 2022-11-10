@@ -44,23 +44,6 @@ public class GerenciarAlunosScreen extends AppCompatActivity {
             alert.showDialog(this);
         });
 
-        /*ArrayList<Aluno> list = new ArrayList<>();
-        Aluno aluno = new Aluno();
-        Aluno aluno2 = new Aluno();
-        Aluno aluno3 = new Aluno();
-
-        aluno.setNome("ANA CLARA MEDEIROS");
-        aluno2.setNome("ANA CLARA MEDEIROS");
-        aluno3.setNome("ANA CLARA MEDEIROS");
-
-        aluno.setTelefone("(85) 986373679");
-        aluno2.setTelefone("(85) 986373679");
-        aluno3.setTelefone("(85) 986373679");
-
-        list.add(aluno);
-        list.add(aluno2);
-        list.add(aluno3);*/
-
 
         SharedPreferences sharedPref = getSharedPreferences("chaves", MODE_PRIVATE);
         String disciplinaTime = sharedPref.getString("disciplina", "");
