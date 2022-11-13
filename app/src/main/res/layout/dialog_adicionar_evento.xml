@@ -45,7 +45,7 @@
         app:layout_constraintTop_toBottomOf="@+id/calendar" />
 
     <EditText
-        android:id="@+id/editText5"
+        android:id="@+id/campoDesc"
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:layout_marginStart="20dp"
