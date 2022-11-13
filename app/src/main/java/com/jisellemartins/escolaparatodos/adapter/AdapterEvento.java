@@ -40,7 +40,7 @@ public class AdapterEvento extends RecyclerView.Adapter{
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         AdapterEvento.ViewHolder viewHolder = (AdapterEvento.ViewHolder) holder;
         Evento evento = eventos.get(position);
-        viewHolder.dataEvento.setText("DIA\n" + getDate(Long.parseLong(evento.getData())));
+        viewHolder.dataEvento.setText("DIA\n" + getDate(Long.parseLong(evento.getData())).replace("-","/"));
         viewHolder.descEvento.setText(evento.getDescricao());
     }
     private String getDate(long time) {
