@@ -1,6 +1,7 @@
 package com.jisellemartins.escolaparatodos.adapter;
 
 import android.content.Context;
+import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +15,9 @@ import com.jisellemartins.escolaparatodos.R;
 import com.jisellemartins.escolaparatodos.model.Atividade;
 import com.jisellemartins.escolaparatodos.model.Evento;
 
+import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 
 public class AdapterEvento extends RecyclerView.Adapter{
     private List<Evento> eventos;
@@ -37,8 +40,14 @@ public class AdapterEvento extends RecyclerView.Adapter{
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         AdapterEvento.ViewHolder viewHolder = (AdapterEvento.ViewHolder) holder;
         Evento evento = eventos.get(position);
-        viewHolder.dataEvento.setText("DIA\n" + evento.getData());
+        viewHolder.dataEvento.setText("DIA\n" + getDate(Long.parseLong(evento.getData())).replace("-","/"));
         viewHolder.descEvento.setText(evento.getDescricao());
+    }
+    private String getDate(long time) {
+        Calendar cal = Calendar.getInstance(Locale.getDefault());
+        cal.setTimeInMillis(time);
+        String date = DateFormat.format("dd-MM", cal).toString();
+        return date;
     }
 
     @Override
