@@ -52,4 +52,6 @@ dependencies {
 
     implementation 'com.airbnb.android:lottie:3.4.0'
     implementation 'com.google.code.gson:gson:2.8.7'
+
+    implementation 'io.agora.uikit:agorauikit:2.0.1'
 }
