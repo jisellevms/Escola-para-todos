@@ -44,7 +44,7 @@ public class AdapterBoletimProfessor extends RecyclerView.Adapter{
 
         viewHolder.itemNumero.setOnClickListener(view -> {
             DialogBoletim alert = new DialogBoletim();
-            alert.showDialog((Activity) context);
+            alert.showDialog((Activity) context, alunos.get(position).getTelefone(), alunos.get(position).getNome());
         });
     }
 
