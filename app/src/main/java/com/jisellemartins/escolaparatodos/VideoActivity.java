@@ -27,6 +27,11 @@ public class VideoActivity extends AppCompatActivity {
     private int channelProfile;
     public static final String LOGIN_MESSAGE = "com.agora.samtan.agorabroadcast.CHANNEL_LOGIN";
     String token;
+
+    private int tokenRole; // The token role: Broadcaster or Audience
+    private String serverUrl = "<Token Server URL>"; // The base URL to your token server, for example, "https://agora-token-service-production-92ff.up.railway.app".
+    private int tokenExpireTime = 40; // Expire time in Seconds.
+
     private IRtcEngineEventHandler mRtcEventHandler = new IRtcEngineEventHandler() {
 
         @Override
@@ -73,6 +78,8 @@ public class VideoActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_video);
+
+
 
         token = "007eJxTYHgz473n2d5Z5xauuNXxIl6Ewy+sy2aR1v9ig5vszIKqi5IVGCxNUpMtU0yMLFKNDUyMzE2TTFMTzcySzZMsk1LNUpNM+2cWJTcEMjIkyL5jYmSAQBBfiSE5P1cvK7M4NScnNTexqCQzr1gvtTg5PyexILEosSQ/Jb+YgQEA+f0rvQ==";
         channelName = "com.jisellemartins.escolaparatodos";
@@ -130,7 +137,7 @@ public class VideoActivity extends AppCompatActivity {
 
     private void initalizeAgoraEngine() {
         try {
-            mRtcEngine = RtcEngine.create(getBaseContext(), "94ec9d428e304275b5ea66c7b9be6eb5", mRtcEventHandler);
+            mRtcEngine = RtcEngine.create(getBaseContext(), "bddccf81b58d4da48eb1b8429fe6c86a", mRtcEventHandler);
         } catch (Exception e) {
             Log.i("TESTEXX: " , e.toString());
             e.printStackTrace();
@@ -146,7 +153,7 @@ public class VideoActivity extends AppCompatActivity {
     }
 
     private void setupLocalVideo() {
-        FrameLayout container = (FrameLayout) findViewById(R.id.local_video_view_container);
+        FrameLayout container = findViewById(R.id.local_video_view_container);
         SurfaceView surfaceView = RtcEngine.CreateRendererView(getBaseContext());
         surfaceView.setZOrderMediaOverlay(true);
         container.addView(surfaceView);
@@ -154,7 +161,7 @@ public class VideoActivity extends AppCompatActivity {
     }
 
     private void joinChannel() {
-        mRtcEngine.joinChannel(token, channelName, "Optional Data", 0);
+        mRtcEngine.joinChannel(null, channelName, "Optional Data", 0);
     }
 
     private void leaveChannel() {
