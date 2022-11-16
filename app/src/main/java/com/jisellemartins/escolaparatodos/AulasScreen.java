@@ -5,15 +5,22 @@ import static com.jisellemartins.escolaparatodos.Utils.UtilAutenticacao.entreiCo
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.LinearLayoutCompat;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.Manifest;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.jisellemartins.escolaparatodos.adapter.AdapterAulas;
 import com.jisellemartins.escolaparatodos.dialogs.DialogAula;
 import com.jisellemartins.escolaparatodos.model.Aula;
@@ -24,9 +31,12 @@ public class AulasScreen extends AppCompatActivity {
     RecyclerView listaAulas;
     Button iniciarAula, btnEntrarAula;
     LinearLayoutCompat cardAluno, cardProfessor;
+    TextView descricaoAula;
 
     String usuario = aluno;
 
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
+    String nomeAulaParaChanel;
 
 
     @Override
@@ -39,13 +49,36 @@ public class AulasScreen extends AppCompatActivity {
         cardAluno = findViewById(R.id.cardAluno);
         cardProfessor = findViewById(R.id.cardProfessor);
         btnEntrarAula = findViewById(R.id.btnEntrarAula);
+        descricaoAula = findViewById(R.id.descricaoAula);
 
         SharedPreferences sharedPref = getSharedPreferences("chaves", MODE_PRIVATE);
         usuario = sharedPref.getString("usuario", aluno);
+        String disciplinaTime = sharedPref.getString("disciplina", "");
+
 
         if (usuario.equals(aluno)){
-            cardAluno.setVisibility(View.VISIBLE);
             cardProfessor.setVisibility(View.GONE);
+
+            // PROCURAR A AULA
+            db.collection("Aula")
+                    .whereEqualTo("disciplina", disciplinaTime)
+                    .get()
+                    .addOnCompleteListener(task -> {
+                        if (task.isSuccessful() && task.getResult().size() > 0) {
+                            nomeAulaParaChanel = task.getResult().getDocuments().get(0).get("nomeAula").toString();
+                            descricaoAula.setText(nomeAulaParaChanel);
+                            cardAluno.setVisibility(View.VISIBLE);
+                        } else if(task.getResult().size() == 0){
+                            cardAluno.setVisibility(View.GONE);
+                            Log.i("TESTEXX","A aula não foi encontrada");
+
+                        }else {
+                            cardAluno.setVisibility(View.GONE);
+                            Log.i("TESTEXX","ERRO: " + task.getException());
+                        }
+                    });
+
+
         }else{
             cardAluno.setVisibility(View.GONE);
             cardProfessor.setVisibility(View.VISIBLE);
@@ -59,7 +92,14 @@ public class AulasScreen extends AppCompatActivity {
         });
 
         btnEntrarAula.setOnClickListener(view -> {
-            entrarNaAula();
+
+            int MY_PERMISSIONS_REQUEST_CAMERA = 0;
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED ||
+                    ContextCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA, Manifest.permission.RECORD_AUDIO}, MY_PERMISSIONS_REQUEST_CAMERA);
+            }else{
+                entrarNaAula();
+            }
         });
 
         ArrayList<Aula> list = new ArrayList<>();
@@ -84,6 +124,7 @@ public class AulasScreen extends AppCompatActivity {
 
     public void entrarNaAula(){
         Intent intent = new Intent(this, VideoActivity.class);
+        intent.putExtra("nomeDaAula", nomeAulaParaChanel);
         startActivity(intent);
     }
 }
