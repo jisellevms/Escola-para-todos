@@ -1,5 +1,7 @@
 package com.jisellemartins.escolaparatodos.dialogs;
 
+import static com.jisellemartins.escolaparatodos.Utils.UtilAutenticacao.entreiComoAluno;
+
 import android.Manifest;
 import android.app.Activity;
 import android.app.Dialog;
@@ -29,8 +31,8 @@ public class DialogAula {
         dialog.setContentView(R.layout.dialog_aula);
 
         //Button dialogButton = (Button) dialog.findViewById(R.id.btnIniciarAula);
-        ImageView cancelar = (ImageView) dialog.findViewById(R.id.cancelar);
-        Button btnIniciarAula = (Button) dialog.findViewById(R.id.btnIniciarAula);
+        ImageView cancelar = dialog.findViewById(R.id.cancelar);
+        Button btnIniciarAula = dialog.findViewById(R.id.btnIniciarAula);
         cancelar.setOnClickListener(v -> dialog.dismiss());
 
         btnIniciarAula.setOnClickListener(view -> {
@@ -46,6 +48,8 @@ public class DialogAula {
             //EditText channel = (EditText) findViewById(R.id.channel);
             String channelName = "teste";
             Intent intent = new Intent(activity, VideoActivity.class);
+            entreiComoAluno = false;
+
             intent.putExtra("channelMessage", channelName);
             intent.putExtra("profileMessage", channelProfile);
             activity.startActivity(intent);
