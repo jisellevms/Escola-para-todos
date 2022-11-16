@@ -10,9 +10,14 @@
 
     <TextView
         android:id="@+id/textView"
-        android:layout_width="278dp"
-        android:layout_height="386dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="180dp"
+        android:layout_marginEnd="50dp"
+        android:layout_marginBottom="180dp"
         android:fontFamily="@font/chawp"
+        android:gravity="center"
         android:text="@string/strLogo"
         android:textAlignment="center"
         android:textColor="@color/white"

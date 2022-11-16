@@ -2,8 +2,8 @@ package com.jisellemartins.escolaparatodos;
 
 import static com.jisellemartins.escolaparatodos.Utils.UtilAutenticacao.entreiComoAluno;
 
-import androidx.appcompat.app.AppCompatActivity;
-
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,7 +11,14 @@ import android.view.SurfaceView;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.gson.Gson;
 
 import java.io.IOException;
@@ -20,7 +27,6 @@ import java.util.Map;
 import io.agora.rtc.Constants;
 import io.agora.rtc.IRtcEngineEventHandler;
 import io.agora.rtc.RtcEngine;
-import io.agora.rtc.models.ChannelMediaOptions;
 import io.agora.rtc.video.VideoCanvas;
 import io.agora.rtc.video.VideoEncoderConfiguration;
 import okhttp3.Call;
@@ -36,6 +42,9 @@ public class VideoActivity extends AppCompatActivity {
     private int channelProfile;
     String token;
     private String appId = "94ec9d428e304275b5ea66c7b9be6eb5";
+
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
+
 
     private int tokenRole; // The token role: Broadcaster or Audience
     private String serverUrl = "https://agora-token-service-production-7f4d.up.railway.app/"; // The base URL to your token server, for example, "https://agora-token-service-production-92ff.up.railway.app".
@@ -64,9 +73,13 @@ public class VideoActivity extends AppCompatActivity {
         if (iv.isSelected()) {
             iv.setSelected(false);
             iv.clearColorFilter();
+            iv.setColorFilter(getResources().getColor(R.color.green), PorterDuff.Mode.MULTIPLY);
+            iv.setImageDrawable(getResources().getDrawable(R.drawable.microfone));
         } else {
             iv.setSelected(true);
-            iv.setColorFilter(getResources().getColor(R.color.black), PorterDuff.Mode.MULTIPLY);
+            iv.setColorFilter(getResources().getColor(R.color.red), PorterDuff.Mode.MULTIPLY);
+            iv.setImageDrawable(getResources().getDrawable(R.drawable.nomicrofone));
+
         }
 
         mRtcEngine.muteLocalAudioStream(iv.isSelected());
@@ -88,8 +101,19 @@ public class VideoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_video);
 
+        if (savedInstanceState == null) {
+            Bundle extras = getIntent().getExtras();
+            if(extras == null) {
+                channelName= null;
+            } else {
+                channelName= extras.getString("nomeDaAula");
+            }
+        } else {
+            channelName= (String) savedInstanceState.getSerializable("nomeDaAula");
+        }
 
-        channelName = "com.jisellemartins.escolaparatodos";
+
+        //channelName = "com.jisellemartins.escolaparatodos";
 
         if (entreiComoAluno){
             channelProfile = Constants.CLIENT_ROLE_BROADCASTER;
@@ -109,9 +133,12 @@ public class VideoActivity extends AppCompatActivity {
         if (iv.isSelected()) {
             iv.setSelected(false);
             iv.clearColorFilter();
+            iv.setColorFilter(getResources().getColor(R.color.green), PorterDuff.Mode.MULTIPLY);
+            iv.setImageDrawable(getResources().getDrawable(R.drawable.video));
         } else {
             iv.setSelected(true);
-            iv.setColorFilter(getResources().getColor(R.color.black), PorterDuff.Mode.MULTIPLY);
+            iv.setColorFilter(getResources().getColor(R.color.red), PorterDuff.Mode.MULTIPLY);
+            iv.setImageDrawable(getResources().getDrawable(R.drawable.novideo));
         }
 
         mRtcEngine.muteLocalVideoStream(iv.isSelected());
@@ -186,6 +213,9 @@ public class VideoActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
 
+        if (!entreiComoAluno){
+            deleteAula();
+        }
         leaveChannel();
         RtcEngine.destroy();
         mRtcEngine = null;
@@ -199,86 +229,34 @@ public class VideoActivity extends AppCompatActivity {
         finish();
     }
 
-    private void fetchToken(int uid, String channelName, int tokenRole) {
-        // Prepare the Url
-        String URLString = serverUrl + "/rtc/" + channelName + "/" + tokenRole + "/"
-                + "uid" + "/" + uid + "/?expiry=" + tokenExpireTime;
+    public void deleteAula(){
 
-        OkHttpClient client = new OkHttpClient();
+        SharedPreferences sharedPref = getSharedPreferences("chaves", MODE_PRIVATE);
+        String disciplinaTime = sharedPref.getString("disciplina", "");
 
-        // Instantiate the RequestQueue.
-        Request request = new Request.Builder()
-                .url(URLString)
-                .header("Content-Type", "application/json; charset=UTF-8")
+        // PROCURAR A AULA
+        db.collection("Aula")
+                .whereEqualTo("disciplina", disciplinaTime)
                 .get()
-                .build();
-        Call call = client.newCall(request);
-        call.enqueue(new Callback() {
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful() && task.getResult().size() > 0) {
 
-            @Override
-            public void onFailure(Call call, IOException e) {
-                Log.e("IOException", e.toString());
-            }
+                        // DELETAR A AULA
+                        db.collection("Aula").document(task.getResult().getDocuments().get(0).getId())
+                                .delete()
+                                .addOnSuccessListener(aVoid -> Log.d("TESTEXX", "A aula foi apagada!"))
+                                .addOnFailureListener(e -> Log.w("TESTEXX", "Error ao apagar aula ", e));
 
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                if (response.isSuccessful()) {
-                    Gson gson = new Gson();
-                    String result = response.body().string();
-                    Map map = gson.fromJson(result, Map.class);
-                    String _token = map.get("rtcToken").toString();
-                    setToken(_token);
-                    Log.i("Token Received", token);
-                }
-            }
-        });
-    }
+                    } else if(task.getResult().size() == 0){
+                       Log.i("TESTEXX","A aula não foi encontrada");
+                    }else {
+                        Log.i("TESTEXX","ERRO: " + task.getException());
+                    }
+                });
 
-    void setToken(String newValue) {
-        token = newValue;
-        //if (!isJoined) { // Join a channel
-            //ChannelMediaOptions options = new ChannelMediaOptions();
 
-            // For a Video call, set the channel profile as COMMUNICATION.
-            //options.channelProfile = Constants.CHANNEL_PROFILE_COMMUNICATION;
-            // Set the client role as BROADCASTER or AUDIENCE according to the scenario.
-            //options.clientRoleType = Constants.CLIENT_ROLE_BROADCASTER;
-            // Start local preview.
-            mRtcEngine.startPreview();
-
-            // Join the channel with a token.
-            mRtcEngine.joinChannel(token, channelName, null, 0);
-        /*} else { // Already joined, renew the token by calling renewToken
-            mRtcEngine.renewToken(token);
-            Log.i("i", "Token renewed");
-        }*/
     }
 
 
-    /*@Override
-    public void onTokenPrivilegeWillExpire(String token) {
-        Log.i("i", "Token Will expire");
-        fetchToken(uid, channelName, tokenRole);
-        super.onTokenPrivilegeWillExpire(token);
-    }
-
-    public void joinChannel(View view) {
-        //channelName = editChannelName.getText().toString();
-        if (channelName.length() == 0) {
-            //showMessage("Type a channel name");
-            Log.i("TESTEXX: ", "Type a channel name");
-            return;
-        } else if (!serverUrl.contains("http")) {
-            Log.i("TESTEXX: ", "Invalid token server URL");
-            //showMessage("Invalid token server URL");
-            return;
-        }
-        tokenRole = Constants.CLIENT_ROLE_BROADCASTER;
-        // Display LocalSurfaceView.
-        setupLocalVideo();
-        //localSurfaceView.setVisibility(View.VISIBLE);
-        fetchToken(uid, channelName, tokenRole);
-
-    }*/
 }
 

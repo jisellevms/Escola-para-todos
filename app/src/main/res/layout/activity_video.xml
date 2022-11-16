@@ -45,19 +45,19 @@
 
             <ImageView
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_height="45dp"
                 android:layout_weight="20"
                 android:onClick="onLocalVideoMuteClicked"
                 android:scaleType="centerInside"
-                android:src="@drawable/btn_voice" />
+                android:src="@drawable/video" />
 
             <ImageView
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_height="45dp"
                 android:layout_weight="20"
                 android:onClick="onLocalAudioMuteClicked"
                 android:scaleType="centerInside"
-                android:src="@drawable/btn_mute" />
+                android:src="@drawable/nomicrofone" />
 
             <ImageView
                 android:layout_width="0dp"
@@ -65,15 +65,15 @@
                 android:layout_weight="20"
                 android:onClick="onSwitchCameraClicked"
                 android:scaleType="centerInside"
-                android:src="@drawable/btn_switch_camera" />
+                android:src="@drawable/trocar_camera" />
 
             <ImageView
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_height="45dp"
                 android:layout_weight="20"
                 android:onClick="onEndCallClicked"
                 android:scaleType="centerInside"
-                android:src="@drawable/btn_end_call" />
+                android:src="@drawable/end_call" />
 
         </LinearLayout>
 
