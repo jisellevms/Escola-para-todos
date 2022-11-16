@@ -1,12 +1,14 @@
 package com.jisellemartins.escolaparatodos;
 
 import static com.jisellemartins.escolaparatodos.Utils.UtilAutenticacao.aluno;
+import static com.jisellemartins.escolaparatodos.Utils.UtilAutenticacao.entreiComoAluno;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.LinearLayoutCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
@@ -20,7 +22,7 @@ import java.util.ArrayList;
 
 public class AulasScreen extends AppCompatActivity {
     RecyclerView listaAulas;
-    Button iniciarAula;
+    Button iniciarAula, btnEntrarAula;
     LinearLayoutCompat cardAluno, cardProfessor;
 
     String usuario = aluno;
@@ -36,6 +38,7 @@ public class AulasScreen extends AppCompatActivity {
         iniciarAula = findViewById(R.id.iniciarAula);
         cardAluno = findViewById(R.id.cardAluno);
         cardProfessor = findViewById(R.id.cardProfessor);
+        btnEntrarAula = findViewById(R.id.btnEntrarAula);
 
         SharedPreferences sharedPref = getSharedPreferences("chaves", MODE_PRIVATE);
         usuario = sharedPref.getString("usuario", aluno);
@@ -53,6 +56,10 @@ public class AulasScreen extends AppCompatActivity {
         iniciarAula.setOnClickListener(view -> {
             DialogAula alert = new DialogAula();
             alert.showDialog(this);
+        });
+
+        btnEntrarAula.setOnClickListener(view -> {
+            entrarNaAula();
         });
 
         ArrayList<Aula> list = new ArrayList<>();
@@ -73,5 +80,10 @@ public class AulasScreen extends AppCompatActivity {
         RecyclerView.LayoutManager layout = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
 
         listaAulas.setLayoutManager(layout);
+    }
+
+    public void entrarNaAula(){
+        Intent intent = new Intent(this, VideoActivity.class);
+        startActivity(intent);
     }
 }

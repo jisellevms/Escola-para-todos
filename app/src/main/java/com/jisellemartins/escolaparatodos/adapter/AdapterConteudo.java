@@ -9,7 +9,6 @@ import android.app.DownloadManager;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.net.Uri;
-import android.os.Environment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,15 +20,11 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.jisellemartins.escolaparatodos.R;
 import com.jisellemartins.escolaparatodos.model.Conteudo;
 
-import java.io.File;
 import java.util.List;
 
 public class AdapterConteudo extends RecyclerView.Adapter{
@@ -121,7 +116,7 @@ public class AdapterConteudo extends RecyclerView.Adapter{
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            btnDownload = itemView.findViewById(R.id.btnAudio);
+            btnDownload = itemView.findViewById(R.id.btnEntrarAula);
             descricao = itemView.findViewById(R.id.descricaoAula);
             tamanho = itemView.findViewById(R.id.tamanho);
             imgIcon = itemView.findViewById(R.id.imgIcon);

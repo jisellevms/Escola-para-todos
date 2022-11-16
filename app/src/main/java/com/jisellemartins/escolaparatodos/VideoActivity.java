@@ -1,9 +1,9 @@
 package com.jisellemartins.escolaparatodos;
 
+import static com.jisellemartins.escolaparatodos.Utils.UtilAutenticacao.entreiComoAluno;
+
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.Dialog;
-import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,24 +12,33 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 
-import com.jisellemartins.escolaparatodos.dialogs.DialogAula;
+import com.google.gson.Gson;
+
+import java.io.IOException;
+import java.util.Map;
 
 import io.agora.rtc.Constants;
 import io.agora.rtc.IRtcEngineEventHandler;
 import io.agora.rtc.RtcEngine;
+import io.agora.rtc.models.ChannelMediaOptions;
 import io.agora.rtc.video.VideoCanvas;
 import io.agora.rtc.video.VideoEncoderConfiguration;
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
 public class VideoActivity extends AppCompatActivity {
 
     private RtcEngine mRtcEngine;
     private String channelName;
     private int channelProfile;
-    public static final String LOGIN_MESSAGE = "com.agora.samtan.agorabroadcast.CHANNEL_LOGIN";
     String token;
+    private String appId = "94ec9d428e304275b5ea66c7b9be6eb5";
 
     private int tokenRole; // The token role: Broadcaster or Audience
-    private String serverUrl = "<Token Server URL>"; // The base URL to your token server, for example, "https://agora-token-service-production-92ff.up.railway.app".
+    private String serverUrl = "https://agora-token-service-production-7f4d.up.railway.app/"; // The base URL to your token server, for example, "https://agora-token-service-production-92ff.up.railway.app".
     private int tokenExpireTime = 40; // Expire time in Seconds.
 
     private IRtcEngineEventHandler mRtcEventHandler = new IRtcEngineEventHandler() {
@@ -64,7 +73,7 @@ public class VideoActivity extends AppCompatActivity {
     }
 
     private void onRemoteUserVideoMuted(int uid, boolean muted) {
-        FrameLayout container = (FrameLayout) findViewById(R.id.remote_video_view_container);
+        FrameLayout container = findViewById(R.id.remote_video_view_container);
 
         SurfaceView surfaceView = (SurfaceView) container.getChildAt(0);
 
@@ -80,10 +89,13 @@ public class VideoActivity extends AppCompatActivity {
         setContentView(R.layout.activity_video);
 
 
-
-        token = "007eJxTYHgz473n2d5Z5xauuNXxIl6Ewy+sy2aR1v9ig5vszIKqi5IVGCxNUpMtU0yMLFKNDUyMzE2TTFMTzcySzZMsk1LNUpNM+2cWJTcEMjIkyL5jYmSAQBBfiSE5P1cvK7M4NScnNTexqCQzr1gvtTg5PyexILEosSQ/Jb+YgQEA+f0rvQ==";
         channelName = "com.jisellemartins.escolaparatodos";
-        channelProfile =  Constants.CLIENT_ROLE_BROADCASTER;
+
+        if (entreiComoAluno){
+            channelProfile = Constants.CLIENT_ROLE_BROADCASTER;
+        }else{
+            channelProfile = Constants.CLIENT_ROLE_BROADCASTER;
+        }
 
         if (channelProfile == -1) {
             Log.e("TAG: ", "No profile");
@@ -104,14 +116,14 @@ public class VideoActivity extends AppCompatActivity {
 
         mRtcEngine.muteLocalVideoStream(iv.isSelected());
 
-        FrameLayout container = (FrameLayout) findViewById(R.id.local_video_view_container);
+        FrameLayout container = findViewById(R.id.local_video_view_container);
         SurfaceView surfaceView = (SurfaceView) container.getChildAt(0);
         surfaceView.setZOrderMediaOverlay(!iv.isSelected());
         surfaceView.setVisibility(iv.isSelected() ? View.GONE : View.VISIBLE);
     }
 
     private void setupRemoteVideo(int uid) {
-        FrameLayout container = (FrameLayout) findViewById(R.id.remote_video_view_container);
+        FrameLayout container = findViewById(R.id.remote_video_view_container);
 //        if (container.getChildCount() > 1) {
 //            return;
 //        }
@@ -122,7 +134,7 @@ public class VideoActivity extends AppCompatActivity {
     }
 
     private void onRemoteUserLeft() {
-        FrameLayout container = (FrameLayout) findViewById(R.id.remote_video_view_container);
+        FrameLayout container = findViewById(R.id.remote_video_view_container);
         container.removeAllViews();
     }
 
@@ -130,6 +142,7 @@ public class VideoActivity extends AppCompatActivity {
         initalizeAgoraEngine();
         mRtcEngine.setChannelProfile(Constants.CHANNEL_PROFILE_LIVE_BROADCASTING);
         mRtcEngine.setClientRole(channelProfile);
+        mRtcEngine.enableLocalVideo(true);
         setupVideoProfile();
         setupLocalVideo();
         joinChannel();
@@ -139,7 +152,7 @@ public class VideoActivity extends AppCompatActivity {
         try {
             mRtcEngine = RtcEngine.create(getBaseContext(), "bddccf81b58d4da48eb1b8429fe6c86a", mRtcEventHandler);
         } catch (Exception e) {
-            Log.i("TESTEXX: " , e.toString());
+            Log.i("TESTEXX: ", e.toString());
             e.printStackTrace();
         }
     }
@@ -161,6 +174,7 @@ public class VideoActivity extends AppCompatActivity {
     }
 
     private void joinChannel() {
+        //fetchToken();
         mRtcEngine.joinChannel(null, channelName, "Optional Data", 0);
     }
 
@@ -185,4 +199,86 @@ public class VideoActivity extends AppCompatActivity {
         finish();
     }
 
+    private void fetchToken(int uid, String channelName, int tokenRole) {
+        // Prepare the Url
+        String URLString = serverUrl + "/rtc/" + channelName + "/" + tokenRole + "/"
+                + "uid" + "/" + uid + "/?expiry=" + tokenExpireTime;
+
+        OkHttpClient client = new OkHttpClient();
+
+        // Instantiate the RequestQueue.
+        Request request = new Request.Builder()
+                .url(URLString)
+                .header("Content-Type", "application/json; charset=UTF-8")
+                .get()
+                .build();
+        Call call = client.newCall(request);
+        call.enqueue(new Callback() {
+
+            @Override
+            public void onFailure(Call call, IOException e) {
+                Log.e("IOException", e.toString());
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if (response.isSuccessful()) {
+                    Gson gson = new Gson();
+                    String result = response.body().string();
+                    Map map = gson.fromJson(result, Map.class);
+                    String _token = map.get("rtcToken").toString();
+                    setToken(_token);
+                    Log.i("Token Received", token);
+                }
+            }
+        });
+    }
+
+    void setToken(String newValue) {
+        token = newValue;
+        //if (!isJoined) { // Join a channel
+            //ChannelMediaOptions options = new ChannelMediaOptions();
+
+            // For a Video call, set the channel profile as COMMUNICATION.
+            //options.channelProfile = Constants.CHANNEL_PROFILE_COMMUNICATION;
+            // Set the client role as BROADCASTER or AUDIENCE according to the scenario.
+            //options.clientRoleType = Constants.CLIENT_ROLE_BROADCASTER;
+            // Start local preview.
+            mRtcEngine.startPreview();
+
+            // Join the channel with a token.
+            mRtcEngine.joinChannel(token, channelName, null, 0);
+        /*} else { // Already joined, renew the token by calling renewToken
+            mRtcEngine.renewToken(token);
+            Log.i("i", "Token renewed");
+        }*/
+    }
+
+
+    /*@Override
+    public void onTokenPrivilegeWillExpire(String token) {
+        Log.i("i", "Token Will expire");
+        fetchToken(uid, channelName, tokenRole);
+        super.onTokenPrivilegeWillExpire(token);
+    }
+
+    public void joinChannel(View view) {
+        //channelName = editChannelName.getText().toString();
+        if (channelName.length() == 0) {
+            //showMessage("Type a channel name");
+            Log.i("TESTEXX: ", "Type a channel name");
+            return;
+        } else if (!serverUrl.contains("http")) {
+            Log.i("TESTEXX: ", "Invalid token server URL");
+            //showMessage("Invalid token server URL");
+            return;
+        }
+        tokenRole = Constants.CLIENT_ROLE_BROADCASTER;
+        // Display LocalSurfaceView.
+        setupLocalVideo();
+        //localSurfaceView.setVisibility(View.VISIBLE);
+        fetchToken(uid, channelName, tokenRole);
+
+    }*/
 }
+

@@ -42,7 +42,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <Button
-                android:id="@+id/btnAudio"
+                android:id="@+id/btnEntrarAula"
                 android:layout_width="270dp"
                 android:layout_height="45dp"
                 android:layout_marginTop="5dp"
@@ -80,7 +80,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.439"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/btnAudio"
+                app:layout_constraintTop_toBottomOf="@+id/btnEntrarAula"
                 app:strokeColor="@color/white"
                 app:strokeWidth="1dp"
                 tools:ignore="TouchTargetSizeCheck" />
