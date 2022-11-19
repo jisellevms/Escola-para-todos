@@ -43,9 +43,6 @@
             android:name=".BoletimScreen"
             android:exported="false" />
         <activity
-            android:name=".CriarDisciplinaScreen"
-            android:exported="false" />
-        <activity
             android:name=".AtividadeQuestaoScreen"
             android:exported="false" />
         <activity

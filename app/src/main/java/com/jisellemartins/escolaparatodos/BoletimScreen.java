@@ -1,10 +1,14 @@
 package com.jisellemartins.escolaparatodos;
 
 import static com.jisellemartins.escolaparatodos.Utils.UtilAutenticacao.aluno;
+import static com.jisellemartins.escolaparatodos.Utils.UtilAutenticacao.nomeDisciplina;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -26,6 +30,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BoletimScreen extends AppCompatActivity {
+    ImageView imgVoltar, imgConfig;
     RecyclerView listaReportCard;
 
 
@@ -37,12 +42,19 @@ public class BoletimScreen extends AppCompatActivity {
     ArrayList<Boletim> list = new ArrayList<>();
     Gson gson = new Gson();
 
+    Button tituloDisciplina;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_boletim_screen);
+        imgVoltar = findViewById(R.id.imgVoltar);
+        imgConfig = findViewById(R.id.imgConfig);
         listaReportCard = findViewById(R.id.listaReportCard);
+        tituloDisciplina = findViewById(R.id.tituloDisciplina);
+
+        tituloDisciplina.setText("Boletim - " + nomeDisciplina);
 
         SharedPreferences sharedPref = getSharedPreferences("chaves", MODE_PRIVATE);
         usuario = sharedPref.getString("usuario", aluno);
@@ -54,6 +66,14 @@ public class BoletimScreen extends AppCompatActivity {
         } else {
             exibirParaProfessor();
         }
+
+        imgVoltar.setOnClickListener(view -> {
+            finish();
+        });
+        imgConfig.setOnClickListener(view -> {
+            Intent i = new Intent(BoletimScreen.this, ConfiguracoesScreen.class);
+            startActivity(i);
+        });
     }
 
     public void exibirParaProfessor() {

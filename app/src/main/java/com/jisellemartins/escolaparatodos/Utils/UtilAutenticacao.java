@@ -8,5 +8,7 @@ public class UtilAutenticacao {
 
     public static boolean entreiComoAluno = true; // false entrei como professor
 
+    public static String nomeDisciplina = "";
+
 
 }

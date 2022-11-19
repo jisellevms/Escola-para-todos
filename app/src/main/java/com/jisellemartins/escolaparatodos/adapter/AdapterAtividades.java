@@ -3,6 +3,7 @@ package com.jisellemartins.escolaparatodos.adapter;
 import static com.jisellemartins.escolaparatodos.Utils.UtilAutenticacao.aluno;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,8 +11,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.jisellemartins.escolaparatodos.AtividadeQuestaoScreen;
+import com.jisellemartins.escolaparatodos.AtividadesScreen;
+import com.jisellemartins.escolaparatodos.CriarAtividadeScreen;
 import com.jisellemartins.escolaparatodos.R;
 import com.jisellemartins.escolaparatodos.model.Atividade;
 
@@ -58,6 +63,12 @@ public class AdapterAtividades extends RecyclerView.Adapter {
             viewHolder.iconStatus.setImageResource(R.drawable.lixeira_braca);
         }
 
+        viewHolder.item_atividade.setOnClickListener(view -> {
+            Intent i = new Intent(context,
+                    AtividadeQuestaoScreen.class);
+            context.startActivity(i);
+        });
+
     }
 
     @Override
@@ -68,6 +79,7 @@ public class AdapterAtividades extends RecyclerView.Adapter {
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView descricaoAtv, dataAtv, qtdQuestoesAtv, statusAtv;
         ImageView iconStatus;
+        ConstraintLayout item_atividade;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -76,6 +88,7 @@ public class AdapterAtividades extends RecyclerView.Adapter {
             qtdQuestoesAtv = itemView.findViewById(R.id.qtdQuestoesAtv);
             statusAtv = itemView.findViewById(R.id.statusAtv);
             iconStatus = itemView.findViewById(R.id.iconStatus);
+            item_atividade = itemView.findViewById(R.id.item_atividade);
         }
     }
 }

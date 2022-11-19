@@ -1,6 +1,7 @@
 package com.jisellemartins.escolaparatodos;
 
 import static com.jisellemartins.escolaparatodos.Utils.UtilAutenticacao.aluno;
+import static com.jisellemartins.escolaparatodos.Utils.UtilAutenticacao.nomeDisciplina;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -13,7 +14,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 public class DisciplineScreen extends AppCompatActivity {
-    Button btnLibrary, btnTasks, btnCalendar, btnLessons, btnReportCard, btnStudents;
+    ImageView imgVoltar, imgConfig;
+
+    Button btnLibrary, btnTasks, btnCalendar, btnLessons, btnReportCard, btnStudents, tituloDisciplina;
     ImageView imgAlunos;
     TextView txtAlunos;
 
@@ -23,7 +26,8 @@ public class DisciplineScreen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_disciplina_screen);
-
+        imgVoltar = findViewById(R.id.imgVoltar);
+        imgConfig = findViewById(R.id.imgConfig);
         btnLibrary = findViewById(R.id.btnLibrary);
         btnTasks = findViewById(R.id.btnTasks);
         btnCalendar = findViewById(R.id.btnAdcArquivo);
@@ -32,9 +36,12 @@ public class DisciplineScreen extends AppCompatActivity {
         btnStudents = findViewById(R.id.btnStudents);
         imgAlunos = findViewById(R.id.imgAlunos);
         txtAlunos = findViewById(R.id.txtAlunos);
+        tituloDisciplina = findViewById(R.id.tituloDisciplina);
 
         SharedPreferences sharedPref = getSharedPreferences("chaves", MODE_PRIVATE);
         usuario = sharedPref.getString("usuario", aluno);
+
+        tituloDisciplina.setText(nomeDisciplina);
 
         if (usuario.equals(aluno)){
             btnStudents.setVisibility(View.GONE);
@@ -45,6 +52,14 @@ public class DisciplineScreen extends AppCompatActivity {
             imgAlunos.setVisibility(View.VISIBLE);
             txtAlunos.setVisibility(View.VISIBLE);
         }
+
+        imgVoltar.setOnClickListener(view -> {
+            finish();
+        });
+        imgConfig.setOnClickListener(view -> {
+            Intent i = new Intent(DisciplineScreen.this, ConfiguracoesScreen.class);
+            startActivity(i);
+        });
 
 
 

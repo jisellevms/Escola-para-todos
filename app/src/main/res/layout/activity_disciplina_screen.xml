@@ -14,7 +14,7 @@
         tools:layout_editor_absoluteY="0dp" />
 
     <Button
-        android:id="@+id/btnSalvar"
+        android:id="@+id/tituloDisciplina"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginStart="50dp"
@@ -44,7 +44,7 @@
         android:textColor="@android:color/transparent"
         app:cornerRadius="15dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnSalvar" />
+        app:layout_constraintTop_toBottomOf="@+id/tituloDisciplina" />
 
     <ImageView
         android:id="@+id/imageView"
@@ -83,7 +83,7 @@
         android:textColor="@android:color/transparent"
         app:cornerRadius="15dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnSalvar" />
+        app:layout_constraintTop_toBottomOf="@+id/tituloDisciplina" />
 
     <ImageView
         android:id="@+id/imageView2"

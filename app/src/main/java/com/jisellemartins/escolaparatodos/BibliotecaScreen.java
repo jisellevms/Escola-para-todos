@@ -1,6 +1,7 @@
 package com.jisellemartins.escolaparatodos;
 
 import static com.jisellemartins.escolaparatodos.Utils.UtilAutenticacao.aluno;
+import static com.jisellemartins.escolaparatodos.Utils.UtilAutenticacao.nomeDisciplina;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -9,6 +10,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -37,8 +39,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class BibliotecaScreen extends AppCompatActivity {
+    ImageView imgVoltar, imgConfig;
+
     RecyclerView listaConteudos;
-    Button btnAdcArquivo;
+    Button btnAdcArquivo, tituloDisciplina;
 
     String usuario = aluno;
     String disciplinaTime;
@@ -60,8 +64,14 @@ public class BibliotecaScreen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_biblioteca_screen);
+        imgVoltar = findViewById(R.id.imgVoltar);
+        imgConfig = findViewById(R.id.imgConfig);
         listaConteudos = findViewById(R.id.listConteudos);
         btnAdcArquivo = findViewById(R.id.btnAdcArquivo);
+        tituloDisciplina = findViewById(R.id.tituloDisciplina);
+
+        tituloDisciplina.setText("Biblioteca - " + nomeDisciplina);
+
         loading.showDialog(this);
         signInAnonymously();
 
@@ -69,12 +79,21 @@ public class BibliotecaScreen extends AppCompatActivity {
         usuario = sharedPref.getString("usuario", aluno);
         disciplinaTime = sharedPref.getString("disciplina", "");
 
+
+
         if (usuario.equals(aluno)) {
             btnAdcArquivo.setVisibility(View.GONE);
         } else {
             btnAdcArquivo.setVisibility(View.VISIBLE);
         }
 
+        imgVoltar.setOnClickListener(view -> {
+            finish();
+        });
+        imgConfig.setOnClickListener(view -> {
+            Intent i = new Intent(BibliotecaScreen.this, ConfiguracoesScreen.class);
+            startActivity(i);
+        });
 
         StorageReference listRef = storage.getReference().child(disciplinaTime);
 
@@ -141,7 +160,7 @@ public class BibliotecaScreen extends AppCompatActivity {
         storageRef = FirebaseStorage.getInstance().getReference(disciplinaTime+"/" + dialogNomeArquivo.nameArquivo);
         storageRef.putFile(imageUri).addOnSuccessListener(taskSnapshot -> {
             alert.fecharLoading();
-            Toast.makeText(BibliotecaScreen.this, "Sucesso", Toast.LENGTH_LONG).show();
+            Toast.makeText(BibliotecaScreen.this, "Arquivo adicionado com sucesso!", Toast.LENGTH_LONG).show();
 
         }).addOnFailureListener(e -> {
             alert.fecharLoading();

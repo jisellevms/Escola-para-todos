@@ -12,7 +12,7 @@
         layout="@layout/toolbar" />
 
     <Button
-        android:id="@+id/btnSalvar"
+        android:id="@+id/tituloDisciplina"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginStart="20dp"
@@ -51,29 +51,11 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnSalvar"
+        app:layout_constraintTop_toBottomOf="@+id/tituloDisciplina"
         app:strokeColor="@color/white"
         app:strokeWidth="1dp"
         tools:ignore="TouchTargetSizeCheck" />
 
-    <!--<com.archit.calendardaterangepicker.customviews.DateRangeCalendarView
-        android:id="@+id/calendar"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="20dp"
-        android:background="@drawable/linear_custom"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnCalendar"
-        app:range_color="#00000000"
-        app:selected_date_circle_color="#33000000"
-        app:selected_date_color="#33000000"
-        app:text_size_date="18dp"
-        app:text_size_title="20dp"
-        app:text_size_week="15dp"
-        app:week_color="#000" />-->
 
     <CalendarView
         android:id="@+id/calendar"
@@ -86,15 +68,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnAdcEvento" />
-
-    <!--<DatePicker
-        android:id="@+id/calendar"
-        android:background="@drawable/linear_custom"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnCalendar" />-->
 
 
     <androidx.recyclerview.widget.RecyclerView

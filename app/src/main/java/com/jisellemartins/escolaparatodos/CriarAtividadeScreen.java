@@ -4,7 +4,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.widget.ImageView;
 
 import com.jisellemartins.escolaparatodos.adapter.AdapterItemQuestao;
 import com.jisellemartins.escolaparatodos.adapter.AdapterQuestao;
@@ -13,6 +15,8 @@ import com.jisellemartins.escolaparatodos.model.Questao;
 import java.util.ArrayList;
 
 public class CriarAtividadeScreen extends AppCompatActivity {
+
+    ImageView imgVoltar, imgConfig;
     RecyclerView listaQuestoes;
     ArrayList<Questao> list = new ArrayList<>();
 
@@ -21,14 +25,26 @@ public class CriarAtividadeScreen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_criar_atividade_screen);
+        imgVoltar = findViewById(R.id.imgVoltar);
+        imgConfig = findViewById(R.id.imgConfig);
 
         listaQuestoes = findViewById(R.id.listaQuestoes);
+
+        imgVoltar.setOnClickListener(view -> {
+            finish();
+        });
+        imgConfig.setOnClickListener(view -> {
+            Intent i = new Intent(CriarAtividadeScreen.this, ConfiguracoesScreen.class);
+            startActivity(i);
+        });
 
         popularLista();
 
         listaQuestoes.setAdapter(new AdapterItemQuestao(this, list));
         RecyclerView.LayoutManager layout = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         listaQuestoes.setLayoutManager(layout);
+
+
     }
 
     public void popularLista(){
