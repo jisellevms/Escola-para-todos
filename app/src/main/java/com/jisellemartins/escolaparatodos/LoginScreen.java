@@ -17,7 +17,7 @@ import com.jisellemartins.escolaparatodos.dialogs.DialogLoading;
 
 public class LoginScreen extends AppCompatActivity {
 
-    ImageView imgVoltar;
+    ImageView imgVoltar, imgConfig;
     Button btnLogin;
     EditText campoTelefone, campoSenha;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -36,12 +36,17 @@ public class LoginScreen extends AppCompatActivity {
 
 
         imgVoltar = findViewById(R.id.imgVoltar);
+        imgConfig = findViewById(R.id.imgConfig);
         btnLogin = findViewById(R.id.btnLogin);
         campoTelefone = findViewById(R.id.campoTelefone);
         campoSenha = findViewById(R.id.campoSenha);
 
         imgVoltar.setOnClickListener(view -> {
             finish();
+        });
+        imgConfig.setOnClickListener(view -> {
+            Intent i = new Intent(LoginScreen.this, ConfiguracoesScreen.class);
+            startActivity(i);
         });
 
         btnLogin.setOnClickListener(view -> {

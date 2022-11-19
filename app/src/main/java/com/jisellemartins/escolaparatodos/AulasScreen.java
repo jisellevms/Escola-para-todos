@@ -2,6 +2,7 @@ package com.jisellemartins.escolaparatodos;
 
 import static com.jisellemartins.escolaparatodos.Utils.UtilAutenticacao.aluno;
 import static com.jisellemartins.escolaparatodos.Utils.UtilAutenticacao.entreiComoAluno;
+import static com.jisellemartins.escolaparatodos.Utils.UtilAutenticacao.nomeDisciplina;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.LinearLayoutCompat;
@@ -18,6 +19,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -28,8 +30,9 @@ import com.jisellemartins.escolaparatodos.model.Aula;
 import java.util.ArrayList;
 
 public class AulasScreen extends AppCompatActivity {
+    ImageView imgVoltar, imgConfig;
     RecyclerView listaAulas;
-    Button iniciarAula, btnEntrarAula;
+    Button iniciarAula, btnEntrarAula, tituloDisciplina;
     LinearLayoutCompat cardAluno, cardProfessor;
     TextView descricaoAula;
 
@@ -43,6 +46,8 @@ public class AulasScreen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_aulas_screen);
+        imgVoltar = findViewById(R.id.imgVoltar);
+        imgConfig = findViewById(R.id.imgConfig);
 
         listaAulas = findViewById(R.id.listaAulas);
         iniciarAula = findViewById(R.id.iniciarAula);
@@ -50,12 +55,21 @@ public class AulasScreen extends AppCompatActivity {
         cardProfessor = findViewById(R.id.cardProfessor);
         btnEntrarAula = findViewById(R.id.btnEntrarAula);
         descricaoAula = findViewById(R.id.descricaoAula);
+        tituloDisciplina = findViewById(R.id.tituloDisciplina);
 
         SharedPreferences sharedPref = getSharedPreferences("chaves", MODE_PRIVATE);
         usuario = sharedPref.getString("usuario", aluno);
         String disciplinaTime = sharedPref.getString("disciplina", "");
 
+        tituloDisciplina.setText("Aulas - " + nomeDisciplina);
 
+        imgVoltar.setOnClickListener(view -> {
+            finish();
+        });
+        imgConfig.setOnClickListener(view -> {
+            Intent i = new Intent(AulasScreen.this, ConfiguracoesScreen.class);
+            startActivity(i);
+        });
         if (usuario.equals(aluno)){
             cardProfessor.setVisibility(View.GONE);
 

@@ -2,6 +2,7 @@ package com.jisellemartins.escolaparatodos.adapter;
 
 import static android.content.Context.MODE_PRIVATE;
 import static com.jisellemartins.escolaparatodos.Utils.UtilAutenticacao.aluno;
+import static com.jisellemartins.escolaparatodos.Utils.UtilAutenticacao.nomeDisciplina;
 
 import android.content.Context;
 import android.content.Intent;
@@ -57,6 +58,7 @@ public class AdapterDisciplinas extends RecyclerView.Adapter{
             SharedPreferences.Editor editor = sharedPref.edit();
             editor.putString("disciplina",disciplina.getTimestamp());
             editor.commit();
+            nomeDisciplina = disciplina.getNomeDisciplina();
             Intent i = new Intent(context,
                     DisciplineScreen.class);
             context.startActivity(i);

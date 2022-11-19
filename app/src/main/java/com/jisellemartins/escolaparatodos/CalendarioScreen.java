@@ -1,17 +1,20 @@
 package com.jisellemartins.escolaparatodos;
 
 import static com.jisellemartins.escolaparatodos.Utils.UtilAutenticacao.aluno;
+import static com.jisellemartins.escolaparatodos.Utils.UtilAutenticacao.nomeDisciplina;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CalendarView;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.Task;
@@ -33,8 +36,10 @@ import java.util.Date;
 
 public class CalendarioScreen extends AppCompatActivity {
 
+    ImageView imgVoltar, imgConfig;
+
     RecyclerView listaEventos;
-    Button btnAdcEvento;
+    Button btnAdcEvento, tituloDisciplina;
     CalendarView calendar;
     String disciplinaTime = "";
 
@@ -49,14 +54,18 @@ public class CalendarioScreen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calendario);
-
+        imgVoltar = findViewById(R.id.imgVoltar);
+        imgConfig = findViewById(R.id.imgConfig);
         listaEventos = findViewById(R.id.listaEventos);
         btnAdcEvento = findViewById(R.id.btnAdcEvento);
         calendar = findViewById(R.id.calendar);
+        tituloDisciplina = findViewById(R.id.tituloDisciplina);
 
         SharedPreferences sharedPref = getSharedPreferences("chaves", MODE_PRIVATE);
         usuario = sharedPref.getString("usuario", aluno);
         disciplinaTime = sharedPref.getString("disciplina", "");
+
+        tituloDisciplina.setText("Calendário - " + nomeDisciplina);
 
 
         if (usuario.equals(aluno)) {
@@ -64,6 +73,14 @@ public class CalendarioScreen extends AppCompatActivity {
         } else {
             btnAdcEvento.setVisibility(View.VISIBLE);
         }
+
+        imgVoltar.setOnClickListener(view -> {
+            finish();
+        });
+        imgConfig.setOnClickListener(view -> {
+            Intent i = new Intent(CalendarioScreen.this, ConfiguracoesScreen.class);
+            startActivity(i);
+        });
 
         calendar.setOnDateChangeListener((view, year, month, dayOfMonth) -> {
             list.clear();

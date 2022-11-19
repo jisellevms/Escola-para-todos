@@ -52,40 +52,18 @@ public class DialogCriarDisciplina {
             Long timeInLong = System.currentTimeMillis()/1000;
             String timestamp = timeInLong.toString();
 
-            /*Gson gson = new Gson();
-            ArrayList<Aluno> list = new ArrayList<>();
-            Aluno aluno = new Aluno();
-            Aluno aluno2 = new Aluno();
-            Aluno aluno3 = new Aluno();
-
-            aluno.setNome("ANA CLARA MEDEIROS 1");
-            aluno2.setNome("ANA CLARA MEDEIROS 2");
-            aluno3.setNome("ANA CLARA MEDEIROS 3");
-
-            aluno.setTelefone("85986373679");
-            aluno2.setTelefone("85986373678");
-            aluno3.setTelefone("85986373677");
-
-            list.add(aluno);
-            list.add(aluno2);
-            list.add(aluno3);
-
-
-            String json = gson.toJson(list);*/
-
             Map<String, Object> disciplina = new HashMap<>();
             disciplina.put("nome", nomeDisciplina.getText().toString());
             disciplina.put("dataCriacao", timestamp);
             disciplina.put("numeroProf", numeroProf);
-            //disciplina.put("alunos",json);
             disciplina.put("alunos", "{}");
 
             db.collection("Disciplina").document(getRandomNonRepeatingIntegers(6,0,1000).toString())
                     .set(disciplina)
                     .addOnSuccessListener(aVoid -> {
                         Toast.makeText(activity, "Disciplina cadastrada com sucesso!", Toast.LENGTH_LONG).show();
-                        Intent i = new Intent(activity, DisciplineScreen.class);
-                        activity.startActivity(i);
+                        dialog.dismiss();
+                        activity.startActivityForResult(activity.getIntent(), 10);
 
                     })
                     .addOnFailureListener(e -> {

@@ -13,7 +13,7 @@
         tools:layout_editor_absoluteY="0dp" />
 
     <Button
-        android:id="@+id/btnSalvar"
+        android:id="@+id/tituloDisciplina"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginStart="20dp"
@@ -52,7 +52,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnSalvar"
+        app:layout_constraintTop_toBottomOf="@+id/tituloDisciplina"
         app:strokeColor="@color/white"
         app:strokeWidth="1dp"
         tools:ignore="TouchTargetSizeCheck" />

@@ -9,6 +9,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -29,13 +31,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DisciplinesScreen extends AppCompatActivity {
+    ImageView imgVoltar, imgConfig;
+
     RecyclerView listaDisciplinas;
     Button btnCriarDisciplina;
+
+    TextView bemVindo;
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     String usuario = aluno;
     String numeroUser = "";
+    ArrayList<Disciplina> list = new ArrayList<>();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,16 +51,39 @@ public class DisciplinesScreen extends AppCompatActivity {
         setContentView(R.layout.activity_disciplinas_screen);
         listaDisciplinas = findViewById(R.id.listaDisciplinas);
         btnCriarDisciplina = findViewById(R.id.criarDisciplina);
+        imgVoltar = findViewById(R.id.imgVoltar);
+        imgConfig = findViewById(R.id.imgConfig);
+        bemVindo = findViewById(R.id.bemVindo);
 
         SharedPreferences sharedPref = getSharedPreferences("chaves", MODE_PRIVATE);
         usuario = sharedPref.getString("usuario", aluno);
         numeroUser = sharedPref.getString("numero", aluno);
 
-        ArrayList<Disciplina> list = new ArrayList<>();
+        imgVoltar.setOnClickListener(view -> {
+            finish();
+        });
+        imgConfig.setOnClickListener(view -> {
+            Intent i = new Intent(DisciplinesScreen.this, ConfiguracoesScreen.class);
+            startActivity(i);
+        });
 
 
+        btnCriarDisciplina.setOnClickListener(view -> {
+
+            DialogCriarDisciplina alert = new DialogCriarDisciplina();
+            alert.showDialog(this);
+
+        });
+
+        //showDisciplinas();
+
+    }
+
+    public void showDisciplinas(){
+        list.clear();
         if (usuario.equals(aluno)){
             btnCriarDisciplina.setVisibility(View.GONE);
+            bemVindo.setText("Bem vindo, aluno");
 
             db.collection("Disciplina")
                     .get()
@@ -62,14 +93,17 @@ public class DisciplinesScreen extends AppCompatActivity {
                                 Disciplina disciplina = new Disciplina();
                                 disciplina.setNomeDisciplina(document.get("nome").toString());
                                 disciplina.setTimestamp(document.get("dataCriacao").toString());
-                                Gson gson = new Gson();
-                                String json = document.get("alunos").toString();
-                                ArrayList<Aluno> lstObject = gson.fromJson(json, new TypeToken<List<Aluno>>(){}.getType());
-                                for (Aluno a : lstObject){
-                                    if (numeroUser.equals(a.getTelefone())){
-                                        list.add(disciplina);
+                                if(!document.get("alunos").toString().equals("{}")){
+                                    Gson gson = new Gson();
+                                    String json = document.get("alunos").toString();
+                                    ArrayList<Aluno> lstObject = gson.fromJson(json, new TypeToken<List<Aluno>>(){}.getType());
+                                    for (Aluno a : lstObject){
+                                        if (numeroUser.equals(a.getTelefone())){
+                                            list.add(disciplina);
+                                        }
                                     }
                                 }
+
                             }
 
                             listaDisciplinas.setAdapter(new AdapterDisciplinas(this, list, usuario));
@@ -83,7 +117,7 @@ public class DisciplinesScreen extends AppCompatActivity {
 
         }else{
             btnCriarDisciplina.setVisibility(View.VISIBLE);
-
+            bemVindo.setText("Bem vindo, professor");
             db.collection("Disciplina")
                     .whereEqualTo("numeroProf", numeroUser)
                     .get()
@@ -101,16 +135,25 @@ public class DisciplinesScreen extends AppCompatActivity {
                             listaDisciplinas.setLayoutManager(layout);
 
                         } else {
-                            Toast.makeText(this, "Erro: " + task.getException(), Toast.LENGTH_LONG).show();
+                            Log.i("TESTEXX", "Erro: " + task.getException());
                         }
                     });
         }
-        btnCriarDisciplina.setOnClickListener(view -> {
+    }
 
-            DialogCriarDisciplina alert = new DialogCriarDisciplina();
-            alert.showDialog(this);
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+    }
 
-        });
+    @Override
+    protected void onResume() {
+        super.onResume();
+        showDisciplinas();
+    }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
     }
 }

@@ -4,9 +4,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.firebase.firestore.CollectionReference;
@@ -24,7 +26,7 @@ import java.util.List;
 import java.util.Map;
 
 public class GerenciarAlunosScreen extends AppCompatActivity {
-
+    ImageView imgVoltar, imgConfig;
     RecyclerView listaAlunos;
     Button btnAdcAluno;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -35,7 +37,8 @@ public class GerenciarAlunosScreen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gerenciar_alunos);
-
+        imgVoltar = findViewById(R.id.imgVoltar);
+        imgConfig = findViewById(R.id.imgConfig);
         listaAlunos = findViewById(R.id.listaAlunos);
         btnAdcAluno = findViewById(R.id.btnAdcArquivo);
 
@@ -44,7 +47,13 @@ public class GerenciarAlunosScreen extends AppCompatActivity {
             alert.showDialog(this);
         });
 
-
+        imgVoltar.setOnClickListener(view -> {
+            finish();
+        });
+        imgConfig.setOnClickListener(view -> {
+            Intent i = new Intent(GerenciarAlunosScreen.this, ConfiguracoesScreen.class);
+            startActivity(i);
+        });
         SharedPreferences sharedPref = getSharedPreferences("chaves", MODE_PRIVATE);
         String disciplinaTime = sharedPref.getString("disciplina", "");
         Gson gson = new Gson();

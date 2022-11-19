@@ -1,6 +1,10 @@
 package com.jisellemartins.escolaparatodos.adapter;
 
+import static android.content.Context.MODE_PRIVATE;
+import static com.jisellemartins.escolaparatodos.Utils.UtilAutenticacao.aluno;
+
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,10 +24,14 @@ import java.util.List;
 public class AdapterQuestao extends RecyclerView.Adapter{
     private List<Questao> questoes;
     private Context context;
+    String usuario;
 
     public AdapterQuestao(Context context, List<Questao> questoes) {
         this.context = context;
         this.questoes = questoes;
+
+        SharedPreferences sharedPref = context.getSharedPreferences("chaves", MODE_PRIVATE);
+        usuario = sharedPref.getString("usuario", aluno);
 
     }
     @NonNull
@@ -46,6 +54,12 @@ public class AdapterQuestao extends RecyclerView.Adapter{
         viewHolder.itemD.setText(questao.getItemD());
         viewHolder.itemE.setText(questao.getItemE());
         exibirItens(questao.getQtdItens(), viewHolder);
+
+        if (usuario.equals(aluno)){
+            viewHolder.btnSalvar.setVisibility(View.VISIBLE);
+        }else{
+            viewHolder.btnSalvar.setVisibility(View.GONE);
+        }
     }
 
     public void exibirItens(int itens, AdapterQuestao.ViewHolder viewHolder){

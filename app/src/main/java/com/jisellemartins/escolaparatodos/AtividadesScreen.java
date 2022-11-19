@@ -1,6 +1,7 @@
 package com.jisellemartins.escolaparatodos;
 
 import static com.jisellemartins.escolaparatodos.Utils.UtilAutenticacao.aluno;
+import static com.jisellemartins.escolaparatodos.Utils.UtilAutenticacao.nomeDisciplina;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -11,6 +12,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 
 import com.jisellemartins.escolaparatodos.adapter.AdapterAtividades;
 import com.jisellemartins.escolaparatodos.model.Atividade;
@@ -18,9 +20,9 @@ import com.jisellemartins.escolaparatodos.model.Atividade;
 import java.util.ArrayList;
 
 public class AtividadesScreen extends AppCompatActivity {
-
+    ImageView imgVoltar, imgConfig;
     RecyclerView listaAtividades;
-    Button btnCriarAtividade;
+    Button btnCriarAtividade, tituloDisciplina;
 
     String usuario = aluno;
 
@@ -29,9 +31,13 @@ public class AtividadesScreen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_atividades_screen);
-
+        imgVoltar = findViewById(R.id.imgVoltar);
+        imgConfig = findViewById(R.id.imgConfig);
         listaAtividades = findViewById(R.id.listaAtividades);
         btnCriarAtividade = findViewById(R.id.btnCriarAtividade);
+        tituloDisciplina = findViewById(R.id.tituloDisciplina);
+
+        tituloDisciplina.setText("Atividades - " + nomeDisciplina);
 
         SharedPreferences sharedPref = getSharedPreferences("chaves", MODE_PRIVATE);
         usuario = sharedPref.getString("usuario", aluno);
@@ -41,6 +47,13 @@ public class AtividadesScreen extends AppCompatActivity {
         }else{
             btnCriarAtividade.setVisibility(View.VISIBLE);
         }
+        imgVoltar.setOnClickListener(view -> {
+            finish();
+        });
+        imgConfig.setOnClickListener(view -> {
+            Intent i = new Intent(AtividadesScreen.this, ConfiguracoesScreen.class);
+            startActivity(i);
+        });
 
         btnCriarAtividade.setOnClickListener(view -> {
             Intent i = new Intent(AtividadesScreen.this,

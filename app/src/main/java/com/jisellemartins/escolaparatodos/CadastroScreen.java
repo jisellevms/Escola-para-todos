@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -24,7 +25,7 @@ import java.util.Map;
 import java.util.Random;
 
 public class CadastroScreen extends AppCompatActivity {
-
+    ImageView imgVoltar, imgConfig;
     EditText nomeUsuario, telefoneUsuario, senhaUsuario, idadeAluno, formacaoProf;
     Button btnCadastrar;
     TextView idade, formacao;
@@ -45,6 +46,8 @@ public class CadastroScreen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cadastro_screen);
+        imgVoltar = findViewById(R.id.imgVoltar);
+        imgConfig = findViewById(R.id.imgConfig);
 
         nomeUsuario = findViewById(R.id.nomeUsuario);
         telefoneUsuario = findViewById(R.id.telefoneUsuario);
@@ -67,7 +70,13 @@ public class CadastroScreen extends AppCompatActivity {
         activity = this;
 
         auth.setLanguageCode("pt");
-
+        imgVoltar.setOnClickListener(view -> {
+            finish();
+        });
+        imgConfig.setOnClickListener(view -> {
+            Intent i = new Intent(CadastroScreen.this, ConfiguracoesScreen.class);
+            startActivity(i);
+        });
         radioGroup.setOnCheckedChangeListener((group, checkedId) -> {
             switch(checkedId){
                 case R.id.radioAluno:
@@ -148,6 +157,8 @@ public class CadastroScreen extends AppCompatActivity {
                 db.collection("Aluno").document(getRandomNonRepeatingIntegers(6,0,1000).toString())
                         .set(aluno)
                         .addOnSuccessListener(aVoid -> {
+                            editor.putString("usuario","aluno");
+                            editor.commit();
                             Toast.makeText(this, "Usuário cadastrado com sucesso!", Toast.LENGTH_LONG).show();
                             finish();
                             Intent i = new Intent(this, DisciplinesScreen.class);
@@ -171,7 +182,12 @@ public class CadastroScreen extends AppCompatActivity {
                 db.collection("Professor").document(getRandomNonRepeatingIntegers(6,0,1000).toString())
                         .set(professor)
                         .addOnSuccessListener(aVoid -> {
+                            editor.putString("usuario","professor");
+                            editor.commit();
                             Toast.makeText(this, "Usuário cadastrado com sucesso!", Toast.LENGTH_LONG).show();
+                            finish();
+                            Intent i = new Intent(this, DisciplinesScreen.class);
+                            startActivity(i);
 
                         })
                         .addOnFailureListener(e -> {
