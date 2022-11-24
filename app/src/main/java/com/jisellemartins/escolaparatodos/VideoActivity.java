@@ -1,11 +1,22 @@
 package com.jisellemartins.escolaparatodos;
 
+import static com.jisellemartins.escolaparatodos.AudioToText.RESULT_SPEECH;
 import static com.jisellemartins.escolaparatodos.Utils.UtilAutenticacao.entreiComoAluno;
 
+import android.Manifest;
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.graphics.PorterDuff;
+import android.media.MediaPlayer;
+import android.media.MediaRecorder;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.Settings;
+import android.speech.RecognizerIntent;
 import android.util.Log;
 import android.view.SurfaceView;
 import android.view.View;
@@ -15,40 +26,56 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.gson.Gson;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.Font;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfWriter;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.Map;
+import java.util.ArrayList;
 
 import io.agora.rtc.Constants;
 import io.agora.rtc.IRtcEngineEventHandler;
 import io.agora.rtc.RtcEngine;
 import io.agora.rtc.video.VideoCanvas;
 import io.agora.rtc.video.VideoEncoderConfiguration;
-import okhttp3.Call;
-import okhttp3.Callback;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
+
 
 public class VideoActivity extends AppCompatActivity {
 
     private RtcEngine mRtcEngine;
     private String channelName;
     private int channelProfile;
-    String token;
-    private String appId = "94ec9d428e304275b5ea66c7b9be6eb5";
+
+
+    private static final String LOG_TAG = "AudioRecordTest";
+    private static final int REQUEST_RECORD_AUDIO_PERMISSION = 200;
+    private MediaRecorder recorder = null;
+
+    private MediaPlayer player = null;
+
+    // Requesting permission to RECORD_AUDIO
+    private boolean permissionToRecordAccepted = false;
+    private String[] permissions = {Manifest.permission.RECORD_AUDIO};
+    private File audioFile;
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
+    StorageReference storageRef;
+    String disciplinaTime;
 
 
-    private int tokenRole; // The token role: Broadcaster or Audience
-    private String serverUrl = "https://agora-token-service-production-7f4d.up.railway.app/"; // The base URL to your token server, for example, "https://agora-token-service-production-92ff.up.railway.app".
-    private int tokenExpireTime = 40; // Expire time in Seconds.
+    public static File dir = new File(new File(Environment.getExternalStorageDirectory(), "bleh"), "bleh");
+
+    public String aulaFalada;
+    File textoFile;
+
 
     private IRtcEngineEventHandler mRtcEventHandler = new IRtcEngineEventHandler() {
 
@@ -101,23 +128,24 @@ public class VideoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_video);
 
+        SharedPreferences sharedPref = getSharedPreferences("chaves", MODE_PRIVATE);
+        disciplinaTime = sharedPref.getString("disciplina", "");
+
         if (savedInstanceState == null) {
             Bundle extras = getIntent().getExtras();
-            if(extras == null) {
-                channelName= null;
+            if (extras == null) {
+                channelName = null;
             } else {
-                channelName= extras.getString("nomeDaAula");
+                channelName = extras.getString("nomeDaAula");
             }
         } else {
-            channelName= (String) savedInstanceState.getSerializable("nomeDaAula");
+            channelName = (String) savedInstanceState.getSerializable("nomeDaAula");
         }
 
 
-        //channelName = "com.jisellemartins.escolaparatodos";
-
-        if (entreiComoAluno){
+        if (entreiComoAluno) {
             channelProfile = Constants.CLIENT_ROLE_BROADCASTER;
-        }else{
+        } else {
             channelProfile = Constants.CLIENT_ROLE_BROADCASTER;
         }
 
@@ -126,7 +154,18 @@ public class VideoActivity extends AppCompatActivity {
         }
 
         initAgoraEngineAndJoinChannel();
+
+
+        if (!entreiComoAluno) {
+            audioFile = new File(Environment.getExternalStorageDirectory(), channelName + ".3gp");
+            ActivityCompat.requestPermissions(this, permissions, REQUEST_RECORD_AUDIO_PERMISSION);
+            iniciarGravacao();
+            //abrirMicrofone();
+        }
+
+
     }
+
 
     public void onLocalVideoMuteClicked(View view) {
         ImageView iv = (ImageView) view;
@@ -151,9 +190,6 @@ public class VideoActivity extends AppCompatActivity {
 
     private void setupRemoteVideo(int uid) {
         FrameLayout container = findViewById(R.id.remote_video_view_container);
-//        if (container.getChildCount() > 1) {
-//            return;
-//        }
 
         SurfaceView surfaceView = RtcEngine.CreateRendererView(getBaseContext());
         container.addView(surfaceView);
@@ -187,9 +223,7 @@ public class VideoActivity extends AppCompatActivity {
     private void setupVideoProfile() {
         mRtcEngine.enableVideo();
 
-        mRtcEngine.setVideoEncoderConfiguration(new VideoEncoderConfiguration(VideoEncoderConfiguration.VD_640x480, VideoEncoderConfiguration.FRAME_RATE.FRAME_RATE_FPS_15,
-                VideoEncoderConfiguration.STANDARD_BITRATE,
-                VideoEncoderConfiguration.ORIENTATION_MODE.ORIENTATION_MODE_FIXED_PORTRAIT));
+        mRtcEngine.setVideoEncoderConfiguration(new VideoEncoderConfiguration(VideoEncoderConfiguration.VD_640x480, VideoEncoderConfiguration.FRAME_RATE.FRAME_RATE_FPS_15, VideoEncoderConfiguration.STANDARD_BITRATE, VideoEncoderConfiguration.ORIENTATION_MODE.ORIENTATION_MODE_FIXED_PORTRAIT));
     }
 
     private void setupLocalVideo() {
@@ -201,7 +235,6 @@ public class VideoActivity extends AppCompatActivity {
     }
 
     private void joinChannel() {
-        //fetchToken();
         mRtcEngine.joinChannel(null, channelName, "Optional Data", 0);
     }
 
@@ -213,8 +246,12 @@ public class VideoActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
 
-        if (!entreiComoAluno){
+
+        if (!entreiComoAluno) {
             deleteAula();
+            stopRecording();
+            uploadAudio();
+            //uploadTexto();
         }
         leaveChannel();
         RtcEngine.destroy();
@@ -229,33 +266,215 @@ public class VideoActivity extends AppCompatActivity {
         finish();
     }
 
-    public void deleteAula(){
+    public void deleteAula() {
 
         SharedPreferences sharedPref = getSharedPreferences("chaves", MODE_PRIVATE);
         String disciplinaTime = sharedPref.getString("disciplina", "");
 
         // PROCURAR A AULA
-        db.collection("Aula")
-                .whereEqualTo("disciplina", disciplinaTime)
-                .get()
-                .addOnCompleteListener(task -> {
-                    if (task.isSuccessful() && task.getResult().size() > 0) {
+        db.collection("Aula").whereEqualTo("disciplina", disciplinaTime).get().addOnCompleteListener(task -> {
+            if (task.isSuccessful() && task.getResult().size() > 0) {
 
-                        // DELETAR A AULA
-                        db.collection("Aula").document(task.getResult().getDocuments().get(0).getId())
-                                .delete()
-                                .addOnSuccessListener(aVoid -> Log.d("TESTEXX", "A aula foi apagada!"))
-                                .addOnFailureListener(e -> Log.w("TESTEXX", "Error ao apagar aula ", e));
+                // DELETAR A AULA
+                db.collection("Aula").document(task.getResult().getDocuments().get(0).getId()).delete().addOnSuccessListener(aVoid -> Log.d("TESTEXX", "A aula foi apagada!")).addOnFailureListener(e -> Log.w("TESTEXX", "Error ao apagar aula ", e));
 
-                    } else if(task.getResult().size() == 0){
-                       Log.i("TESTEXX","A aula não foi encontrada");
-                    }else {
-                        Log.i("TESTEXX","ERRO: " + task.getException());
-                    }
-                });
+            } else if (task.getResult().size() == 0) {
+                Log.i("TESTEXX", "A aula não foi encontrada");
+            } else {
+                Log.i("TESTEXX", "ERRO: " + task.getException());
+            }
+        });
+    }
 
+    // GRAVAR VOZ DA AULA
+
+
+    public void iniciarGravacao() {
+        boolean mStartRecording = true;
+        onRecord(mStartRecording);
+        if (mStartRecording) {
+            Log.i("AUDIO", "Stop recording");
+        } else {
+            Log.i("AUDIO", "Start recording");
+        }
+        mStartRecording = !mStartRecording;
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        switch (requestCode) {
+            case REQUEST_RECORD_AUDIO_PERMISSION:
+                permissionToRecordAccepted = grantResults[0] == PackageManager.PERMISSION_GRANTED;
+                break;
+        }
+        if (!permissionToRecordAccepted) finish();
 
     }
+
+    private void onRecord(boolean start) {
+        if (start) {
+            startRecording();
+        } else {
+            stopRecording();
+        }
+    }
+
+    private void startRecording() {
+        recorder = new MediaRecorder();
+        recorder.setAudioSource(MediaRecorder.AudioSource.MIC);
+        recorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
+        recorder.setOutputFile(audioFile.getAbsolutePath());
+        recorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
+
+        try {
+            recorder.prepare();
+        } catch (IOException e) {
+            Log.e(LOG_TAG, "prepare() failed");
+        }
+
+        recorder.start();
+    }
+
+    private void stopRecording() {
+        if (recorder != null) {
+            recorder.stop();
+            recorder.release();
+            recorder = null;
+        }
+
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        if (recorder != null) {
+            recorder.release();
+            recorder = null;
+        }
+
+        if (player != null) {
+            player.release();
+            player = null;
+        }
+    }
+
+    private void uploadAudio() {
+        storageRef = FirebaseStorage.getInstance().getReference(disciplinaTime + "/" + channelName + "/audio");
+        storageRef.putFile(Uri.fromFile(audioFile)).addOnSuccessListener(taskSnapshot -> {
+            Toast.makeText(getApplicationContext(), "Audio adicionado com sucesso!", Toast.LENGTH_LONG).show();
+
+        }).addOnFailureListener(e -> {
+            Toast.makeText(getApplicationContext(), "Erro: " + e, Toast.LENGTH_LONG).show();
+        });
+    }
+
+    // VOZ PARA TEXTO
+
+    public void abrirMicrofone() {
+        Intent intent = new Intent(
+                RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+
+        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, "pt-BR");
+
+        try {
+            startActivityForResult(intent, RESULT_SPEECH);
+            //txtText.setText("");
+        } catch (ActivityNotFoundException a) {
+            Toast t = Toast.makeText(getApplicationContext(),
+                    "Opps! Your device doesn't support Speech to Text",
+                    Toast.LENGTH_SHORT);
+            t.show();
+        }
+    }
+
+    public boolean isStoragePermissionGranted() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (checkSelfPermission(android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                    == PackageManager.PERMISSION_GRANTED) {
+                Log.v("PDF", "Permission is granted");
+                return true;
+            } else {
+
+                Log.v("PDF", "Permission is revoked");
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
+                return false;
+            }
+        } else { //permission is automatically granted on sdk<23 upon installation
+            Log.v("PDF", "Permission is granted");
+            return true;
+        }
+    }
+
+    public void askForPermissions() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            if (!Environment.isExternalStorageManager()) {
+                Intent intent = new Intent(Settings.ACTION_MANAGE_ALL_FILES_ACCESS_PERMISSION);
+                startActivity(intent);
+                return;
+            }
+            createDir();
+        }
+    }
+
+    public void createDir() {
+        if (!dir.exists()) {
+            dir.mkdirs();
+        }
+    }
+
+    private void savepdf() {
+        Document doc = new Document();
+        //String mfile=new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(System.currentTimeMillis());
+        textoFile = new File(Environment.getExternalStorageDirectory(), "/" + "texto" + ".pdf");
+        Font smallBold = new Font(Font.FontFamily.TIMES_ROMAN, 12, Font.BOLD);
+        try {
+            PdfWriter.getInstance(doc, new FileOutputStream(textoFile));
+            doc.open();
+            String mtext = aulaFalada;
+            doc.addAuthor("Jiselle Martins");
+            doc.add(new Paragraph(mtext, smallBold));
+            doc.close();
+            Toast.makeText(this, "texto" + ".pdf" + " foi salvo em " + textoFile, Toast.LENGTH_LONG).show();
+        } catch (Exception e) {
+            Log.i("PDF", e.getMessage());
+            Toast.makeText(this, "Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
+        }
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        switch (requestCode) {
+            case RESULT_SPEECH: {
+                if (resultCode == RESULT_OK && null != data) {
+
+                    ArrayList<String> text = data
+                            .getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
+
+                    aulaFalada = text.get(0);
+                    savepdf();
+                }
+                break;
+            }
+
+        }
+    }
+
+    private void uploadTexto() {
+        storageRef = FirebaseStorage.getInstance().getReference(disciplinaTime + "/" + channelName + "/texto");
+        storageRef.putFile(Uri.fromFile(textoFile)).addOnSuccessListener(taskSnapshot -> {
+            Toast.makeText(getApplicationContext(), "Texto adicionado com sucesso!", Toast.LENGTH_LONG).show();
+
+        }).addOnFailureListener(e -> {
+            Toast.makeText(getApplicationContext(), "Erro: " + e, Toast.LENGTH_LONG).show();
+        });
+    }
+
+
+
 
 
 }

@@ -65,18 +65,7 @@ public class DialogAula {
             } else {
                 iniciarAula();
             }
-
-            /*int channelProfile = Constants.CLIENT_ROLE_BROADCASTER;
-            // channelProfile = Constants.CLIENT_ROLE_AUDIENCE;
-
-            //EditText channel = (EditText) findViewById(R.id.channel);
-            String channelName = "teste";
-            Intent intent = new Intent(activity, VideoActivity.class);
             entreiComoAluno = false;
-
-            intent.putExtra("channelMessage", channelName);
-            intent.putExtra("profileMessage", channelProfile);
-            activity.startActivity(intent);*/
 
         });
 

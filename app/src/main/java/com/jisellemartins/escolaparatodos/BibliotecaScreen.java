@@ -178,7 +178,7 @@ public class BibliotecaScreen extends AppCompatActivity {
 
         }
     }
-    private String bytesIntoHumanReadable(long bytes) {
+    public static String bytesIntoHumanReadable(long bytes) {
         long kilobyte = 1024;
         long megabyte = kilobyte * 1024;
         long gigabyte = megabyte * 1024;

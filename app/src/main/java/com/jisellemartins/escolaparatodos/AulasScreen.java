@@ -1,7 +1,7 @@
 package com.jisellemartins.escolaparatodos;
 
+import static com.jisellemartins.escolaparatodos.BibliotecaScreen.bytesIntoHumanReadable;
 import static com.jisellemartins.escolaparatodos.Utils.UtilAutenticacao.aluno;
-import static com.jisellemartins.escolaparatodos.Utils.UtilAutenticacao.entreiComoAluno;
 import static com.jisellemartins.escolaparatodos.Utils.UtilAutenticacao.nomeDisciplina;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -23,11 +23,15 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 import com.jisellemartins.escolaparatodos.adapter.AdapterAulas;
 import com.jisellemartins.escolaparatodos.dialogs.DialogAula;
+import com.jisellemartins.escolaparatodos.dialogs.DialogLoading;
 import com.jisellemartins.escolaparatodos.model.Aula;
 
 import java.util.ArrayList;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class AulasScreen extends AppCompatActivity {
     ImageView imgVoltar, imgConfig;
@@ -40,6 +44,11 @@ public class AulasScreen extends AppCompatActivity {
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     String nomeAulaParaChanel;
+    FirebaseStorage storage = FirebaseStorage.getInstance();
+    String disciplinaTime;
+
+    ArrayList<Aula> list = new ArrayList<>();
+    DialogLoading dialogLoading = new DialogLoading();
 
 
     @Override
@@ -57,9 +66,11 @@ public class AulasScreen extends AppCompatActivity {
         descricaoAula = findViewById(R.id.descricaoAula);
         tituloDisciplina = findViewById(R.id.tituloDisciplina);
 
+        dialogLoading.showDialog(this);
+
         SharedPreferences sharedPref = getSharedPreferences("chaves", MODE_PRIVATE);
         usuario = sharedPref.getString("usuario", aluno);
-        String disciplinaTime = sharedPref.getString("disciplina", "");
+        disciplinaTime = sharedPref.getString("disciplina", "");
 
         tituloDisciplina.setText("Aulas - " + nomeDisciplina);
 
@@ -70,7 +81,7 @@ public class AulasScreen extends AppCompatActivity {
             Intent i = new Intent(AulasScreen.this, ConfiguracoesScreen.class);
             startActivity(i);
         });
-        if (usuario.equals(aluno)){
+        if (usuario.equals(aluno)) {
             cardProfessor.setVisibility(View.GONE);
 
             // PROCURAR A AULA
@@ -82,22 +93,21 @@ public class AulasScreen extends AppCompatActivity {
                             nomeAulaParaChanel = task.getResult().getDocuments().get(0).get("nomeAula").toString();
                             descricaoAula.setText(nomeAulaParaChanel);
                             cardAluno.setVisibility(View.VISIBLE);
-                        } else if(task.getResult().size() == 0){
+                        } else if (task.getResult().size() == 0) {
                             cardAluno.setVisibility(View.GONE);
-                            Log.i("TESTEXX","A aula não foi encontrada");
+                            Log.i("TESTEXX", "A aula não foi encontrada");
 
-                        }else {
+                        } else {
                             cardAluno.setVisibility(View.GONE);
-                            Log.i("TESTEXX","ERRO: " + task.getException());
+                            Log.i("TESTEXX", "ERRO: " + task.getException());
                         }
                     });
 
 
-        }else{
+        } else {
             cardAluno.setVisibility(View.GONE);
             cardProfessor.setVisibility(View.VISIBLE);
         }
-
 
 
         iniciarAula.setOnClickListener(view -> {
@@ -111,34 +121,55 @@ public class AulasScreen extends AppCompatActivity {
             if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED ||
                     ContextCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED) {
                 ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA, Manifest.permission.RECORD_AUDIO}, MY_PERMISSIONS_REQUEST_CAMERA);
-            }else{
+            } else {
                 entrarNaAula();
             }
         });
 
-        ArrayList<Aula> list = new ArrayList<>();
-        Aula aula = new Aula();
-        Aula aula2 = new Aula();
-        Aula aula3 = new Aula();
-
-        aula.setDescricao("Aula: Matriz");
-        aula2.setDescricao("Aula: Geometria");
-        aula3.setDescricao("Aula: Áreas");
-
-        list.add(aula);
-        list.add(aula2);
-        list.add(aula3);
-
-
-        listaAulas.setAdapter(new AdapterAulas(this, list, usuario));
-        RecyclerView.LayoutManager layout = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
-
-        listaAulas.setLayoutManager(layout);
+        listarAulas();
     }
 
-    public void entrarNaAula(){
+    public void entrarNaAula() {
         Intent intent = new Intent(this, VideoActivity.class);
         intent.putExtra("nomeDaAula", nomeAulaParaChanel);
         startActivity(intent);
+    }
+
+
+    public void listarAulas() {
+
+        StorageReference listRef = storage.getReference().child(disciplinaTime);
+
+        listRef.listAll()
+                .addOnSuccessListener(listResult -> {
+                    if (listResult.getPrefixes().size() > 0) {
+                        for (StorageReference prefix : listResult.getPrefixes()) {
+                            Log.d("testexx", prefix.getName());
+                            Aula aula = new Aula();
+                            aula.setDescricao(prefix.getName());
+                            aula.setAudio(listRef.getName() + "/" + prefix.getName() + "/" + "audio");
+                            aula.setTexto(listRef.getName() + "/" + prefix.getName() + "/" + "texto");
+                            list.add(aula);
+                        }
+
+                        listaAulas.setAdapter(new AdapterAulas(this, list, usuario));
+                        RecyclerView.LayoutManager layout = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+
+                        listaAulas.setLayoutManager(layout);
+                        dialogLoading.fecharLoading();
+
+                    }else{
+                        Log.d("testexx", "não possui aulas");
+                        dialogLoading.fecharLoading();
+                    }
+
+                })
+                .addOnFailureListener(e -> {
+                    Log.d("testexx", e.getMessage());
+                    dialogLoading.fecharLoading();
+                });
+
+
+
     }
 }
