@@ -1,8 +1,7 @@
 package com.jisellemartins.escolaparatodos;
 
-import static com.jisellemartins.escolaparatodos.BibliotecaScreen.bytesIntoHumanReadable;
-import static com.jisellemartins.escolaparatodos.Utils.UtilAutenticacao.aluno;
-import static com.jisellemartins.escolaparatodos.Utils.UtilAutenticacao.nomeDisciplina;
+import static com.jisellemartins.escolaparatodos.Utils.Utils.aluno;
+import static com.jisellemartins.escolaparatodos.Utils.Utils.nomeDisciplina;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.LinearLayoutCompat;
@@ -31,7 +30,6 @@ import com.jisellemartins.escolaparatodos.dialogs.DialogLoading;
 import com.jisellemartins.escolaparatodos.model.Aula;
 
 import java.util.ArrayList;
-import java.util.concurrent.atomic.AtomicInteger;
 
 public class AulasScreen extends AppCompatActivity {
     ImageView imgVoltar, imgConfig;

@@ -1,8 +1,8 @@
 package com.jisellemartins.escolaparatodos.adapter;
 
 import static android.content.Context.MODE_PRIVATE;
-import static com.jisellemartins.escolaparatodos.Utils.UtilAutenticacao.aluno;
-import static com.jisellemartins.escolaparatodos.Utils.UtilAutenticacao.nomeDisciplina;
+import static com.jisellemartins.escolaparatodos.Utils.Utils.aluno;
+import static com.jisellemartins.escolaparatodos.Utils.Utils.nomeDisciplina;
 
 import android.content.Context;
 import android.content.Intent;

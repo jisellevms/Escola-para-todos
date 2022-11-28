@@ -1,26 +1,19 @@
 package com.jisellemartins.escolaparatodos.dialogs;
 
 import static android.content.Context.MODE_PRIVATE;
-import static com.jisellemartins.escolaparatodos.Utils.UtilAutenticacao.aluno;
 
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.SharedPreferences;
-import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
-
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.SetOptions;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;

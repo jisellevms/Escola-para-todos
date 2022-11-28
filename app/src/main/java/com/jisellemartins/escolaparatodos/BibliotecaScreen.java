@@ -1,7 +1,7 @@
 package com.jisellemartins.escolaparatodos;
 
-import static com.jisellemartins.escolaparatodos.Utils.UtilAutenticacao.aluno;
-import static com.jisellemartins.escolaparatodos.Utils.UtilAutenticacao.nomeDisciplina;
+import static com.jisellemartins.escolaparatodos.Utils.Utils.aluno;
+import static com.jisellemartins.escolaparatodos.Utils.Utils.nomeDisciplina;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -13,29 +13,19 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.ListResult;
-import com.google.firebase.storage.StorageMetadata;
 import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
 import com.jisellemartins.escolaparatodos.adapter.AdapterConteudo;
 import com.jisellemartins.escolaparatodos.dialogs.DialogLoading;
 import com.jisellemartins.escolaparatodos.dialogs.DialogNomeArquivo;
 import com.jisellemartins.escolaparatodos.model.Conteudo;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 
 public class BibliotecaScreen extends AppCompatActivity {

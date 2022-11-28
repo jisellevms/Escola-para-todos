@@ -4,7 +4,7 @@ import static android.content.Context.DOWNLOAD_SERVICE;
 import static android.content.Context.MODE_PRIVATE;
 import static android.os.Environment.DIRECTORY_DOWNLOADS;
 import static com.jisellemartins.escolaparatodos.BibliotecaScreen.bytesIntoHumanReadable;
-import static com.jisellemartins.escolaparatodos.Utils.UtilAutenticacao.aluno;
+import static com.jisellemartins.escolaparatodos.Utils.Utils.aluno;
 
 import android.app.DownloadManager;
 import android.content.Context;
@@ -19,13 +19,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageMetadata;
 import com.google.firebase.storage.StorageReference;
 import com.jisellemartins.escolaparatodos.R;
 import com.jisellemartins.escolaparatodos.model.Aula;

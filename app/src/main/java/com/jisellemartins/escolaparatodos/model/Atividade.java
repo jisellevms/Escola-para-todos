@@ -1,10 +1,13 @@
 package com.jisellemartins.escolaparatodos.model;
 
+import java.util.List;
+
 public class Atividade {
     private String descricao;
     private String data;
     private String qtdQuestoes;
     private String status;
+    private List<Questao> questoes;
 
     public String getDescricao() {
         return descricao;
@@ -36,5 +39,13 @@ public class Atividade {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public List<Questao> getQuestoes() {
+        return questoes;
+    }
+
+    public void setQuestoes(List<Questao> questoes) {
+        this.questoes = questoes;
     }
 }

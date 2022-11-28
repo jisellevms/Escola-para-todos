@@ -1,7 +1,7 @@
 package com.jisellemartins.escolaparatodos;
 
 import static com.jisellemartins.escolaparatodos.AudioToText.RESULT_SPEECH;
-import static com.jisellemartins.escolaparatodos.Utils.UtilAutenticacao.entreiComoAluno;
+import static com.jisellemartins.escolaparatodos.Utils.Utils.entreiComoAluno;
 
 import android.Manifest;
 import android.content.ActivityNotFoundException;

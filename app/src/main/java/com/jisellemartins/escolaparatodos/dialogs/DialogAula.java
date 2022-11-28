@@ -2,8 +2,7 @@ package com.jisellemartins.escolaparatodos.dialogs;
 
 import static android.content.Context.MODE_PRIVATE;
 import static com.jisellemartins.escolaparatodos.CadastroScreen.getRandomNonRepeatingIntegers;
-import static com.jisellemartins.escolaparatodos.Utils.UtilAutenticacao.aluno;
-import static com.jisellemartins.escolaparatodos.Utils.UtilAutenticacao.entreiComoAluno;
+import static com.jisellemartins.escolaparatodos.Utils.Utils.entreiComoAluno;
 
 import android.Manifest;
 import android.app.Activity;
@@ -12,10 +11,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.util.Log;
-import android.view.Gravity;
-import android.view.ViewGroup;
 import android.view.Window;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -25,15 +21,11 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.jisellemartins.escolaparatodos.DisciplinesScreen;
 import com.jisellemartins.escolaparatodos.R;
 import com.jisellemartins.escolaparatodos.VideoActivity;
 
 import java.util.HashMap;
 import java.util.Map;
-
-import io.agora.agorauikit.manager.AgoraRTC;
-import io.agora.rtc.Constants;
 
 public class DialogAula {
 

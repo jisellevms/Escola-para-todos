@@ -1,7 +1,7 @@
 package com.jisellemartins.escolaparatodos;
 
-import static com.jisellemartins.escolaparatodos.Utils.UtilAutenticacao.aluno;
-import static com.jisellemartins.escolaparatodos.Utils.UtilAutenticacao.nomeDisciplina;
+import static com.jisellemartins.escolaparatodos.Utils.Utils.aluno;
+import static com.jisellemartins.escolaparatodos.Utils.Utils.nomeDisciplina;
 
 import androidx.appcompat.app.AppCompatActivity;
 

@@ -22,12 +22,10 @@ import java.util.List;
 public class AdapterItemQuestao extends RecyclerView.Adapter {
     private List<Questao> questoes;
     private Context context;
-    int count = 1;
 
     public AdapterItemQuestao(Context context, List<Questao> questoes) {
         this.context = context;
         this.questoes = questoes;
-
     }
 
     @NonNull
@@ -41,35 +39,35 @@ public class AdapterItemQuestao extends RecyclerView.Adapter {
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         AdapterItemQuestao.ViewHolder viewHolder = (AdapterItemQuestao.ViewHolder) holder;
-        if (count >= 10) {
-            viewHolder.questao.setText("Questão " + count);
-        } else {
-            viewHolder.questao.setText("Questão 0" + count);
-        }
-        count++;
+        Questao questao = questoes.get(position);
+        viewHolder.questao.setText("Questão " + questao.getNumeroQuestao());
+        viewHolder.status.setImageResource(R.drawable.check2);
+        if (questao.getDesc().isEmpty()) viewHolder.status.setImageResource(R.drawable.aviso2);
+
+
 
         viewHolder.editar.setOnClickListener(view -> {
-            DialogQuestão alert = new DialogQuestão();
+            DialogQuestão alert = new DialogQuestão(questao);
             alert.showDialog((Activity) context);
         });
-}
+    }
 
     @Override
     public int getItemCount() {
         return questoes.size();
     }
 
-public class ViewHolder extends RecyclerView.ViewHolder {
-    TextView questao;
-    ImageView status, editar, excluir;
+    public class ViewHolder extends RecyclerView.ViewHolder {
+        TextView questao;
+        ImageView status, editar, excluir;
 
 
-    public ViewHolder(@NonNull View itemView) {
-        super(itemView);
-        questao = itemView.findViewById(R.id.questao);
-        status = itemView.findViewById(R.id.status);
-        editar = itemView.findViewById(R.id.editarQ);
-        excluir = itemView.findViewById(R.id.excluirQ);
+        public ViewHolder(@NonNull View itemView) {
+            super(itemView);
+            questao = itemView.findViewById(R.id.questao);
+            status = itemView.findViewById(R.id.status);
+            editar = itemView.findViewById(R.id.editarQ);
+            excluir = itemView.findViewById(R.id.excluirQ);
+        }
     }
-}
 }

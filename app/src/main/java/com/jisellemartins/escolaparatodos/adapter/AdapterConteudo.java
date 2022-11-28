@@ -3,7 +3,7 @@ package com.jisellemartins.escolaparatodos.adapter;
 import static android.content.Context.DOWNLOAD_SERVICE;
 import static android.content.Context.MODE_PRIVATE;
 import static android.os.Environment.DIRECTORY_DOWNLOADS;
-import static com.jisellemartins.escolaparatodos.Utils.UtilAutenticacao.aluno;
+import static com.jisellemartins.escolaparatodos.Utils.Utils.aluno;
 
 import android.app.DownloadManager;
 import android.content.Context;

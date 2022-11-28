@@ -2,7 +2,6 @@ package com.jisellemartins.escolaparatodos.dialogs;
 
 import static android.content.Context.MODE_PRIVATE;
 import static com.jisellemartins.escolaparatodos.CadastroScreen.getRandomNonRepeatingIntegers;
-import static com.jisellemartins.escolaparatodos.Utils.UtilAutenticacao.aluno;
 
 import android.app.Activity;
 import android.app.Dialog;

@@ -2,14 +2,11 @@ package com.jisellemartins.escolaparatodos.dialogs;
 
 import static android.content.Context.MODE_PRIVATE;
 import static com.jisellemartins.escolaparatodos.CadastroScreen.getRandomNonRepeatingIntegers;
-import static com.jisellemartins.escolaparatodos.Utils.UtilAutenticacao.aluno;
 
 import android.app.Activity;
 import android.app.Dialog;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.util.Log;
-import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
@@ -17,13 +14,8 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.gson.Gson;
-import com.jisellemartins.escolaparatodos.DisciplineScreen;
-import com.jisellemartins.escolaparatodos.DisciplinesScreen;
 import com.jisellemartins.escolaparatodos.R;
-import com.jisellemartins.escolaparatodos.model.Aluno;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
