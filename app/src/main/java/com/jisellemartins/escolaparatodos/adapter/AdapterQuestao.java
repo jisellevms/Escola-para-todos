@@ -1,7 +1,7 @@
 package com.jisellemartins.escolaparatodos.adapter;
 
 import static android.content.Context.MODE_PRIVATE;
-import static com.jisellemartins.escolaparatodos.Utils.UtilAutenticacao.aluno;
+import static com.jisellemartins.escolaparatodos.Utils.Utils.aluno;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -9,14 +9,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.jisellemartins.escolaparatodos.R;
-import com.jisellemartins.escolaparatodos.model.Atividade;
 import com.jisellemartins.escolaparatodos.model.Questao;
 
 import java.util.List;

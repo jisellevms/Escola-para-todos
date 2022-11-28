@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.jisellemartins.escolaparatodos.Utils.Mask;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -40,7 +41,7 @@ public class CadastroScreen extends AppCompatActivity {
     boolean aluno = true;
     String usuario = "Aluno";
 
-
+    String telefone;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +67,9 @@ public class CadastroScreen extends AppCompatActivity {
 
 
         btnCadastrar = findViewById(R.id.btnCadastrar);
+
+        telefoneUsuario.addTextChangedListener(Mask.insert("(##)#####-####", telefoneUsuario));
+
 
         activity = this;
 
@@ -111,6 +115,9 @@ public class CadastroScreen extends AppCompatActivity {
 
     public void cadastrar(){
 
+        telefone = telefoneUsuario.getText().toString().replace("(","").replace(")","").replace("-","");
+
+
         if(!nomeUsuario.getText().toString().isEmpty() &&
         !telefoneUsuario.getText().toString().isEmpty() &&
         !senhaUsuario.getText().toString().isEmpty() &&
@@ -124,8 +131,8 @@ public class CadastroScreen extends AppCompatActivity {
             }
 
             db.collection(usuario)
-                    .whereEqualTo("codArea", Integer.valueOf(telefoneUsuario.getText().toString().substring(0,2)))
-                    .whereEqualTo("telefone", Integer.valueOf(telefoneUsuario.getText().toString().substring(2,11)))
+                    .whereEqualTo("codArea", Integer.valueOf(telefone.substring(0,2)))
+                    .whereEqualTo("telefone", Integer.valueOf(telefone.substring(2,11)))
                     .get()
                     .addOnCompleteListener(task -> {
                         if (task.isSuccessful()) {
@@ -150,8 +157,8 @@ public class CadastroScreen extends AppCompatActivity {
                 Map<String, Object> aluno = new HashMap<>();
                 aluno.put("idade", Integer.valueOf(idadeAluno.getText().toString()));
                 aluno.put("nome", nomeUsuario.getText().toString());
-                aluno.put("codArea", Integer.valueOf(telefoneUsuario.getText().toString().substring(0,2)));
-                aluno.put("telefone", Integer.valueOf(telefoneUsuario.getText().toString().substring(2,11)));
+                aluno.put("codArea", Integer.valueOf(telefone.substring(0,2)));
+                aluno.put("telefone", Integer.valueOf(telefone.substring(2,11)));
                 aluno.put("senha", senhaUsuario.getText().toString());
 
                 db.collection("Aluno").document(getRandomNonRepeatingIntegers(6,0,1000).toString())
@@ -175,8 +182,8 @@ public class CadastroScreen extends AppCompatActivity {
                 Map<String, Object> professor = new HashMap<>();
                 professor.put("formacao", formacaoProf.getText().toString());
                 professor.put("nome", nomeUsuario.getText().toString());
-                professor.put("codArea", Integer.valueOf(telefoneUsuario.getText().toString().substring(0,2)));
-                professor.put("telefone", Integer.valueOf(telefoneUsuario.getText().toString().substring(2,11)));
+                professor.put("codArea", Integer.valueOf(telefone.substring(0,2)));
+                professor.put("telefone", Integer.valueOf(telefone.substring(2,11)));
                 professor.put("senha", senhaUsuario.getText().toString());
 
                 db.collection("Professor").document(getRandomNonRepeatingIntegers(6,0,1000).toString())
@@ -196,7 +203,7 @@ public class CadastroScreen extends AppCompatActivity {
                         });
             }
 
-            editor.putString("numero",telefoneUsuario.getText().toString());
+            editor.putString("numero",telefone);
             editor.commit();
         }else{
             Toast.makeText(this, "O usuário já está cadastrado", Toast.LENGTH_LONG).show();

@@ -1,12 +1,11 @@
 package com.jisellemartins.escolaparatodos;
 
-import static com.jisellemartins.escolaparatodos.Utils.UtilAutenticacao.aluno;
-import static com.jisellemartins.escolaparatodos.Utils.UtilAutenticacao.nomeDisciplina;
+import static com.jisellemartins.escolaparatodos.Utils.Utils.aluno;
+import static com.jisellemartins.escolaparatodos.Utils.Utils.nomeDisciplina;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -22,7 +21,6 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.jisellemartins.escolaparatodos.adapter.AdapterBoletim;
 import com.jisellemartins.escolaparatodos.adapter.AdapterBoletimProfessor;
-import com.jisellemartins.escolaparatodos.adapter.AdapterGerenciarAlunos;
 import com.jisellemartins.escolaparatodos.model.Aluno;
 import com.jisellemartins.escolaparatodos.model.Boletim;
 

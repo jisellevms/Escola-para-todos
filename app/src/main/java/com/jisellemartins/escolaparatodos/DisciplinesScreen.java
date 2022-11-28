@@ -1,8 +1,7 @@
 package com.jisellemartins.escolaparatodos;
 
-import static com.jisellemartins.escolaparatodos.Utils.UtilAutenticacao.aluno;
+import static com.jisellemartins.escolaparatodos.Utils.Utils.aluno;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -22,7 +21,6 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.jisellemartins.escolaparatodos.adapter.AdapterDisciplinas;
-import com.jisellemartins.escolaparatodos.dialogs.DialogAula;
 import com.jisellemartins.escolaparatodos.dialogs.DialogCriarDisciplina;
 import com.jisellemartins.escolaparatodos.model.Aluno;
 import com.jisellemartins.escolaparatodos.model.Disciplina;

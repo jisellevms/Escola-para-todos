@@ -3,7 +3,9 @@ package com.jisellemartins.escolaparatodos.model;
 public class Aula {
     private String descricao;
     private String audio;
+    private String tamanhoAudio;
     private String texto;
+    private String tamanhoTexto;
 
     public String getDescricao() {
         return descricao;
@@ -27,5 +29,21 @@ public class Aula {
 
     public void setTexto(String texto) {
         this.texto = texto;
+    }
+
+    public String getTamanhoAudio() {
+        return tamanhoAudio;
+    }
+
+    public void setTamanhoAudio(String tamanhoAudio) {
+        this.tamanhoAudio = tamanhoAudio;
+    }
+
+    public String getTamanhoTexto() {
+        return tamanhoTexto;
+    }
+
+    public void setTamanhoTexto(String tamanhoTexto) {
+        this.tamanhoTexto = tamanhoTexto;
     }
 }

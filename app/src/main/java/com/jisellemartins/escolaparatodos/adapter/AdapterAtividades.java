@@ -1,6 +1,6 @@
 package com.jisellemartins.escolaparatodos.adapter;
 
-import static com.jisellemartins.escolaparatodos.Utils.UtilAutenticacao.aluno;
+import static com.jisellemartins.escolaparatodos.Utils.Utils.aluno;
 
 import android.content.Context;
 import android.content.Intent;
@@ -15,8 +15,6 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.jisellemartins.escolaparatodos.AtividadeQuestaoScreen;
-import com.jisellemartins.escolaparatodos.AtividadesScreen;
-import com.jisellemartins.escolaparatodos.CriarAtividadeScreen;
 import com.jisellemartins.escolaparatodos.R;
 import com.jisellemartins.escolaparatodos.model.Atividade;
 

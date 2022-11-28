@@ -8,8 +8,9 @@ public class Questao {
     private String itemD;
     private String itemE;
     private int qtdItens;
-    private int itemCorreto;
+    private String itemCorreto;
     private boolean questaoSalva;
+    private int numeroQuestao;
 
     public String getDesc() {
         return desc;
@@ -67,11 +68,11 @@ public class Questao {
         this.qtdItens = qtdItens;
     }
 
-    public int getItemCorreto() {
+    public String getItemCorreto() {
         return itemCorreto;
     }
 
-    public void setItemCorreto(int itemCorreto) {
+    public void setItemCorreto(String itemCorreto) {
         this.itemCorreto = itemCorreto;
     }
 
@@ -81,5 +82,13 @@ public class Questao {
 
     public void setQuestaoSalva(boolean questaoSalva) {
         this.questaoSalva = questaoSalva;
+    }
+
+    public int getNumeroQuestao() {
+        return numeroQuestao;
+    }
+
+    public void setNumeroQuestao(int numeroQuestao) {
+        this.numeroQuestao = numeroQuestao;
     }
 }

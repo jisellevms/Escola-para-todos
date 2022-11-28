@@ -1,6 +1,6 @@
 package com.jisellemartins.escolaparatodos;
 
-import static com.jisellemartins.escolaparatodos.Utils.UtilAutenticacao.aluno;
+import static com.jisellemartins.escolaparatodos.Utils.Utils.aluno;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -13,9 +13,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 
-import com.jisellemartins.escolaparatodos.adapter.AdapterAtividades;
 import com.jisellemartins.escolaparatodos.adapter.AdapterQuestao;
-import com.jisellemartins.escolaparatodos.model.Atividade;
 import com.jisellemartins.escolaparatodos.model.Questao;
 
 import java.util.ArrayList;

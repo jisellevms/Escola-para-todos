@@ -1,6 +1,6 @@
 package com.jisellemartins.escolaparatodos;
 
-import static com.jisellemartins.escolaparatodos.Utils.UtilAutenticacao.aluno;
+import static com.jisellemartins.escolaparatodos.Utils.Utils.aluno;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -13,6 +13,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.jisellemartins.escolaparatodos.Utils.Mask;
 import com.jisellemartins.escolaparatodos.dialogs.DialogLoading;
 
 public class LoginScreen extends AppCompatActivity {
@@ -41,6 +42,8 @@ public class LoginScreen extends AppCompatActivity {
         campoTelefone = findViewById(R.id.campoTelefone);
         campoSenha = findViewById(R.id.campoSenha);
 
+        campoTelefone.addTextChangedListener(Mask.insert("(##)#####-####", campoTelefone));
+
         imgVoltar.setOnClickListener(view -> {
             finish();
         });
@@ -58,15 +61,18 @@ public class LoginScreen extends AppCompatActivity {
             if(campoTelefone.getText().toString().isEmpty() && campoSenha.getText().toString().isEmpty()){
                 Toast.makeText(this, "Preencha todos os campos!", Toast.LENGTH_LONG).show();
             }else{
+
+                String telefone = campoTelefone.getText().toString().replace("(","").replace(")","").replace("-","");
+
                 String colecao = usuario.equals(aluno) ?  "Aluno" :  "Professor";
                 db.collection(colecao)
-                        .whereEqualTo("codArea", Integer.valueOf(campoTelefone.getText().toString().substring(0,2)))
-                        .whereEqualTo("telefone", Integer.valueOf(campoTelefone.getText().toString().substring(2,11)))
+                        .whereEqualTo("codArea", Integer.valueOf(telefone.substring(0,2)))
+                        .whereEqualTo("telefone", Integer.valueOf(telefone.substring(2,11)))
                         .whereEqualTo("senha", campoSenha.getText().toString())
                         .get()
                         .addOnCompleteListener(task -> {
                             if (task.isSuccessful() && task.getResult().size() > 0) {
-                                editor.putString("numero",campoTelefone.getText().toString());
+                                editor.putString("numero",telefone);
                                 editor.commit();
                                 alert.fecharLoading();
                                 finish();

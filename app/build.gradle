@@ -60,4 +60,6 @@ dependencies {
 
     implementation 'io.agora.uikit:agorauikit:2.0.1'
     implementation 'com.squareup.okhttp3:okhttp:4.9.3'
+    implementation 'com.itextpdf:itextg:5.5.10'
+    implementation 'org.webrtc:google-webrtc:1.0.+'
 }
