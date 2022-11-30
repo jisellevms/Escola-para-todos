@@ -70,6 +70,7 @@ public class AdapterAtividades extends RecyclerView.Adapter {
                             atividade.setStatus("Concluido");
                             viewHolder.statusAtv.setText("Status da atividade: " + atividade.getStatus());
                             viewHolder.iconStatus.setImageResource(R.drawable.check);
+                            viewHolder.item_atividade.setEnabled(false);
                         } else {
                             atividade.setStatus("Pendente");
                             viewHolder.statusAtv.setText("Status da atividade: " + atividade.getStatus());
