@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.jisellemartins.escolaparatodos.DisciplinesScreen;
 import com.jisellemartins.escolaparatodos.R;
 
 import java.util.HashMap;
@@ -31,7 +32,6 @@ public class DialogCriarDisciplina {
         dialog.setCancelable(false);
         dialog.setContentView(R.layout.dialog_criar_disciplina);
 
-        //Button dialogButton = (Button) dialog.findViewById(R.id.btnIniciarAula);
         ImageView cancelar = dialog.findViewById(R.id.cancelar);
         Button btnCriarDisciplina = dialog.findViewById(R.id.btnCriarDisciplina);
         EditText nomeDisciplina = dialog.findViewById(R.id.nomeDisciplina);
@@ -56,7 +56,6 @@ public class DialogCriarDisciplina {
                         Toast.makeText(activity, "Disciplina cadastrada com sucesso!", Toast.LENGTH_LONG).show();
                         dialog.dismiss();
                         activity.startActivityForResult(activity.getIntent(), 10);
-
                     })
                     .addOnFailureListener(e -> {
                         Toast.makeText(activity, "Erro: " + e, Toast.LENGTH_LONG).show();

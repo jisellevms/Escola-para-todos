@@ -1,5 +1,6 @@
 package com.jisellemartins.escolaparatodos.Utils;
 
+import com.jisellemartins.escolaparatodos.model.Atividade;
 import com.jisellemartins.escolaparatodos.model.Questao;
 
 import java.util.List;
@@ -13,6 +14,7 @@ public class Utils {
     public static String nomeDisciplina = "";
 
     public static List<Questao> listQuestoes;
+    public static Atividade atividade;
 
 
 }

@@ -1,15 +1,19 @@
 package com.jisellemartins.escolaparatodos;
 
 import static com.jisellemartins.escolaparatodos.CadastroScreen.getRandomNonRepeatingIntegers;
+import static com.jisellemartins.escolaparatodos.Utils.Utils.aluno;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -36,6 +40,7 @@ public class CriarAtividadeScreen extends AppCompatActivity {
     int quantidadeQuestoes = 0;
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,6 +55,9 @@ public class CriarAtividadeScreen extends AppCompatActivity {
 
         listaQuestoes = findViewById(R.id.listaQuestoes);
 
+        SharedPreferences sharedPref = getSharedPreferences("chaves", MODE_PRIVATE);
+        String disciplinaTime = sharedPref.getString("disciplina", "");
+
         imgVoltar.setOnClickListener(view -> {
             finish();
         });
@@ -62,12 +70,13 @@ public class CriarAtividadeScreen extends AppCompatActivity {
         dataAtividade.addTextChangedListener(Mask.insert("##/##/####", dataAtividade));
 
         btnQtdQuestoes.setOnClickListener(view -> {
+            hideSoftKeyboard(this);
             Utils.listQuestoes = new ArrayList<>();
-            if(!qtdQuestoes.getText().toString().isEmpty()){
+            if (!qtdQuestoes.getText().toString().isEmpty()) {
                 quantidadeQuestoes = Integer.parseInt(qtdQuestoes.getText().toString());
                 int count = 0;
                 list.clear();
-                while(list.size() < quantidadeQuestoes){
+                while (list.size() < quantidadeQuestoes) {
                     count++;
                     Questao questao = new Questao();
                     questao.setDesc("Insira uma descrição");
@@ -87,50 +96,72 @@ public class CriarAtividadeScreen extends AppCompatActivity {
 
                 listaQuestoes.setVisibility(View.VISIBLE);
 
-            }else{
+            } else {
                 Toast.makeText(this, "Digite um número", Toast.LENGTH_SHORT).show();
             }
 
         });
 
         criarAtv.setOnClickListener(view -> {
+            int qtdQuestoesNum = Integer.parseInt(qtdQuestoes.getText().toString());
+            if (Utils.listQuestoes.size() == 0 || qtdQuestoesNum != Utils.listQuestoes.size()) {
+                Toast.makeText(this, "É necessário salvar todas as questões", Toast.LENGTH_LONG).show();
 
-            if (!qtdQuestoes.getText().toString().isEmpty() && !descricaoAtv.getText().toString().isEmpty()
-                    && !dataAtividade.getText().toString().isEmpty()){
+            } else {
+                Long timeInLong = System.currentTimeMillis() / 1000;
+                String timestamp = timeInLong.toString();
+                if (!qtdQuestoes.getText().toString().isEmpty() && !descricaoAtv.getText().toString().isEmpty()
+                        && !dataAtividade.getText().toString().isEmpty()) {
 
-                Gson gson = new Gson();
-                String stringJson = gson.toJson(Utils.listQuestoes);
-                Map<String, Object> atividade = new HashMap<>();
-                atividade.put("descricao", descricaoAtv.getText().toString());
-                atividade.put("data", dataAtividade.getText().toString());
-                atividade.put("qtdQuestoes", Utils.listQuestoes.size());
-                atividade.put("status", false);
-                atividade.put("jsonQuestoes", stringJson);
+                    Gson gson = new Gson();
+                    String stringJson = gson.toJson(Utils.listQuestoes);
+                    Map<String, Object> atividade = new HashMap<>();
+                    atividade.put("descricao", descricaoAtv.getText().toString());
+                    atividade.put("data", dataAtividade.getText().toString());
+                    atividade.put("qtdQuestoes", Utils.listQuestoes.size());
+                    atividade.put("status", false);
+                    atividade.put("jsonQuestoes", stringJson);
+                    atividade.put("disciplina", disciplinaTime);
+                    atividade.put("atividade", timestamp);
 
-                db.collection("Atividade").document(getRandomNonRepeatingIntegers(6,0,1000).toString())
-                        .set(atividade)
-                        .addOnSuccessListener(aVoid -> {
+                    db.collection("Atividade").document(getRandomNonRepeatingIntegers(6, 0, 1000).toString())
+                            .set(atividade)
+                            .addOnSuccessListener(aVoid -> {
 
-                            Toast.makeText(this, "Atividade cadastrada com sucesso!", Toast.LENGTH_LONG).show();
-                            finish();
+                                Toast.makeText(this, "Atividade cadastrada com sucesso!", Toast.LENGTH_LONG).show();
+                                finish();
 
 
-                        })
-                        .addOnFailureListener(e -> {
-                            Toast.makeText(this, "Erro: " + e, Toast.LENGTH_LONG).show();
-                            Log.d("TESTEXX", "Erro:" + e);
 
-                        });
+                            })
+                            .addOnFailureListener(e -> {
+                                Toast.makeText(this, "Erro: " + e, Toast.LENGTH_LONG).show();
+                                Log.d("TESTEXX", "Erro:" + e);
 
-            }else{
-                Toast.makeText(this, "É necessário preencher todos os campos", Toast.LENGTH_LONG).show();
+                            });
+
+                } else {
+                    Toast.makeText(this, "É necessário preencher todos os campos", Toast.LENGTH_LONG).show();
+                }
             }
+
+
         });
 
 
-
-
-
     }
+
+    public static void hideSoftKeyboard(Activity activity) {
+        InputMethodManager inputMethodManager =
+                (InputMethodManager) activity.getSystemService(
+                        Activity.INPUT_METHOD_SERVICE);
+        if (inputMethodManager.isAcceptingText()) {
+            inputMethodManager.hideSoftInputFromWindow(
+                    activity.getCurrentFocus().getWindowToken(),
+                    0
+            );
+        }
+    }
+
 
 }

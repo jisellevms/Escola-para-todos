@@ -9,6 +9,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -19,7 +21,7 @@ import com.jisellemartins.escolaparatodos.model.Questao;
 
 import java.util.List;
 
-public class AdapterQuestao extends RecyclerView.Adapter{
+public class AdapterQuestao extends RecyclerView.Adapter {
     private List<Questao> questoes;
     private Context context;
     String usuario;
@@ -32,6 +34,7 @@ public class AdapterQuestao extends RecyclerView.Adapter{
         usuario = sharedPref.getString("usuario", aluno);
 
     }
+
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -46,40 +49,59 @@ public class AdapterQuestao extends RecyclerView.Adapter{
         AdapterQuestao.ViewHolder viewHolder = (AdapterQuestao.ViewHolder) holder;
         Questao questao = questoes.get(position);
         viewHolder.descQuestao.setText(questao.getDesc());
+
+
+        if (questao.getItemC().isEmpty()) {
+            viewHolder.itemC.setVisibility(View.GONE);
+            viewHolder.radioC.setVisibility(View.GONE);
+        }
+        if (questao.getItemD().isEmpty()) {
+            viewHolder.itemD.setVisibility(View.GONE);
+            viewHolder.radioD.setVisibility(View.GONE);
+        }
+        if (questao.getItemE().isEmpty()) {
+            viewHolder.itemE.setVisibility(View.GONE);
+            viewHolder.radioE.setVisibility(View.GONE);
+        }
         viewHolder.itemA.setText(questao.getItemA());
         viewHolder.itemB.setText(questao.getItemB());
         viewHolder.itemC.setText(questao.getItemC());
         viewHolder.itemD.setText(questao.getItemD());
         viewHolder.itemE.setText(questao.getItemE());
-        exibirItens(questao.getQtdItens(), viewHolder);
 
-        if (usuario.equals(aluno)){
-            viewHolder.btnSalvar.setVisibility(View.VISIBLE);
-        }else{
-            viewHolder.btnSalvar.setVisibility(View.GONE);
-        }
+
+        viewHolder.group.setOnCheckedChangeListener((group, checkedId) -> {
+            switch (checkedId) {
+                case R.id.radioA:
+                    questao.setItemSelecionado("A");
+                    break;
+                case R.id.radioB:
+                    questao.setItemSelecionado("B");
+                    break;
+                case R.id.radioC:
+                    questao.setItemSelecionado("C");
+                    break;
+                case R.id.radioD:
+                    questao.setItemSelecionado("D");
+                    break;
+                case R.id.radioE:
+                    questao.setItemSelecionado("E");
+                    break;
+
+            }
+        });
     }
 
-    public void exibirItens(int itens, AdapterQuestao.ViewHolder viewHolder){
-        if(itens == 4){
-            viewHolder.itemE.setVisibility(View.GONE);
-        }else if(itens == 3){
-            viewHolder.itemE.setVisibility(View.GONE);
-            viewHolder.itemD.setVisibility(View.GONE);
-        }else if(itens == 2){
-            viewHolder.itemE.setVisibility(View.GONE);
-            viewHolder.itemD.setVisibility(View.GONE);
-            viewHolder.itemC.setVisibility(View.GONE);
-        }
-    }
 
     @Override
     public int getItemCount() {
         return questoes.size();
     }
+
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView descQuestao, itemA, itemB, itemC, itemD, itemE;
-        Button btnSalvar;
+        RadioButton radioA, radioB, radioC, radioD, radioE;
+        RadioGroup group;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -89,7 +111,14 @@ public class AdapterQuestao extends RecyclerView.Adapter{
             itemC = itemView.findViewById(R.id.itemC);
             itemD = itemView.findViewById(R.id.itemD);
             itemE = itemView.findViewById(R.id.itemE);
-            btnSalvar = itemView.findViewById(R.id.btnSalvar);
+            group = itemView.findViewById(R.id.group);
+            radioA = itemView.findViewById(R.id.radioA);
+            radioB = itemView.findViewById(R.id.radioB);
+            radioC = itemView.findViewById(R.id.radioC);
+            radioD = itemView.findViewById(R.id.radioD);
+            radioE = itemView.findViewById(R.id.radioE);
+
+
         }
     }
 }

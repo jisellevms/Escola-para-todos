@@ -11,6 +11,7 @@ public class Questao {
     private String itemCorreto;
     private boolean questaoSalva;
     private int numeroQuestao;
+    private String itemSelecionado;
 
     public String getDesc() {
         return desc;
@@ -90,5 +91,13 @@ public class Questao {
 
     public void setNumeroQuestao(int numeroQuestao) {
         this.numeroQuestao = numeroQuestao;
+    }
+
+    public String getItemSelecionado() {
+        return itemSelecionado;
+    }
+
+    public void setItemSelecionado(String itemSelecionado) {
+        this.itemSelecionado = itemSelecionado;
     }
 }
