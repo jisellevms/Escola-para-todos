@@ -73,7 +73,6 @@ public class DisciplinesScreen extends AppCompatActivity {
 
         });
 
-        //showDisciplinas();
 
     }
 
@@ -139,10 +138,6 @@ public class DisciplinesScreen extends AppCompatActivity {
         }
     }
 
-    @Override
-    protected void onRestart() {
-        super.onRestart();
-    }
 
     @Override
     protected void onResume() {
@@ -150,8 +145,4 @@ public class DisciplinesScreen extends AppCompatActivity {
         showDisciplinas();
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-    }
 }

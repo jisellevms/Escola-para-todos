@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.jisellemartins.escolaparatodos.R;
 import com.jisellemartins.escolaparatodos.Utils.Utils;
+import com.jisellemartins.escolaparatodos.adapter.AdapterItemQuestao;
 import com.jisellemartins.escolaparatodos.model.Questao;
 
 import java.util.ArrayList;
@@ -42,8 +43,11 @@ public class DialogQuestão implements View.OnClickListener {
     Questao questao;
     String itemCorreto;
 
-    public DialogQuestão(Questao questao) {
+    AdapterItemQuestao adapterItemQuestao;
+
+    public DialogQuestão(Questao questao, AdapterItemQuestao adapterItemQuestao) {
         this.questao = questao;
+        this.adapterItemQuestao = adapterItemQuestao;
     }
 
     public void showDialog(Activity activity) {
@@ -101,11 +105,13 @@ public class DialogQuestão implements View.OnClickListener {
                 questao.setDesc(descricaoQuestao.getText().toString());
                 questao.setItemA(opcaoA.getText().toString());
                 questao.setItemB(opcaoB.getText().toString());
-                questao.setItemC(opcaoC.getText().toString());
-                questao.setItemD(opcaoD.getText().toString());
-                questao.setItemE(opcaoE.getText().toString());
+                if(!questao.getItemC().isEmpty()) questao.setItemC(opcaoC.getText().toString());
+                if(!questao.getItemD().isEmpty())questao.setItemD(opcaoD.getText().toString());
+                if(!questao.getItemE().isEmpty())questao.setItemE(opcaoE.getText().toString());
                 questao.setItemCorreto(itemCorreto);
+                questao.setQuestaoSalva(true);
                 Utils.listQuestoes.add(questao);
+                adapterItemQuestao.notifyDataSetChanged();
                 dialog.dismiss();
 
             } else {

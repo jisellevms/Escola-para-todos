@@ -33,9 +33,10 @@
 
         <LinearLayout
             android:id="@+id/linear"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
+            android:layout_marginTop="20dp"
+            android:paddingBottom="20dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/descQuestao">
@@ -43,64 +44,172 @@
             <RadioGroup
                 android:id="@+id/group"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:checkedButton="@id/radioA"
+                android:gravity="center"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
 
                 <RadioButton
-                    android:id="@+id/itemA"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:id="@+id/radioA"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/radio_button"
+                    android:button="@android:color/transparent"
                     android:fontFamily="@font/chawp"
-                    android:textColor="@color/black"
-                    android:textSize="15sp"
-                    android:layout_weight="1"
-                    android:text="RadioButton" />
+                    android:text="@string/aluno"
+                    android:textColor="@android:color/transparent"
+                    tools:ignore="TouchTargetSizeCheck,TouchTargetSizeCheck" />
+
 
                 <RadioButton
-                    android:id="@+id/itemB"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:id="@+id/radioB"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/radio_button"
+                    android:button="@android:color/transparent"
+                    android:checked="false"
                     android:fontFamily="@font/chawp"
-                    android:textColor="@color/black"
-                    android:textSize="15sp"
-                    android:text="RadioButton" />
+                    android:text="@string/aluno"
+                    android:textColor="@android:color/transparent"
+                    android:textSize="20sp"
+                    tools:ignore="TouchTargetSizeCheck" />
+
 
                 <RadioButton
-                    android:id="@+id/itemC"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:id="@+id/radioC"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/radio_button"
+                    android:button="@android:color/transparent"
+                    android:checked="false"
                     android:fontFamily="@font/chawp"
-                    android:textColor="@color/black"
-                    android:textSize="15sp"
-                    android:text="RadioButton" />
+                    android:text="@string/aluno"
+                    android:textColor="@android:color/transparent"
+                    android:textSize="20sp"
+                    tools:ignore="TouchTargetSizeCheck,TouchTargetSizeCheck" />
+
 
                 <RadioButton
-                    android:id="@+id/itemD"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:id="@+id/radioD"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/radio_button"
+                    android:button="@android:color/transparent"
+                    android:checked="false"
                     android:fontFamily="@font/chawp"
-                    android:textColor="@color/black"
-                    android:textSize="15sp"
-                    android:text="RadioButton" />
+                    android:text="@string/aluno"
+                    android:textColor="@android:color/transparent"
+                    android:textSize="20sp"
+                    tools:ignore="TouchTargetSizeCheck,TouchTargetSizeCheck" />
+
 
                 <RadioButton
-                    android:id="@+id/itemE"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:id="@+id/radioE"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/radio_button"
+                    android:button="@android:color/transparent"
+                    android:checked="false"
                     android:fontFamily="@font/chawp"
-                    android:textColor="@color/black"
-                    android:textSize="15sp"
-                    android:text="RadioButton" />
+                    android:text="@string/aluno"
+                    android:textColor="@android:color/transparent"
+                    android:textSize="20sp"
+                    tools:ignore="TouchTargetSizeCheck,TouchTargetSizeCheck" />
+
 
             </RadioGroup>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="15dp"
+                android:layout_weight="1"
+                android:gravity="start"
+                android:orientation="vertical">
+
+
+                <TextView
+                    android:id="@+id/itemA"
+                    android:layout_width="wrap_content"
+                    android:layout_height="45dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@android:color/transparent"
+                    android:fontFamily="@font/chawp"
+                    android:textAlignment="textStart"
+                    android:gravity="center"
+                    android:text="Alternativa A"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    tools:ignore="TouchTargetSizeCheck,TouchTargetSizeCheck" />
+
+                <TextView
+                    android:id="@+id/itemB"
+                    android:layout_width="wrap_content"
+                    android:layout_height="45dp"
+                    android:background="@android:color/transparent"
+                    android:fontFamily="@font/chawp"
+                    android:textAlignment="textStart"
+                    android:gravity="center"
+                    android:text="Alternativa b"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    tools:ignore="TouchTargetSizeCheck" />
+
+                <TextView
+                    android:id="@+id/itemC"
+                    android:layout_width="wrap_content"
+                    android:layout_height="45dp"
+                    android:background="@android:color/transparent"
+                    android:fontFamily="@font/chawp"
+                    android:textAlignment="textStart"
+                    android:gravity="center"
+                    android:text="Alternativa c"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    tools:ignore="TouchTargetSizeCheck,TouchTargetSizeCheck" />
+
+                <TextView
+                    android:id="@+id/itemD"
+                    android:layout_width="wrap_content"
+                    android:layout_height="45dp"
+                    android:background="@android:color/transparent"
+                    android:fontFamily="@font/chawp"
+                    android:textAlignment="textStart"
+                    android:gravity="center"
+                    android:text="Alternativa d sdnfewf fnenfj edfnef ijefe ifeifejifjei ifeif ijfeijf "
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    tools:ignore="TouchTargetSizeCheck" />
+
+                <TextView
+                    android:id="@+id/itemE"
+                    android:layout_width="wrap_content"
+                    android:layout_height="45dp"
+                    android:background="@android:color/transparent"
+                    android:fontFamily="@font/chawp"
+                    android:textAlignment="textStart"
+                    android:gravity="center"
+                    android:text="Alternativa e"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    tools:ignore="TouchTargetSizeCheck,TouchTargetSizeCheck" />
+
+            </LinearLayout>
 
         </LinearLayout>
 
 
-        <Button
+        <!--<Button
             android:id="@+id/btnSalvar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -115,7 +224,27 @@
             app:layout_constraintTop_toBottomOf="@+id/linear"
             app:strokeColor="@color/white"
             android:textColor="@color/white"
-            app:strokeWidth="1dp" />
+            app:strokeWidth="1dp" /> -->
+
+        <ImageView
+            android:id="@+id/imageView6"
+            android:layout_width="wrap_content"
+            android:layout_height="25dp"
+            android:elevation="10dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linear"
+            app:srcCompat="@drawable/prosseguir" />
+
+        <ImageView
+            android:id="@+id/imageView7"
+            android:layout_width="wrap_content"
+            android:layout_height="25dp"
+            android:layout_weight="1"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linear"
+            app:srcCompat="@drawable/voltar2" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

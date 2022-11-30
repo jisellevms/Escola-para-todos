@@ -41,13 +41,13 @@ public class AdapterItemQuestao extends RecyclerView.Adapter {
         AdapterItemQuestao.ViewHolder viewHolder = (AdapterItemQuestao.ViewHolder) holder;
         Questao questao = questoes.get(position);
         viewHolder.questao.setText("Questão " + questao.getNumeroQuestao());
-        viewHolder.status.setImageResource(R.drawable.check2);
-        if (questao.getDesc().isEmpty()) viewHolder.status.setImageResource(R.drawable.aviso2);
-
-
-
+        if (questao.isQuestaoSalva()){
+            viewHolder.status.setImageResource(R.drawable.check2);
+        }else{
+            viewHolder.status.setImageResource(R.drawable.aviso2);
+        }
         viewHolder.editar.setOnClickListener(view -> {
-            DialogQuestão alert = new DialogQuestão(questao);
+            DialogQuestão alert = new DialogQuestão(questao, this);
             alert.showDialog((Activity) context);
         });
     }
@@ -67,7 +67,6 @@ public class AdapterItemQuestao extends RecyclerView.Adapter {
             questao = itemView.findViewById(R.id.questao);
             status = itemView.findViewById(R.id.status);
             editar = itemView.findViewById(R.id.editarQ);
-            excluir = itemView.findViewById(R.id.excluirQ);
         }
     }
 }

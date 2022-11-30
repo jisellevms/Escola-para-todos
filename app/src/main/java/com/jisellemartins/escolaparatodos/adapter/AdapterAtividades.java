@@ -1,9 +1,11 @@
 package com.jisellemartins.escolaparatodos.adapter;
 
+import static android.content.Context.MODE_PRIVATE;
 import static com.jisellemartins.escolaparatodos.Utils.Utils.aluno;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,8 +16,10 @@ import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.jisellemartins.escolaparatodos.AtividadeQuestaoScreen;
 import com.jisellemartins.escolaparatodos.R;
+import com.jisellemartins.escolaparatodos.Utils.Utils;
 import com.jisellemartins.escolaparatodos.model.Atividade;
 
 import java.util.List;
@@ -24,13 +28,19 @@ public class AdapterAtividades extends RecyclerView.Adapter {
     private List<Atividade> atividades;
     private Context context;
     private String usuario;
+    SharedPreferences sharedPref;
+    String disciplinaTime;
+    String numeroUser;
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
 
 
     public AdapterAtividades(Context context, List<Atividade> atividades, String usuario) {
         this.context = context;
         this.atividades = atividades;
         this.usuario = usuario;
-
+        sharedPref = context.getSharedPreferences("chaves", MODE_PRIVATE);
+        disciplinaTime = sharedPref.getString("disciplina", "");
+        numeroUser = sharedPref.getString("numero", aluno);
     }
 
     @NonNull
@@ -49,25 +59,44 @@ public class AdapterAtividades extends RecyclerView.Adapter {
         viewHolder.descricaoAtv.setText(atividade.getDescricao());
         viewHolder.dataAtv.setText("Data final: " + atividade.getData());
         viewHolder.qtdQuestoesAtv.setText("Quantidade de questões: " + atividade.getQtdQuestoes());
-        viewHolder.statusAtv.setText("Status da atividade: " + atividade.getStatus());
-
         if (usuario.equals(aluno)) {
-            if (atividade.getStatus().equals("Concluido")) {
-                viewHolder.iconStatus.setImageResource(R.drawable.check);
-            } else {
-                viewHolder.iconStatus.setImageResource(R.drawable.aviso);
-            }
+            db.collection("RelacaoADA")
+                    .whereEqualTo("aluno", numeroUser)
+                    .whereEqualTo("atividade", atividade.getCodigoAtv())
+                    .whereEqualTo("disciplina", disciplinaTime)
+                    .get()
+                    .addOnCompleteListener(task -> {
+                        if (task.isSuccessful() && task.getResult().size() > 0) {
+                            atividade.setStatus("Concluido");
+                            viewHolder.statusAtv.setText("Status da atividade: " + atividade.getStatus());
+                            viewHolder.iconStatus.setImageResource(R.drawable.check);
+                        } else {
+                            atividade.setStatus("Pendente");
+                            viewHolder.statusAtv.setText("Status da atividade: " + atividade.getStatus());
+                            viewHolder.iconStatus.setImageResource(R.drawable.aviso);
+                        }
+                    });
+
+
         } else {
+            viewHolder.statusAtv.setText("Status da atividade: " + atividade.getStatus());
             viewHolder.iconStatus.setImageResource(R.drawable.lixeira_braca);
         }
 
         viewHolder.item_atividade.setOnClickListener(view -> {
+            Utils.atividade = atividade;
             Intent i = new Intent(context,
                     AtividadeQuestaoScreen.class);
             context.startActivity(i);
         });
 
     }
+
+    public void statusAtv(Atividade atv) {
+
+
+    }
+
 
     @Override
     public int getItemCount() {

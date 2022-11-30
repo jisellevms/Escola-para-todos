@@ -13,11 +13,21 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Toast;
 
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.jisellemartins.escolaparatodos.adapter.AdapterAtividades;
+import com.jisellemartins.escolaparatodos.dialogs.DialogLoading;
 import com.jisellemartins.escolaparatodos.model.Atividade;
+import com.jisellemartins.escolaparatodos.model.Questao;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class AtividadesScreen extends AppCompatActivity {
     ImageView imgVoltar, imgConfig;
@@ -25,7 +35,12 @@ public class AtividadesScreen extends AppCompatActivity {
     Button btnCriarAtividade, tituloDisciplina;
 
     String usuario = aluno;
+    String disciplinaTime;
+    String numeroUser;
 
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
+    ArrayList<Atividade> list = new ArrayList<>();
+    DialogLoading loading = new DialogLoading();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,12 +54,17 @@ public class AtividadesScreen extends AppCompatActivity {
 
         tituloDisciplina.setText("Atividades - " + nomeDisciplina);
 
+        loading.showDialog(this);
+
         SharedPreferences sharedPref = getSharedPreferences("chaves", MODE_PRIVATE);
         usuario = sharedPref.getString("usuario", aluno);
+        disciplinaTime = sharedPref.getString("disciplina", "");
+        numeroUser = sharedPref.getString("numero", aluno);
 
-        if (usuario.equals(aluno)){
+
+        if (usuario.equals(aluno)) {
             btnCriarAtividade.setVisibility(View.GONE);
-        }else{
+        } else {
             btnCriarAtividade.setVisibility(View.VISIBLE);
         }
         imgVoltar.setOnClickListener(view -> {
@@ -61,37 +81,48 @@ public class AtividadesScreen extends AppCompatActivity {
             startActivity(i);
         });
 
-        ArrayList<Atividade> list = new ArrayList<>();
+
+    }
+
+    public void listarAtividades() {
+        list = new ArrayList<>();
+        Gson gson = new Gson();
+
+        CollectionReference complaintsRef = db.collection("Atividade");
+        complaintsRef.whereEqualTo("disciplina", disciplinaTime).get().addOnCompleteListener(task -> {
+            if (task.isSuccessful() && task.getResult().size() > 0) {
+                for (QueryDocumentSnapshot document : task.getResult()) {
+                    String jsonQuestoes = document.get("jsonQuestoes").toString();
+                    ArrayList<Questao> listQuestoes = gson.fromJson(jsonQuestoes, new TypeToken<List<Questao>>() {
+                    }.getType());
+
+                    Atividade atividade = new Atividade();
+                    atividade.setCodigoAtv(document.get("atividade").toString());
+                    atividade.setStatus("Visualização");
+                    atividade.setDescricao(document.get("descricao").toString());
+                    atividade.setData(document.get("data").toString());
+                    atividade.setQtdQuestoes(document.get("qtdQuestoes").toString());
+
+                    atividade.setQuestoes(listQuestoes);
+                    list.add(atividade);
+                }
+                loading.fecharLoading();
+                listaAtividades.setAdapter(new AdapterAtividades(this, list, usuario));
+                RecyclerView.LayoutManager layout = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+                listaAtividades.setLayoutManager(layout);
+            } else {
+                loading.fecharLoading();
+                Toast.makeText(this, "Não existe atividades cadastradas", Toast.LENGTH_LONG).show();
+            }
 
 
-        Atividade atividade =  new Atividade();
-        atividade.setDescricao("Atividade sobre Matriz");
-        atividade.setData("29/09/2022");
-        atividade.setQtdQuestoes("10");
-        atividade.setStatus("Pendente");
+        });
+    }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        listarAtividades();
 
-        Atividade atividade2 =  new Atividade();
-        atividade2.setDescricao("Atividade sobre Matriz");
-        atividade2.setData("29/09/2022");
-        atividade2.setQtdQuestoes("10");
-        atividade2.setStatus("Concluido");
-
-        Atividade atividade3 =  new Atividade();
-        atividade3.setDescricao("Atividade sobre Matriz");
-        atividade3.setData("29/09/2022");
-        atividade3.setQtdQuestoes("10");
-        atividade3.setStatus("-");
-
-
-        list.add(atividade);
-        list.add(atividade2);
-        list.add(atividade3);
-
-
-
-        listaAtividades.setAdapter(new AdapterAtividades(this, list, usuario));
-        RecyclerView.LayoutManager layout = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
-        listaAtividades.setLayoutManager(layout);
     }
 }

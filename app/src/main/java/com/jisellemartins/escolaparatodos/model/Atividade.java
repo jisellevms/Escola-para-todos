@@ -3,11 +3,20 @@ package com.jisellemartins.escolaparatodos.model;
 import java.util.List;
 
 public class Atividade {
+    private String codigoAtv;
     private String descricao;
     private String data;
     private String qtdQuestoes;
     private String status;
     private List<Questao> questoes;
+
+    public String getCodigoAtv() {
+        return codigoAtv;
+    }
+
+    public void setCodigoAtv(String codigoAtv) {
+        this.codigoAtv = codigoAtv;
+    }
 
     public String getDescricao() {
         return descricao;
