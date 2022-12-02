@@ -3,6 +3,7 @@ package com.jisellemartins.escolaparatodos;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -37,7 +38,7 @@ public class ConfiguracoesScreen extends AppCompatActivity {
            finishAffinity();
         });
         btnDocUsuario.setOnClickListener(view -> {
-            Toast.makeText(this, "Aqui irá exibir a documentação do usuário", Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://drive.google.com/drive/folders/1ZDz5m-AmfCzmLzWEM0muu0qDOcMHpGMo?usp=sharing")));
         });
 
 

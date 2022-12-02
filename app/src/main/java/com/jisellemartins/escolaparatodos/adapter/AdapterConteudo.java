@@ -10,6 +10,7 @@ import android.app.DownloadManager;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.net.Uri;
+import android.os.Build;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -61,11 +62,20 @@ public class AdapterConteudo extends RecyclerView.Adapter{
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        AdapterConteudo.ViewHolder viewHolder = (AdapterConteudo.ViewHolder) holder;
+        ViewHolder viewHolder = (ViewHolder) holder;
         Conteudo conteudo = conteudos.get(position);
         viewHolder.descricao.setText(conteudo.getDescricao());
         viewHolder.tamanho.setText("Tamanho: " + conteudo.getTamanho());
         viewHolder.imgIcon.setImageResource(conteudo.getIcon());
+
+        if (conteudo.getIcon() == R.drawable.imagem){
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                viewHolder.imgIcon.setTooltipText("Imagem");
+            }
+        }else{
+            viewHolder.imgIcon.setTooltipText("PDF");
+
+        }
 
         if (usuario.equals(aluno)){
             viewHolder.btnLixeira.setVisibility(View.GONE);

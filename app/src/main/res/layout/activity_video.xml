@@ -48,6 +48,7 @@
                 android:layout_width="0dp"
                 android:layout_height="45dp"
                 android:layout_weight="20"
+                android:tooltipText="Desligar câmera"
                 android:onClick="onLocalVideoMuteClicked"
                 android:scaleType="centerInside"
                 android:src="@drawable/video" />
@@ -56,6 +57,7 @@
                 android:layout_width="0dp"
                 android:layout_height="45dp"
                 android:layout_weight="20"
+                android:tooltipText="Desligar microfone"
                 android:onClick="onLocalAudioMuteClicked"
                 android:scaleType="centerInside"
                 android:src="@drawable/nomicrofone" />
@@ -64,6 +66,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="20"
+                android:tooltipText="girar câmera"
                 android:onClick="onSwitchCameraClicked"
                 android:scaleType="centerInside"
                 android:src="@drawable/trocar_camera" />
@@ -72,6 +75,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="20"
+                android:tooltipText="Desligar chamada de video"
                 android:onClick="onEndCallClicked"
                 android:scaleType="centerInside"
                 android:src="@drawable/end_call" />

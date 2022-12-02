@@ -1,6 +1,6 @@
 package com.jisellemartins.escolaparatodos;
 
-import static com.jisellemartins.escolaparatodos.AudioToText.RESULT_SPEECH;
+
 import static com.jisellemartins.escolaparatodos.Utils.Utils.TAG_EPT;
 import static com.jisellemartins.escolaparatodos.Utils.Utils.entreiComoAluno;
 
@@ -380,7 +380,7 @@ public class VideoActivity extends AppCompatActivity {
         intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, "pt-BR");
 
         try {
-            startActivityForResult(intent, RESULT_SPEECH);
+            startActivityForResult(intent, 1);
             //txtText.setText("");
         } catch (ActivityNotFoundException a) {
             Toast t = Toast.makeText(getApplicationContext(),
@@ -450,7 +450,7 @@ public class VideoActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         switch (requestCode) {
-            case RESULT_SPEECH: {
+            case 1: {
                 if (resultCode == RESULT_OK && null != data) {
 
                     ArrayList<String> text = data

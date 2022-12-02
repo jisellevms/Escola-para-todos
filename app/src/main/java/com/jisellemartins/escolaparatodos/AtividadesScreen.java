@@ -107,7 +107,7 @@ public class AtividadesScreen extends AppCompatActivity {
                     list.add(atividade);
                 }
                 loading.fecharLoading();
-                listaAtividades.setAdapter(new AdapterAtividades(this, list, usuario));
+                listaAtividades.setAdapter(new AdapterAtividades(this, list, usuario, this));
                 RecyclerView.LayoutManager layout = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
                 listaAtividades.setLayoutManager(layout);
             } else {
