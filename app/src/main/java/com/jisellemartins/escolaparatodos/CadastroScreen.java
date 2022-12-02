@@ -1,5 +1,7 @@
 package com.jisellemartins.escolaparatodos;
 
+import static com.jisellemartins.escolaparatodos.Utils.Utils.TAG_EPT;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
@@ -174,7 +176,7 @@ public class CadastroScreen extends AppCompatActivity {
                         })
                         .addOnFailureListener(e -> {
                             Toast.makeText(this, "Erro: " + e, Toast.LENGTH_LONG).show();
-                            Log.d("TESTEXX", "Erro:" + e);
+                            Log.d(TAG_EPT, "Erro:" + e);
 
                         });
 

@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.jisellemartins.escolaparatodos.CalendarioScreen;
 import com.jisellemartins.escolaparatodos.R;
 
 import java.text.ParseException;
@@ -29,7 +30,8 @@ public class DialogAdicionarEvento {
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
 
-    public void showDialog(Activity activity){
+
+    public void showDialog(Activity activity, CalendarioScreen calendarioScreen){
         final Dialog dialog = new Dialog(activity);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setCancelable(false);
@@ -65,6 +67,7 @@ public class DialogAdicionarEvento {
                     db.collection("Evento").document(getRandomNonRepeatingIntegers(6,0,1000).toString())
                             .set(professor)
                             .addOnSuccessListener(aVoid -> {
+                                calendarioScreen.buscarEventosHoje();
                                 Toast.makeText(activity, "Evento adicionado com sucesso!", Toast.LENGTH_LONG).show();
                                 dialog.dismiss();
 

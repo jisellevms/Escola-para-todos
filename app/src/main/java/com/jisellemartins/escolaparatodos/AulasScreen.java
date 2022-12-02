@@ -1,8 +1,14 @@
 package com.jisellemartins.escolaparatodos;
 
+import static android.Manifest.permission.READ_EXTERNAL_STORAGE;
+import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
+import static android.os.Build.VERSION.SDK_INT;
+import static com.jisellemartins.escolaparatodos.Utils.Utils.TAG_EPT;
 import static com.jisellemartins.escolaparatodos.Utils.Utils.aluno;
+import static com.jisellemartins.escolaparatodos.Utils.Utils.entreiComoAluno;
 import static com.jisellemartins.escolaparatodos.Utils.Utils.nomeDisciplina;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.LinearLayoutCompat;
 import androidx.core.app.ActivityCompat;
@@ -14,12 +20,18 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
+import android.os.Handler;
+import android.provider.Settings;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
@@ -65,7 +77,6 @@ public class AulasScreen extends AppCompatActivity {
         tituloDisciplina = findViewById(R.id.tituloDisciplina);
 
         dialogLoading.showDialog(this);
-
         SharedPreferences sharedPref = getSharedPreferences("chaves", MODE_PRIVATE);
         usuario = sharedPref.getString("usuario", aluno);
         disciplinaTime = sharedPref.getString("disciplina", "");
@@ -93,11 +104,11 @@ public class AulasScreen extends AppCompatActivity {
                             cardAluno.setVisibility(View.VISIBLE);
                         } else if (task.getResult().size() == 0) {
                             cardAluno.setVisibility(View.GONE);
-                            Log.i("TESTEXX", "A aula não foi encontrada");
+                            Log.i(TAG_EPT, "A aula não foi encontrada");
 
                         } else {
                             cardAluno.setVisibility(View.GONE);
-                            Log.i("TESTEXX", "ERRO: " + task.getException());
+                            Log.i(TAG_EPT, "ERRO: " + task.getException());
                         }
                     });
 
@@ -116,6 +127,7 @@ public class AulasScreen extends AppCompatActivity {
         btnEntrarAula.setOnClickListener(view -> {
 
             int MY_PERMISSIONS_REQUEST_CAMERA = 0;
+
             if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED ||
                     ContextCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED) {
                 ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA, Manifest.permission.RECORD_AUDIO}, MY_PERMISSIONS_REQUEST_CAMERA);
@@ -124,7 +136,35 @@ public class AulasScreen extends AppCompatActivity {
             }
         });
 
-        listarAulas();
+
+        if (!usuario.equals("aluno")) {
+            if (SDK_INT >= Build.VERSION_CODES.R) {
+                if (!Environment.isExternalStorageManager()) {
+                    requestPermission();
+                }
+            }
+        }
+
+
+    }
+
+
+    private void requestPermission() {
+        if (SDK_INT >= Build.VERSION_CODES.R) {
+            try {
+                Intent intent = new Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION);
+                intent.addCategory("android.intent.category.DEFAULT");
+                intent.setData(Uri.parse(String.format("package:%s", getApplicationContext().getPackageName())));
+                startActivityForResult(intent, 2296);
+            } catch (Exception e) {
+                Intent intent = new Intent();
+                intent.setAction(Settings.ACTION_MANAGE_ALL_FILES_ACCESS_PERMISSION);
+                startActivityForResult(intent, 2296);
+            }
+        } else {
+            //below android 11
+            ActivityCompat.requestPermissions(AulasScreen.this, new String[]{WRITE_EXTERNAL_STORAGE}, 2296);
+        }
     }
 
     public void entrarNaAula() {
@@ -135,14 +175,14 @@ public class AulasScreen extends AppCompatActivity {
 
 
     public void listarAulas() {
-
+        list.clear();
         StorageReference listRef = storage.getReference().child(disciplinaTime);
 
         listRef.listAll()
                 .addOnSuccessListener(listResult -> {
                     if (listResult.getPrefixes().size() > 0) {
                         for (StorageReference prefix : listResult.getPrefixes()) {
-                            Log.d("testexx", prefix.getName());
+                            Log.d(TAG_EPT, prefix.getName());
                             Aula aula = new Aula();
                             aula.setDescricao(prefix.getName());
                             aula.setAudio(listRef.getName() + "/" + prefix.getName() + "/" + "audio");
@@ -150,24 +190,30 @@ public class AulasScreen extends AppCompatActivity {
                             list.add(aula);
                         }
 
-                        listaAulas.setAdapter(new AdapterAulas(this, list, usuario));
+                        listaAulas.setAdapter(new AdapterAulas(this, list, usuario, this));
                         RecyclerView.LayoutManager layout = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
 
                         listaAulas.setLayoutManager(layout);
                         dialogLoading.fecharLoading();
 
-                    }else{
-                        Log.d("testexx", "não possui aulas");
+                    } else {
+                        Log.d(TAG_EPT, "não possui aulas");
                         dialogLoading.fecharLoading();
                     }
 
                 })
                 .addOnFailureListener(e -> {
-                    Log.d("testexx", e.getMessage());
+                    Log.d(TAG_EPT, e.getMessage());
                     dialogLoading.fecharLoading();
                 });
 
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        new Handler().postDelayed(() -> listarAulas(), 3000);
 
     }
 }

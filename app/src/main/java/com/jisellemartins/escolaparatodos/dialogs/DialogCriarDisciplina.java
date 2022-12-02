@@ -2,6 +2,7 @@ package com.jisellemartins.escolaparatodos.dialogs;
 
 import static android.content.Context.MODE_PRIVATE;
 import static com.jisellemartins.escolaparatodos.CadastroScreen.getRandomNonRepeatingIntegers;
+import static com.jisellemartins.escolaparatodos.Utils.Utils.TAG_EPT;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -59,7 +60,7 @@ public class DialogCriarDisciplina {
                     })
                     .addOnFailureListener(e -> {
                         Toast.makeText(activity, "Erro: " + e, Toast.LENGTH_LONG).show();
-                        Log.d("TESTEXX", "Erro:" + e);
+                        Log.d(TAG_EPT, "Erro:" + e);
 
                     });
         });

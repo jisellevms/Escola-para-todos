@@ -1,6 +1,7 @@
 package com.jisellemartins.escolaparatodos;
 
 import static com.jisellemartins.escolaparatodos.CadastroScreen.getRandomNonRepeatingIntegers;
+import static com.jisellemartins.escolaparatodos.Utils.Utils.TAG_EPT;
 import static com.jisellemartins.escolaparatodos.Utils.Utils.aluno;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -136,7 +137,7 @@ public class CriarAtividadeScreen extends AppCompatActivity {
                             })
                             .addOnFailureListener(e -> {
                                 Toast.makeText(this, "Erro: " + e, Toast.LENGTH_LONG).show();
-                                Log.d("TESTEXX", "Erro:" + e);
+                                Log.d(TAG_EPT, "Erro:" + e);
 
                             });
 

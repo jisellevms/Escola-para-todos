@@ -44,28 +44,14 @@
 
     </LinearLayout>
 
-    <Button
+    <ImageView
         android:id="@+id/excluirP"
-        android:layout_width="50dp"
-        android:layout_height="52dp"
-        android:layout_marginTop="-5dp"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
         android:layout_marginEnd="12dp"
-        android:backgroundTint="#1affffff"
-        android:drawableTop="@drawable/lixeira"
-        android:text="procurar"
+        android:src="@drawable/lixeira"
+        app:layout_constraintBottom_toBottomOf="@+id/linearLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/editarP"
-        android:layout_width="50dp"
-        android:layout_height="52dp"
-        android:layout_marginEnd="12dp"
-        android:layout_marginBottom="-5dp"
-        android:backgroundTint="#1affffff"
-        android:drawableTop="@drawable/caneta"
-        android:text="procurar"
-        app:layout_constraintBottom_toBottomOf="@+id/linearLayout"
-        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

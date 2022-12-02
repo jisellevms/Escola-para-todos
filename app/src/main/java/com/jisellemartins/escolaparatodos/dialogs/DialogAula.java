@@ -2,6 +2,7 @@ package com.jisellemartins.escolaparatodos.dialogs;
 
 import static android.content.Context.MODE_PRIVATE;
 import static com.jisellemartins.escolaparatodos.CadastroScreen.getRandomNonRepeatingIntegers;
+import static com.jisellemartins.escolaparatodos.Utils.Utils.TAG_EPT;
 import static com.jisellemartins.escolaparatodos.Utils.Utils.entreiComoAluno;
 
 import android.Manifest;
@@ -82,7 +83,7 @@ public class DialogAula {
             db.collection("Aula").document(getRandomNonRepeatingIntegers(6, 0, 1000).toString())
                     .set(aula)
                     .addOnSuccessListener(aVoid -> {
-                        Log.i("TESTEXX", "Aula cadastrada com sucesso.");
+                        Log.i(TAG_EPT, "Aula cadastrada com sucesso.");
                         dialog.dismiss();
                         Intent intent = new Intent(activity, VideoActivity.class);
                         intent.putExtra("nomeDaAula", descAula.getText().toString());
@@ -90,7 +91,7 @@ public class DialogAula {
                     })
                     .addOnFailureListener(e -> {
                         Toast.makeText(activity, "Algo deu errado, tente novamente. " + e, Toast.LENGTH_LONG).show();
-                        Log.d("TESTEXX", "Erro:" + e);
+                        Log.d(TAG_EPT, "Erro:" + e);
                     });
 
         } else {
