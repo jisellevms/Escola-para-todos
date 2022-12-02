@@ -24,7 +24,7 @@
         android:backgroundTint="#e6000000"
         android:fontFamily="@font/chawp"
         android:text="@string/matematica"
-        android:textSize="20sp"
+        android:textSize="19sp"
         app:cornerRadius="20dp"
         android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"

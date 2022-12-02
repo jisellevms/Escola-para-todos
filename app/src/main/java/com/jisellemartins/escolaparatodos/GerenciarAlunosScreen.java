@@ -31,6 +31,7 @@ public class GerenciarAlunosScreen extends AppCompatActivity {
     Button btnAdcAluno;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     String jsonAlunos;
+    String disciplinaTime;
 
 
     @Override
@@ -44,7 +45,7 @@ public class GerenciarAlunosScreen extends AppCompatActivity {
 
         btnAdcAluno.setOnClickListener(view -> {
             DialogAdicionarAluno alert = new DialogAdicionarAluno();
-            alert.showDialog(this);
+            alert.showDialog(this, this);
         });
 
         imgVoltar.setOnClickListener(view -> {
@@ -55,30 +56,33 @@ public class GerenciarAlunosScreen extends AppCompatActivity {
             startActivity(i);
         });
         SharedPreferences sharedPref = getSharedPreferences("chaves", MODE_PRIVATE);
-        String disciplinaTime = sharedPref.getString("disciplina", "");
-        Gson gson = new Gson();
+        disciplinaTime = sharedPref.getString("disciplina", "");
 
+        listarAlunos();
+
+    }
+
+    public void listarAlunos() {
+        Gson gson = new Gson();
         CollectionReference complaintsRef = db.collection("Disciplina");
         complaintsRef.whereEqualTo("dataCriacao", disciplinaTime).get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 for (QueryDocumentSnapshot document : task.getResult()) {
                     jsonAlunos = document.get("alunos").toString();
 
-                    if (!jsonAlunos.equals("{}")){
-                        ArrayList<Aluno> list = gson.fromJson(jsonAlunos, new TypeToken<List<Aluno>>(){}.getType());
+                    if (!jsonAlunos.equals("{}")) {
+                        ArrayList<Aluno> list = gson.fromJson(jsonAlunos, new TypeToken<List<Aluno>>() {
+                        }.getType());
 
-                        listaAlunos.setAdapter(new AdapterGerenciarAlunos(this, list));
+                        listaAlunos.setAdapter(new AdapterGerenciarAlunos(this, list, this));
                         RecyclerView.LayoutManager layout = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
 
                         listaAlunos.setLayoutManager(layout);
-                    }else{
+                    } else {
                         Toast.makeText(this, "Não existe alunos cadastrados", Toast.LENGTH_LONG).show();
                     }
                 }
             }
         });
-
-
-
     }
 }

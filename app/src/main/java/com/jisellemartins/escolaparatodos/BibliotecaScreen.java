@@ -1,5 +1,6 @@
 package com.jisellemartins.escolaparatodos;
 
+import static com.jisellemartins.escolaparatodos.Utils.Utils.TAG_EPT;
 import static com.jisellemartins.escolaparatodos.Utils.Utils.aluno;
 import static com.jisellemartins.escolaparatodos.Utils.Utils.nomeDisciplina;
 
@@ -49,6 +50,7 @@ public class BibliotecaScreen extends AppCompatActivity {
     ArrayList<Conteudo> list = new ArrayList<>();
 
     DialogLoading loading = new DialogLoading();
+    StorageReference listRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,7 +72,6 @@ public class BibliotecaScreen extends AppCompatActivity {
         disciplinaTime = sharedPref.getString("disciplina", "");
 
 
-
         if (usuario.equals(aluno)) {
             btnAdcArquivo.setVisibility(View.GONE);
         } else {
@@ -85,43 +86,8 @@ public class BibliotecaScreen extends AppCompatActivity {
             startActivity(i);
         });
 
-        StorageReference listRef = storage.getReference().child(disciplinaTime);
+        listRef = storage.getReference().child(disciplinaTime);
 
-
-        listRef.listAll()
-                .addOnSuccessListener(listResult -> {
-                    for (StorageReference item : listResult.getItems()) {
-                        item.getMetadata().addOnSuccessListener(storageMetadata -> {
-                            Conteudo conteudo = new Conteudo();
-                            String type = storageMetadata.getContentType().substring(storageMetadata.getContentType().lastIndexOf("/"));
-                            conteudo.setDescricao(storageMetadata.getName() + type.replace("/","."));
-                            conteudo.setTamanho(bytesIntoHumanReadable(storageMetadata.getSizeBytes()));
-                            if (storageMetadata.getContentType().contains("image")){
-                                conteudo.setIcon(R.drawable.imagem);
-                            }else{
-                                conteudo.setIcon(R.drawable.documento_texto);
-                            }
-                            list.add(conteudo);
-                            if (listResult.getItems().size() == list.size()){
-                                showList();
-                            }
-
-                        }).addOnFailureListener(e -> {
-                            loading.fecharLoading();
-                            Log.d("TESTEXX", e.toString());
-                        });
-                    }
-                    if (listResult.getItems().size() == 0){
-                        loading.fecharLoading();
-                    }
-
-
-                })
-                .addOnFailureListener(e -> {
-                    loading.fecharLoading();
-                    Log.d("TESTEXX", e.toString());
-
-                });
 
         btnAdcArquivo.setOnClickListener(view -> {
             dialogNomeArquivo.showDialog(this);
@@ -131,26 +97,66 @@ public class BibliotecaScreen extends AppCompatActivity {
 
     }
 
-    private void showList(){
+    public void buscarConteudos() {
+        list.clear();
+        listRef.listAll()
+                .addOnSuccessListener(listResult -> {
+                    for (StorageReference item : listResult.getItems()) {
+                        item.getMetadata().addOnSuccessListener(storageMetadata -> {
+                            Conteudo conteudo = new Conteudo();
+                            String type = storageMetadata.getContentType().substring(storageMetadata.getContentType().lastIndexOf("/"));
+                            conteudo.setDescricao(storageMetadata.getName() + type.replace("/", "."));
+                            conteudo.setTamanho(bytesIntoHumanReadable(storageMetadata.getSizeBytes()));
+                            if (storageMetadata.getContentType().contains("image")) {
+                                conteudo.setIcon(R.drawable.imagem);
+                            } else {
+                                conteudo.setIcon(R.drawable.documento_texto);
+                            }
+                            list.add(conteudo);
+                            if (listResult.getItems().size() == list.size()) {
+                                showList();
+                            }
+
+                        }).addOnFailureListener(e -> {
+                            loading.fecharLoading();
+                            Log.d(TAG_EPT, e.toString());
+                        });
+                    }
+                    if (listResult.getItems().size() == 0) {
+                        loading.fecharLoading();
+                    }
+
+
+                })
+                .addOnFailureListener(e -> {
+                    loading.fecharLoading();
+                    Log.d(TAG_EPT, e.toString());
+
+                });
+    }
+
+    private void showList() {
         loading.fecharLoading();
-        listaConteudos.setAdapter(new AdapterConteudo(this, list, usuario, storage));
+        listaConteudos.setAdapter(new AdapterConteudo(this, list, usuario, storage,disciplinaTime,this));
         RecyclerView.LayoutManager layout = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
 
         listaConteudos.setLayoutManager(layout);
     }
+
     private void signInAnonymously() {
         mAuth.signInAnonymously().addOnSuccessListener(this, authResult -> {
-            Log.d("TESTEXX", "LOGOU ANONIMO");
-        }).addOnFailureListener(this, exception -> Log.e("TESTEXX", "signInAnonymously:FAILURE", exception));
+            Log.d(TAG_EPT, "LOGOU ANONIMO");
+        }).addOnFailureListener(this, exception -> Log.e(TAG_EPT, "signInAnonymously:FAILURE", exception));
     }
 
-    private void uploadImage(){
+    private void uploadImage() {
         DialogLoading alert = new DialogLoading();
         alert.showDialog(this);
-        storageRef = FirebaseStorage.getInstance().getReference(disciplinaTime+"/" + dialogNomeArquivo.nameArquivo);
+        storageRef = FirebaseStorage.getInstance().getReference(disciplinaTime + "/" + dialogNomeArquivo.nameArquivo);
         storageRef.putFile(imageUri).addOnSuccessListener(taskSnapshot -> {
             alert.fecharLoading();
             Toast.makeText(BibliotecaScreen.this, "Arquivo adicionado com sucesso!", Toast.LENGTH_LONG).show();
+            buscarConteudos();
 
         }).addOnFailureListener(e -> {
             alert.fecharLoading();
@@ -162,12 +168,13 @@ public class BibliotecaScreen extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == 100 && data != null && data.getData() != null){
+        if (requestCode == 100 && data != null && data.getData() != null) {
             imageUri = data.getData();
             uploadImage();
 
         }
     }
+
     public static String bytesIntoHumanReadable(long bytes) {
         long kilobyte = 1024;
         long megabyte = kilobyte * 1024;
@@ -192,5 +199,11 @@ public class BibliotecaScreen extends AppCompatActivity {
         } else {
             return bytes + " Bytes";
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        buscarConteudos();
     }
 }

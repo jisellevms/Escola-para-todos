@@ -17,7 +17,9 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.SetOptions;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.jisellemartins.escolaparatodos.GerenciarAlunosScreen;
 import com.jisellemartins.escolaparatodos.R;
+import com.jisellemartins.escolaparatodos.Utils.Mask;
 import com.jisellemartins.escolaparatodos.model.Aluno;
 
 import java.util.ArrayList;
@@ -30,7 +32,7 @@ public class DialogAdicionarAluno {
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
 
-    public void showDialog(Activity activity) {
+    public void showDialog(Activity activity, GerenciarAlunosScreen gerenciarAlunosScreen) {
         final Dialog dialog = new Dialog(activity);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setCancelable(false);
@@ -40,21 +42,24 @@ public class DialogAdicionarAluno {
         ImageView cancelar = dialog.findViewById(R.id.cancelar);
         EditText campoTelefone = dialog.findViewById(R.id.campoTelefone);
         Button btnSalvar = dialog.findViewById(R.id.btnSalvar);
+
+        campoTelefone.addTextChangedListener(Mask.insert("(##)#####-####", campoTelefone));
+
         cancelar.setOnClickListener(v -> dialog.dismiss());
 
         btnSalvar.setOnClickListener(view -> {
             if (!campoTelefone.getText().toString().isEmpty()) {
 
                 // verificar se aluno está cadastrado no aplicativo, se não precisa cadastrar
-
+                String telefone = campoTelefone.getText().toString().replace("(","").replace(")","").replace("-","");
                 db.collection("Aluno")
-                        .whereEqualTo("codArea", Integer.valueOf(campoTelefone.getText().toString().substring(0, 2)))
-                        .whereEqualTo("telefone", Integer.valueOf(campoTelefone.getText().toString().substring(2, 11)))
+                        .whereEqualTo("codArea", Integer.valueOf(telefone.substring(0, 2)))
+                        .whereEqualTo("telefone", Integer.valueOf(telefone.substring(2, 11)))
                         .get()
                         .addOnCompleteListener(task -> {
                             if (task.isSuccessful() && task.getResult().size() > 0) {
                                 String nomeAluno = task.getResult().getDocuments().get(0).get("nome").toString();
-                                verificaUsuarioExiste(activity, campoTelefone.getText().toString(), nomeAluno, dialog);
+                                verificaUsuarioExiste(activity, telefone, nomeAluno, dialog, gerenciarAlunosScreen);
                             } else if (task.getResult().size() == 0) {
                                 Toast.makeText(activity, "Esse aluno não está cadastrado", Toast.LENGTH_LONG).show();
                             } else {
@@ -72,7 +77,7 @@ public class DialogAdicionarAluno {
 
     }
 
-    private void verificaUsuarioExiste(Activity activity, String telefoneALuno, String nomeAluno, Dialog dialog) {
+    private void verificaUsuarioExiste(Activity activity, String telefoneALuno, String nomeAluno, Dialog dialog, GerenciarAlunosScreen gerenciarAlunosScreen) {
         // se aluno existir, vai dar um update na tabela de disciplinas adicionando o aluno no json
 
         SharedPreferences sharedPref = activity.getSharedPreferences("chaves", MODE_PRIVATE);
@@ -100,8 +105,9 @@ public class DialogAdicionarAluno {
                     String novoJson = gson.toJson(lstObject);
                     map.put("alunos", novoJson);
                     complaintsRef.document(document.getId()).set(map, SetOptions.merge());
+                    gerenciarAlunosScreen.listarAlunos();
 
-                    Toast.makeText(activity, "Aluno cadastrado no disciplina", Toast.LENGTH_LONG).show();
+                    Toast.makeText(activity, "Aluno cadastrado na disciplina", Toast.LENGTH_LONG).show();
                     dialog.dismiss();
 
 

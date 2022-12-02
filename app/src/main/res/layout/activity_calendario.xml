@@ -22,7 +22,7 @@
         android:clickable="false"
         android:fontFamily="@font/chawp"
         android:text="Calendário - Matemática"
-        android:textSize="20sp"
+        android:textSize="19sp"
         app:cornerRadius="20dp"
         android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"

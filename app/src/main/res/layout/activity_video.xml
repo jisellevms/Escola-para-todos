@@ -41,6 +41,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="50dp"
+            android:background="@drawable/linear_custom"
             android:orientation="horizontal">
 
             <ImageView
@@ -69,7 +70,7 @@
 
             <ImageView
                 android:layout_width="0dp"
-                android:layout_height="45dp"
+                android:layout_height="match_parent"
                 android:layout_weight="20"
                 android:onClick="onEndCallClicked"
                 android:scaleType="centerInside"

@@ -4,6 +4,7 @@ import static android.content.Context.DOWNLOAD_SERVICE;
 import static android.content.Context.MODE_PRIVATE;
 import static android.os.Environment.DIRECTORY_DOWNLOADS;
 import static com.jisellemartins.escolaparatodos.BibliotecaScreen.bytesIntoHumanReadable;
+import static com.jisellemartins.escolaparatodos.Utils.Utils.TAG_EPT;
 import static com.jisellemartins.escolaparatodos.Utils.Utils.aluno;
 
 import android.app.DownloadManager;
@@ -17,12 +18,14 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.jisellemartins.escolaparatodos.AulasScreen;
 import com.jisellemartins.escolaparatodos.R;
 import com.jisellemartins.escolaparatodos.model.Aula;
 
@@ -36,14 +39,16 @@ public class AdapterAulas extends RecyclerView.Adapter {
     FirebaseStorage storage = FirebaseStorage.getInstance();
     SharedPreferences sharedPref;
     String disciplinaTime;
+    AulasScreen aulasScreen;
 
 
-    public AdapterAulas(Context context, List<Aula> aulas, String usuario) {
+    public AdapterAulas(Context context, List<Aula> aulas, String usuario, AulasScreen aulasScreen) {
         this.context = context;
         this.aulas = aulas;
         this.usuario = usuario;
         sharedPref = context.getSharedPreferences("chaves", MODE_PRIVATE);
         disciplinaTime = sharedPref.getString("disciplina", "");
+        this.aulasScreen = aulasScreen;
     }
 
     @NonNull
@@ -66,7 +71,7 @@ public class AdapterAulas extends RecyclerView.Adapter {
             aula.setTamanhoAudio(bytesIntoHumanReadable(storageMetadata.getSizeBytes()));
             viewHolder.btnAudio.setText("Baixar áudio (" + aula.getTamanhoAudio() + ")");
         }).addOnFailureListener(exception -> {
-            Log.i("testexx", exception.getMessage());
+            Log.i(TAG_EPT, exception.getMessage());
             viewHolder.btnAudio.setText("Baixar áudio");
         });
 
@@ -75,13 +80,12 @@ public class AdapterAulas extends RecyclerView.Adapter {
             aula.setTamanhoTexto(bytesIntoHumanReadable(storageMetadata.getSizeBytes()));
             viewHolder.btnTexto.setText("Baixar texto (" + aula.getTamanhoTexto() + ")");
         }).addOnFailureListener(exception -> {
-            Log.i("testexx", exception.getMessage());
+            Log.i(TAG_EPT, exception.getMessage());
             viewHolder.btnTexto.setText("Baixar texto");
         });*/
 
         viewHolder.btnTexto.setText("Baixar texto");
         viewHolder.btnTexto.setEnabled(false);
-
 
 
         if (usuario.equals(aluno)) {
@@ -95,6 +99,20 @@ public class AdapterAulas extends RecyclerView.Adapter {
         viewHolder.btnTexto.setOnClickListener(view -> {
             download(aula.getTexto());
         });
+        viewHolder.btnLixeira.setOnClickListener(view -> {
+            String url = disciplinaTime + "/" + aula.getDescricao() + "/audio";
+
+            StorageReference storageReference =
+                    FirebaseStorage.getInstance().getReference().child(url);
+
+            storageReference.delete().addOnSuccessListener(aVoid -> {
+                Toast.makeText(context, aula.getDescricao() + " foi excluído com sucesso!", Toast.LENGTH_LONG).show();
+                aulasScreen.listarAulas();
+
+                Log.d(TAG_EPT, "onSuccess: deleted file successfully");
+            }).addOnFailureListener(exception -> Log.d(TAG_EPT, "onFailure: File is not delete! " + exception));
+
+        });
 
     }
 
@@ -104,12 +122,12 @@ public class AdapterAulas extends RecyclerView.Adapter {
         StorageReference islandRef = storageRef.child(localizaoArquivo);
 
         islandRef.getDownloadUrl().addOnSuccessListener(uri -> {
-            Log.e("testexx", ";local tem file created  created ");
+            Log.e(TAG_EPT, ";local tem file created  created ");
 
             String url = uri.toString();
 
             downloadFile(context, localizaoArquivo, DIRECTORY_DOWNLOADS, url);
-        }).addOnFailureListener(exception -> Log.e("testexx", ";local tem file not created  created " + exception));
+        }).addOnFailureListener(exception -> Log.e(TAG_EPT, ";local tem file not created  created " + exception));
     }
 
     public void downloadFile(Context context, String filename, String destinationDirectory, String url) {

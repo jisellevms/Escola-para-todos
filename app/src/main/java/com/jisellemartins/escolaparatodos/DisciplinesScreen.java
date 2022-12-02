@@ -1,5 +1,6 @@
 package com.jisellemartins.escolaparatodos;
 
+import static com.jisellemartins.escolaparatodos.Utils.Utils.TAG_EPT;
 import static com.jisellemartins.escolaparatodos.Utils.Utils.aluno;
 
 import android.content.Intent;
@@ -132,7 +133,7 @@ public class DisciplinesScreen extends AppCompatActivity {
                             listaDisciplinas.setLayoutManager(layout);
 
                         } else {
-                            Log.i("TESTEXX", "Erro: " + task.getException());
+                            Log.i(TAG_EPT, "Erro: " + task.getException());
                         }
                     });
         }

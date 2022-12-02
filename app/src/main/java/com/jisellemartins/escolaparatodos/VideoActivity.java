@@ -1,6 +1,7 @@
 package com.jisellemartins.escolaparatodos;
 
 import static com.jisellemartins.escolaparatodos.AudioToText.RESULT_SPEECH;
+import static com.jisellemartins.escolaparatodos.Utils.Utils.TAG_EPT;
 import static com.jisellemartins.escolaparatodos.Utils.Utils.entreiComoAluno;
 
 import android.Manifest;
@@ -55,7 +56,6 @@ public class VideoActivity extends AppCompatActivity {
     private int channelProfile;
 
 
-    private static final String LOG_TAG = "AudioRecordTest";
     private static final int REQUEST_RECORD_AUDIO_PERMISSION = 200;
     private MediaRecorder recorder = null;
 
@@ -215,7 +215,7 @@ public class VideoActivity extends AppCompatActivity {
         try {
             mRtcEngine = RtcEngine.create(getBaseContext(), "bddccf81b58d4da48eb1b8429fe6c86a", mRtcEventHandler);
         } catch (Exception e) {
-            Log.i("TESTEXX: ", e.toString());
+            Log.i(TAG_EPT, e.toString());
             e.printStackTrace();
         }
     }
@@ -276,12 +276,12 @@ public class VideoActivity extends AppCompatActivity {
             if (task.isSuccessful() && task.getResult().size() > 0) {
 
                 // DELETAR A AULA
-                db.collection("Aula").document(task.getResult().getDocuments().get(0).getId()).delete().addOnSuccessListener(aVoid -> Log.d("TESTEXX", "A aula foi apagada!")).addOnFailureListener(e -> Log.w("TESTEXX", "Error ao apagar aula ", e));
+                db.collection("Aula").document(task.getResult().getDocuments().get(0).getId()).delete().addOnSuccessListener(aVoid -> Log.d(TAG_EPT, "A aula foi apagada!")).addOnFailureListener(e -> Log.w(TAG_EPT, "Error ao apagar aula ", e));
 
             } else if (task.getResult().size() == 0) {
-                Log.i("TESTEXX", "A aula não foi encontrada");
+                Log.i(TAG_EPT, "A aula não foi encontrada");
             } else {
-                Log.i("TESTEXX", "ERRO: " + task.getException());
+                Log.i(TAG_EPT, "ERRO: " + task.getException());
             }
         });
     }
@@ -329,11 +329,12 @@ public class VideoActivity extends AppCompatActivity {
 
         try {
             recorder.prepare();
+            recorder.start();
         } catch (IOException e) {
-            Log.e(LOG_TAG, "prepare() failed");
+            Log.e(TAG_EPT, "" + e);
         }
 
-        recorder.start();
+
     }
 
     private void stopRecording() {
@@ -363,6 +364,7 @@ public class VideoActivity extends AppCompatActivity {
         storageRef = FirebaseStorage.getInstance().getReference(disciplinaTime + "/" + channelName + "/audio");
         storageRef.putFile(Uri.fromFile(audioFile)).addOnSuccessListener(taskSnapshot -> {
             Toast.makeText(getApplicationContext(), "Audio adicionado com sucesso!", Toast.LENGTH_LONG).show();
+
 
         }).addOnFailureListener(e -> {
             Toast.makeText(getApplicationContext(), "Erro: " + e, Toast.LENGTH_LONG).show();

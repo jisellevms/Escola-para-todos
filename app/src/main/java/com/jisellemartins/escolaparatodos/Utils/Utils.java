@@ -16,5 +16,7 @@ public class Utils {
     public static List<Questao> listQuestoes;
     public static Atividade atividade;
 
+    public static String TAG_EPT = "tagescolaparatodos";
+
 
 }
