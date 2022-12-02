@@ -64,7 +64,7 @@
         android:layout_marginTop="20dp"
         android:background="#80d9d9d9"
         android:firstDayOfWeek="2"
-        android:weekDayTextAppearance="@color/black"
+        android:tooltipText="calendário"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnAdcEvento" />

@@ -23,6 +23,7 @@
         android:id="@+id/cancelar"
         android:layout_width="30dp"
         android:layout_height="30dp"
+        android:tooltipText="Fechar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/fechar" />

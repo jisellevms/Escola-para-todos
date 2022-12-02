@@ -104,7 +104,7 @@ public class DisciplinesScreen extends AppCompatActivity {
 
                             }
 
-                            listaDisciplinas.setAdapter(new AdapterDisciplinas(this, list, usuario));
+                            listaDisciplinas.setAdapter(new AdapterDisciplinas(this, list, usuario, this));
                             RecyclerView.LayoutManager layout = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
                             listaDisciplinas.setLayoutManager(layout);
 
@@ -128,7 +128,7 @@ public class DisciplinesScreen extends AppCompatActivity {
                                 list.add(disciplina);
                             }
 
-                            listaDisciplinas.setAdapter(new AdapterDisciplinas(this, list, usuario));
+                            listaDisciplinas.setAdapter(new AdapterDisciplinas(this, list, usuario, this));
                             RecyclerView.LayoutManager layout = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
                             listaDisciplinas.setLayoutManager(layout);
 
