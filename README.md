@@ -10,12 +10,12 @@ O Escola para Todos é um aplicativo Android feito em Java que foi pensado para 
 
 ## Modo professor
 
-#### o usuário pode criar uma ou mais disciplinas e dentro de cada disciplina o professor pode adicionar conteúdos na biblioteca(pdf ou imagens), adicionar eventos ao calendário, criar atividades com alternativas, verificar as notas de cada aluno na opção boletim, iniciar uma aula(chamada de vídeo) com os alunos e também ele será responsável por adicionar cada aluno aquela disciplina.
+#### O usuário pode criar uma ou mais disciplinas e dentro de cada disciplina o professor pode adicionar conteúdos na biblioteca(pdf ou imagens), adicionar eventos ao calendário, criar atividades com alternativas, verificar as notas de cada aluno na opção boletim, iniciar uma aula(chamada de vídeo) com os alunos e também ele será responsável por adicionar cada aluno aquela disciplina.
 
 
 ## Modo Aluno
 
-#### após ser adicionado pelo professor aquela disciplina, o aluno poderá consultar os conteúdos disponíveis na biblioteca e fazer download, consultar os eventos adicionados pelo professor, responder as atividades disponíveis, consultar a nota obtida na opção boletim (o aplicativo faz a correção automática da atividade), ele poderá também participar da aula(chamada de vídeo) enquanto ela estiver acontecendo, o aplicativo vai informar o aluno que tem uma aula acontecendo, e por fim ele poderá fazer download das aulas que já passaram no formato de áudio e em breve ela também será disponibilizada no formato de texto.
+#### Após ser adicionado pelo professor aquela disciplina, o aluno poderá consultar os conteúdos disponíveis na biblioteca e fazer download, consultar os eventos adicionados pelo professor, responder as atividades disponíveis, consultar a nota obtida na opção boletim (o aplicativo faz a correção automática da atividade), ele poderá também participar da aula(chamada de vídeo) enquanto ela estiver acontecendo, o aplicativo vai informar o aluno que tem uma aula acontecendo, e por fim ele poderá fazer download das aulas que já passaram no formato de áudio e em breve ela também será disponibilizada no formato de texto.
 
 
 
